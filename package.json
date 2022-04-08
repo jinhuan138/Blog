@@ -21,7 +21,6 @@
     "vuepress-plugin-meting": "^0.3.1"
   },
   "dependencies": {
-    "@agree/aui-web": "^1.6.55",
     "@kangc/v-md-editor": "^1.7.8",
     "@vuepress-reco/vuepress-plugin-extract-code": "^1.0.4",
     "@vuepress-reco/vuepress-plugin-kan-ban-niang": "^1.0.5",
