@@ -2,7 +2,7 @@
 module.exports = {
     title: 'Notes',
     description: '',
-    base:'/note/',
+    base:'/page/',
     dest: './dist',
     theme: 'reco',
     locales: {
