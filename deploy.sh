@@ -10,10 +10,12 @@ npm run docs:build
 cd docs/.vuepress/dist
 
 git init
-git add -A
+git add .
 git commit -m 'deploy'
 
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 git push -f git@github.com:jinhuan138/page.git master:master
+
+# 需要修改图片路径 /img-> /<REPO>/img
 
 cd -

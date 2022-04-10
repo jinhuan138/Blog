@@ -1,8 +1,8 @@
 
 module.exports = {
     title: 'Notes',
-    description: '',
     base:'/page/',
+    description: '',
     dest: './dist',
     theme: 'reco',
     locales: {
@@ -57,9 +57,7 @@ module.exports = {
             meting: {
                 server: "netease",
                 type: "playlist",
-                mid: "966357361",
-                // /likelist?uid=32953014
-                // auto:'http://localhost:3001/like'
+                mid: "7372431097",
             },
             aplayer: {
                 fixed: true,// 吸底模式

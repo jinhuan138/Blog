@@ -141,7 +141,7 @@ mudule-->service;
 + 使用服务
 
   ```typescript
-import {Controller,Get,Query,} from '@nestjs/common';
+  import {Controller,Get,Query,} from '@nestjs/common';
   import { AppService } from './app.service';
   @Controller("app")
   export class AppController {
@@ -2304,4 +2304,3 @@ name: string;
   // 浏览器发送请求入参、路由相同不发送请求，走缓存(协商缓存)
   //响应头：ETag: W/"54-mqxyYyfLHU3ApgUiTHzCTYMTnEU"
   ```
-

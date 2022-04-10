@@ -1931,6 +1931,8 @@ This is a warning 注意
 </script>
 ```
 
+:::
+
 ::: demo
 
 ```vue

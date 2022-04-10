@@ -17,10 +17,10 @@ export default ({
 }) => {
     router.addRoutes(routers)
     // Vue.use(AUI)
-    Vue.use(Meta, {
-        attribute: {
-            keyName: 'note vue vuePress'
-        }
-    })
+    // Vue.use(Meta, {
+    //     attribute: {
+    //         keyName: 'note vue vuePress'
+    //     }
+    // })
     Vue.use(VueMarkdownEditor);
 }
