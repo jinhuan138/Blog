@@ -1,7 +1,7 @@
 
 ## 开始
 
-<img loop="" src="/img/herder.gif" width="100%" height="100%"  >
+<img loop="" src="../../.vuepress/public/img/herder.gif" width="100%" height="100%"  >
 </img>
 
 ## 模板语法
@@ -46,7 +46,7 @@
 
 - 关系图
 
-  ![MVVMPattern](/img/MVVMPattern.png)
+  ![MVVMPattern](../../.vuepress/public/img/MVVMPattern.png)
 
 - 响应式原理
 
@@ -483,7 +483,7 @@ This is a warning 注意
   缩写：`:`绑定 html 标签中的属性值。
 
   ```vue
-<a :[type]="'http://www.baidu.com'">百度</a>
+  <a :[type]="'http://www.baidu.com'">百度</a>
   <!--写静态要在""中加''-->
   <br />
   <a :[type]="url">百度</a>

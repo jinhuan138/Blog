@@ -5,7 +5,7 @@ module.exports = [
     {
         text: 'BackEnd', link: '/BackEnd/'
     },
-    // {
-    //     text: 'Aui', link: '/Aui/'
-    // }
+    {
+        text: 'Me', link: '/Me/'
+    }
 ]
