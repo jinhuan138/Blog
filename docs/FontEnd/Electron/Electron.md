@@ -1,5 +1,5 @@
 ## Electron
-![winter](/img/winter.gif)
+![winter](../../.vuepress/public/img/winter.gif)
 
 ## 开始
 

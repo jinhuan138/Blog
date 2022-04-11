@@ -1,6 +1,6 @@
 ## 开始
 
-![autumn](/img/autumn.png)
+![autumn](../../.vuepress/public/img/autumn.png)
 
 ## 基本结构
 
@@ -598,7 +598,7 @@ Note right of 服务器:通过token还原出用户信息
   export class CatModule {}
   ```
   
-```typescript
+  ```typescript
   //定义jwt策略
   import { ExtractJwt, Strategy } from 'passport-jwt';
   import { PassportStrategy } from '@nestjs/passport';
@@ -625,8 +625,7 @@ Note right of 服务器:通过token还原出用户信息
           return { userId: payload.password, username: payload.username };
       }
   }
-```
-
+  ```
 + 使用策略
 
   ```typescript
@@ -1062,14 +1061,13 @@ link: createUploadLink({
   ```typescript
   const data = await this.$apollo.query({
       query: gql`
-  query user {
-  user(id: 1) {
-  id
-  name
-  gender
-  }
-  }
-  `,
+        query user {
+          user(id: 1) {
+            id
+            name
+            gender
+          }
+        }`,
       fetchPolicy: "no-cache",//取消走缓存
       variables: {
           id: userid,
@@ -1560,7 +1558,7 @@ export class CatService {
   //npm install --save-dev @types/sequelize
   //npm install graphql@14.6.0 //graphql需要降级
   //app.module.ts配置
-import { SequelizeModule } from '@nestjs/sequelize';
+  import { SequelizeModule } from '@nestjs/sequelize';
   import { Module } from '@nestjs/common';
   import { AuthorEntity } from './author/entity/author.entity';
   @Module({
@@ -2125,7 +2123,7 @@ nest：
   git checkout master //切换到master
   git checkout -b master //建并切换到master分支
   //问题：git切换到别的分支，把修改也带过去了
-//解决：切换分支前先 git commit 一下
+  //解决：切换分支前先 git commit 一下
   ```
   
 + ```javascript
@@ -2198,7 +2196,7 @@ nest：
   git add .
   git rebase --continue 合并冲突
   git commit --amend --no-edit -m "optimized refreshToken"
-git push -f
+  git push -f
   ```
   
 
@@ -2228,7 +2226,7 @@ git push -f
       charset:"utf8"
   })
   @Column({ length: 100, comment: '姓名',charset:"utf8" })
-name: string;
+  name: string;
   ```
   
 + ```typescript
