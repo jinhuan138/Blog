@@ -4,6 +4,7 @@ module.exports = {
     base:'/page/',
     description: '',
     dest: './dist',
+    port: '7777',
     theme: 'reco',
     locales: {
         '/': {
@@ -12,7 +13,7 @@ module.exports = {
     },
     head: [
         ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],//移动端优化
-        ['link', { rel: 'icon', href: '/img/logo.jpg' }],
+        ['link', { rel: 'icon', href: '/page/img/logo.jpg' }],
     ],
     markdown: {
         lineNumbers: true
@@ -47,9 +48,9 @@ module.exports = {
             showInMobile: true,
         }],
         ["dynamic-title", {//离开文字
-            showIcon: "/img/logo.jpg",
+            showIcon: "/page/img/logo.jpg",
             showText: "(Ő∀Ő3)ノ哇喔！欢迎！",
-            hideIcon: "/img/logo.jpg",
+            hideIcon: "/page/img/logo.jpg",
             hideText: "(●—●)喔哟，崩溃啦！",
             recoverTime: 2000
         }],
@@ -71,10 +72,10 @@ module.exports = {
             }
         }],
         ["@vuepress-reco/vuepress-plugin-kan-ban-niang", {//看板娘        
-            theme: ['blackCat']
+            theme: ['whiteCat','blackCat',  'z16']
         }],
         ["vuepress-plugin-boxx"],
         ['@vuepress-reco/extract-code'],
-        ['demo-container']
+        ['demo-container-v2']
     ]
 }
