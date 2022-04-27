@@ -4,6 +4,7 @@ module.exports = [
       collapsable: true,
       children:[
         '/FontEnd/Vue/Vue',
+        '/FontEnd/Vue/Vue3'
         ]
     },
     {
