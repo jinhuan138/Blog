@@ -1,6 +1,5 @@
 
 ## 开始
-
 <img loop="" src="../../.vuepress/public/img/herder.gif" width="100%" height="100%"  >
 </img>
 
