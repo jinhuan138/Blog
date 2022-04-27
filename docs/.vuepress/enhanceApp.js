@@ -1,5 +1,3 @@
-// import AUI from '@agree/aui-web'
-// import '@agree/aui-web/lib/theme-default/index.css'
 import VueMarkdownEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
@@ -16,7 +14,6 @@ export default ({
     siteData // site metadata
 }) => {
     router.addRoutes(routers)
-    // Vue.use(AUI)
     // Vue.use(Meta, {
     //     attribute: {
     //         keyName: 'note vue vuePress'
