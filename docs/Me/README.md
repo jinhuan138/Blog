@@ -9,5 +9,5 @@
 [![Juejin](https://img.shields.io/badge/用户5718036214633-3C8CFF?logo=bytedance&link=https://juejin.cn/&logoColor=3C8CFF&label=juejin)](https://juejin.cn)
 ![Weibo](https://img.shields.io/badge/dynamic/json?label=%E5%BE%AE%E5%8D%9A%E5%85%B3%E6%B3%A8&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dweibo%26queryKey=3976933180&labelColor=e71f19&color=040000&logo=sina-weibo&longCache=true)
 ![Zhihu](https://img.shields.io/badge/dynamic/json?logoColor=white&color=282c34&labelColor=0084ff&label=知乎关注数&query=$.data.totalSubs&url=https://api.spencerwoo.com/substats/?source=zhihu%26queryKey=jin-huan-65-16&longCache=true&logo=Zhihu)
-
+![github](https://komarev.com/ghpvc/?color=ff69b4&username=jinhuan138&label=github views&link=https://github.com/jinhuan138)
 </div>
