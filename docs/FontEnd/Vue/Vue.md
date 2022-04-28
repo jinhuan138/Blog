@@ -2974,6 +2974,10 @@ module.exports = {
 + [vue-meta](https://vue-meta.nuxtjs.org/)
 
   <img src="https://vue-meta.nuxtjs.org/vue-meta.png" alt="VueUse" style="zoom:25%; width:120px" /> HTML Metadata manager for Vue.js
+  
++ [vxe-table](https://vxetable.cn/#/table/start/install)
+
+  <img src="https://vxetable.cn/logo.png" alt="VueUse" style="zoom:25%; width:120px" /> 一个基于 vue 的 PC 端表格组件
 
 ---
 
