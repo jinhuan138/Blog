@@ -1,5 +1,6 @@
-const { login_cellphone, likelist, song_url, lyric, playlist_tracks } = require('NeteaseCloudMusicApi')
 //文档 https://neteasecloudmusicapi.vercel.app/#/
+const { login_cellphone, likelist, song_url, lyric, playlist_tracks } = require('NeteaseCloudMusicApi')
+
 async function getLikeMusicList() {
     //登录获取cookie
     const result = await login_cellphone({

@@ -1,8 +1,8 @@
 
 module.exports = {
     title: 'Notes',
-    base:'/page/',
-    description: '',
+    base: '/page/',
+    description: 'Welcome to your vuePress-theme-reco site',
     dest: './dist',
     port: '7777',
     theme: 'reco',
@@ -14,12 +14,14 @@ module.exports = {
     head: [
         ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],//移动端优化
         ['link', { rel: 'icon', href: '/page/img/logo.jpg' }],
+        // ["script", { src: "/js/colorthief.js.js" }]
     ],
     markdown: {
         lineNumbers: true
     },
     themeConfig: {
-        // type: 'blog',
+        type: 'blog',
+        authorAvatar: '/logo/3.png',
         nav: require('./nav'),
         sidebar: require('./sidebar'),
         sidebarDepth: 2,
@@ -34,7 +36,14 @@ module.exports = {
             }
         },
         editLinks: true,
-        editLinkText: '在 GitHub 上编辑此页 ！'
+        editLinkText: '在 GitHub 上编辑此页 ！',
+        friendLink: [
+            {
+              title: 'portal mini',
+              desc: 'portal website',
+              logo: "https://jinhuan138.github.io/portal/logo_100.svg",
+              link: 'https://jinhuan138.github.io/portal'
+            },]
     },
     configureWebpack: (config, isServer) => {
         if (!isServer) {
@@ -72,7 +81,7 @@ module.exports = {
             }
         }],
         ["@vuepress-reco/vuepress-plugin-kan-ban-niang", {//看板娘        
-            theme: ['whiteCat','blackCat',  'z16']
+            theme: ['22']
         }],
         ["vuepress-plugin-boxx"],
         ['@vuepress-reco/extract-code'],
