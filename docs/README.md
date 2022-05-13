@@ -1,18 +1,57 @@
 ---
 home: true
-heroImage: /img/logo.jpg
-heroText: Hello
-bgImage: '/img/bg.svg'
+# heroImage: /logo/3.png
+heroText: null
+bgImage: /bgImage/2.png
 actionText: 开始 →
 actionLink: /FontEnd/
-features:
-- title: 简洁至上
-  details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
-- title: Vue驱动
-  details: 享受 Vue + webpack 的开发体验，在 Markdown 中使用 Vue 组件，同时可以使用 Vue 来开发自定义主题。
-- title: 高性能
-  details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。
 ---
 ::: slot footer
 [jinhuan138](https://github.com/jinhuan138/jinhuan138) 2022
 :::
+
+<script>
+import ColorThief from 'ColorThief'
+export default {
+  data(){
+   return{
+     currentBgImage:''
+   }
+  },
+  mounted () {
+      this.changeBgImage()
+      this.changeHeroColor()
+  },
+  methods:{
+    //随机背景
+    changeBgImage(){
+      const logoArr = ['1.jpg', '2.png', '3.png', '4.png','5.png','6.jpg','7.jpg','8.svg']
+      const bg = document.querySelector('.hero')
+      const index = Math.round(Math.random() * 10) % logoArr.length
+      const url='/page/bgImage/' +logoArr[index]
+      this.currentBgImage=url
+      if(bg) bg.style.background =`url("${url}") center center / cover no-repeat`
+    },
+    //标题颜色
+    changeHeroColor(){
+      const colorThief = new ColorThief();
+      const rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {
+      const hex = x.toString(16)
+      return hex.length === 1 ? '0' + hex : hex
+      }).join('')
+      const img =new Image();
+      img.src = this.currentBgImage
+      if(!img) return
+      if (img.complete) {
+        const h1 = document.querySelector('.description')
+        h1.style.color= rgbToHex(...colorThief.getColor(img))
+      } else {
+        img.addEventListener('load', function() {
+          const h1 = document.querySelector('h1');
+          h1.style.color= rgbToHex(...colorThief.getColor(img))
+        });
+      }
+    }
+  }
+}
+</script>

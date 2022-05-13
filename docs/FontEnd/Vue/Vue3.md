@@ -16,15 +16,13 @@
               //组合api入口函数，只会触发一次
               //如果返回对象，可以在模板中使用
               const msg= "Hello vue3";
-              console.log(context); //包括attrs、emit、slots属性
-              console.log(props); //包含props配置的属性
-              console.log(context.attrs); //没有在props配置属性对象
+              const {attrs} =context//包括attrs、emit、slots属性
               return { msg };
           },
       };
   </script>
   ```
-
+  
   :::
 
 - setup script语法糖
@@ -40,13 +38,14 @@
       const user = ref("小明");//不需要return
       function change(e: any) {
           user = e.target.value;
-          console.log(user);
       }
       const solt:any =useSlots()//获取插槽
       console.log(solt.default())
       console.log(useAttrs())//获取属性与事件
   </script>
   ```
+
+## 响应式
 
 - ref：定义一个基本类型响应式数据
 
@@ -56,7 +55,7 @@
   <div>
       {{ count }}
       <button @click="count++">加1</button>
-      <!-- html中不需使用.value写法 -->
+      <!-- 模板中不需使用.value写法 -->
       <button @click="add">加1</button>
   </div>
   <script>
@@ -65,7 +64,7 @@
           name: "hello",
           setup() {
               let a = 0; //此时a不是响应式的
-              let count = ref(a);
+              let count = ref(a);//依然是靠object.defineProperty()的get与set完成的
               function add() {
                   count.value++;// 通过xxx.value操作数据
               }
@@ -99,10 +98,9 @@
                   name: "小甜甜",
                   age: 18,
               };
-              let user = reactive(obj);
+              let user = reactive(obj);//使用Proxy来实现响应式（数据劫持）, 并通过Reflect操作源对象内部的数据。
               //返回Proxy代理对象
               function update() {
-                  console.log(user)
                   user.name = "牛夫人"
                   user.age=19
                   user.sex = "女"
@@ -111,6 +109,49 @@
               return { user,update }
           },
       }
+  </script>
+  ```
+  
+
+::: 
+
+- toRefs
+
+  ::: demo
+
+  ```vue
+  <template>
+  <div>
+      <img :src="img"/>
+      <p>{{ author }}</p>
+      <p>{{ name }}</p>
+      </div>
+  <div id="ipt"></div>
+  </template>
+  <script>
+      import { toRefs, reactive, h, createApp, nextTick, onMounted } from "vue-demi";
+      export default {
+          setup() {
+              const book = reactive({
+                  author: "HcySunYang",
+                  name: "Vue.js设计与实现",
+                  img: "https://img3.jarhu.com/goodimg/202202/151/di1644900399702.jpg",
+              });
+              let { author, name, img } = toRefs(book); //toRefs保持响应式
+              const render = h("input", {
+                  value: name.value,
+                  onInput: e => {
+                      name.value = e.target.value;
+                  },
+              });
+              nextTick(() => {
+                  createApp({
+                      render: () => render,
+                  }).mount("#ipt");
+              });
+              return { author, name, img };
+          },
+      };
   </script>
   ```
 

@@ -5,7 +5,9 @@
 
 ## 模板语法
 
-+ `/{/{xxx/}/}`:插值表达式（Mustache 语法），`xxx` 为 `js `表达式。
++ ::: v-pre
+  `{{ xxx }}`:插值表达式（Mustache 语法），`xxx` 为 `js `表达式。
+  ::: 
 
 <RecoDemo>
   <template slot="code-template">
@@ -35,7 +37,7 @@
 
 - 虽然没有完全遵循 [MVVM 模型](https://zh.wikipedia.org/wiki/MVVM)，但是` Vue `的设计也受到了它的启发。因此在文档中经常会使用 `vm`(`ViewModel `的缩写) 这个变量名表示 `Vue `实例。通过用 `Vue` 函数创建一个新的**`Vue` 实例**。
 
-  ```js
+  ```js {}
   var vm = new Vue({
     // 选项
   });
