@@ -11,18 +11,30 @@
   ```vue
   <div class="hello">{{ msg }}</div>
   <script>
-      export default {
+      import { defineComponent ,toRefs,getCurrentInstance} from 'vue-demi'
+      export default defineComponent({
+          props: {
+              title: {
+                  type: String,
+                  default: "vue3",
+              },
+          },
           setup(props, context) {
               //组合api入口函数，只会触发一次
               //如果返回对象，可以在模板中使用
+              //无法访问data、computed、methods、模板refs
               const msg= "Hello vue3";
               const {attrs} =context//包括attrs、emit、slots属性
+              //console.log(props.title)
+              const { title } = toRefs(props)//使用toRefs解构保持响应性
+              //没有this,可以通过getCurrentInstance获取实例
+              const instance= getCurrentInstance()//VueComponent
               return { msg };
           },
-      };
+      })
   </script>
   ```
-  
+
   :::
 
 - setup script语法糖
@@ -113,7 +125,7 @@
   ```
   
 
-::: 
+​       :::
 
 - toRefs
 
@@ -122,7 +134,7 @@
   ```vue
   <template>
   <div>
-      <img :src="img"/>
+      <img :src="img" style='width:100px'/>
       <p>{{ author }}</p>
       <p>{{ name }}</p>
       </div>
@@ -155,7 +167,7 @@
   </script>
   ```
 
-  ::: 
+  :::
 
 ## 响应式原理
 
@@ -195,3 +207,83 @@
   proxyObj.wife.name = "大乔";
   console.log(obj);
   ```
+
+---
+
+## 生命周期钩子
+
++ 在生命周期钩子前面加上 “on” 来访问组件的生命周期钩子。
+
+  ::: demo
+
+  ```vue
+  <script>
+  import { defineComponent,onMounted } from 'vue-demi'
+  
+  export default defineComponent({
+    setup() {
+      onMounted(()=>{
+        // console.log('Component is mounted!')
+      })
+    },
+  })
+  </script>
+  ```
+
+  :::
+
+---
+
+## 独立的计算属性
+
++ 从 Vue 导入的 `computed` 函数
+
+  ::: demo
+
+  ```vue
+  <script>
+  import { ref, computed ,defineComponent} from 'vue-demi'
+  
+  export default defineComponent({
+    setup() {
+      const mun=ref(1)
+      const mun1=computed(()=>mun.value*2)
+      mun.value++
+      //console.log(mun1.value)//4
+    },
+  });
+  </script>
+  ```
+
+  :::
+
+---
+
+## 模板引用
+
++ ref
+
+  ::: demo
+
+  ```vue
+  <template> 
+    <div ref="demo">demo</div>
+  </template>
+  
+  <script>
+    import { ref, onMounted } from 'vue-demi'
+  
+    export default {
+      setup() {
+        const demo = ref(null)
+  
+        onMounted(() => {
+          // DOM 元素将在初始渲染后分配给 ref
+          //console.log(demo.value) // <div>demo</div>
+        })
+      }
+    }
+  </script>
+  ```
+
+  :::

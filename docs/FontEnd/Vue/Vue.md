@@ -28,7 +28,7 @@
 
 ![渐进式框架](https://box.kancloud.cn/593319bbbd88ba78969cb93ed7832d8a_550x131.jpg)
 
-+ 声明式渲染：DOM 随状态（数据）更新而更新。
++ 声明式渲染：DOM 随状态（数据）更新而更新。（声明式：关注结果，命令式：关注过程（jQuery））
 
 ---
 
@@ -119,7 +119,7 @@
      obj.a = 4;
      console.log(obj.a);
      ```
-     
+  
   3. 对象代理
   
      ```js
@@ -151,7 +151,7 @@
      vm.name='Hey Boi.'
      console.log(vm.name)
      ```
-     
+  
   4. 其他
   
      ```js
