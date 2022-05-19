@@ -1,52 +1,18 @@
-<template>
-  <div>
-    <keep-alive>
-      <component :is="com" />
-    </keep-alive>
-    <button @click="change">change</button>
-  </div>
+<template> 
+  <div ref="demo">demo</div>
 </template>
+
 <script>
-const Component1 = {
-  data() {
-    return {
-      value: "Component1",
-    };
-  },
-  render(h) {
-    return <input v-model={this.value} />;
-  },
-};
-const Component2 = {
-  data() {
-    return {
-      value: "Component2",
-    };
-  },
-  render(h) {
-    return <input v-model={this.value} />;
-  },
-};
-export default {
-  data() {
-    return {
-      com: "Component1",
-    };
-  },
-  components: { Component1, Component2 },
-  methods: {
-    change() {
-      this.com === "Component1"
-        ? (this.com = "Component2")
-        : (this.com = "Component1");
-    },
-  },
-};
+  import { ref, onMounted } from 'vue-demi'
+
+  export default {
+    setup() {
+      const demo = ref(null)
+
+      onMounted(() => {
+        // DOM 元素将在初始渲染后分配给 ref
+        console.log(demo.value) // <div>This is a root element</div>
+      })
+    }
+  }
 </script>
-<style scoped>
-#demo {
-  width: 50px;
-  height: 50px;
-  color: skyblue;
-}
-</style>

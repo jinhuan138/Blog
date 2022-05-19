@@ -13,14 +13,15 @@ module.exports = {
     },
     head: [
         ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],//移动端优化
-        ['link', { rel: 'icon', href: '/page/img/logo.jpg' }],
-        // ["script", { src: "/js/colorthief.js.js" }]
+        ['link', { rel: 'icon', href: '/page/logo/1.jpg' }],
+        // ["script", { src: "/js/logo.js" }]
     ],
     markdown: {
         lineNumbers: true
     },
     themeConfig: {
-        type: 'blog',
+        // type: 'blog',
+        type: 'Home1',
         authorAvatar: '/logo/3.png',
         nav: require('./nav'),
         sidebar: require('./sidebar'),
@@ -39,10 +40,10 @@ module.exports = {
         editLinkText: '在 GitHub 上编辑此页 ！',
         friendLink: [
             {
-              title: 'portal mini',
-              desc: 'portal website',
-              logo: "https://jinhuan138.github.io/portal/logo_100.svg",
-              link: 'https://jinhuan138.github.io/portal'
+                title: 'portal mini',
+                desc: 'portal website',
+                logo: "https://jinhuan138.github.io/portal/logo_100.svg",
+                link: 'https://jinhuan138.github.io/portal'
             },]
     },
     configureWebpack: (config, isServer) => {
@@ -57,9 +58,9 @@ module.exports = {
             showInMobile: true,
         }],
         ["dynamic-title", {//离开文字
-            showIcon: "/page/img/logo.jpg",
+            showIcon: "/logo/3.png",
             showText: "(Ő∀Ő3)ノ哇喔！欢迎！",
-            hideIcon: "/page/img/logo.jpg",
+            hideIcon: "/logo/3.png",
             hideText: "(●—●)喔哟，崩溃啦！",
             recoverTime: 2000
         }],
@@ -85,6 +86,6 @@ module.exports = {
         }],
         ["vuepress-plugin-boxx"],
         ['@vuepress-reco/extract-code'],
-        ['demo-container-v2']
+        ['demo-container-v2'],
     ]
 }
