@@ -26,7 +26,7 @@
 
 `Vue` 从设计角度来讲， 虽然能够涵盖这张图上所有的东西，但是你并不需要一上手就把所有东西全用上(**`主张最少`**) ，因为没有必要。无论从学习角度，还是实际情况，这都是可选的。**声明式渲染**和**组件系统**是` Vue `的核心库所包含内容，而**客户端路由**、**状态管理**、**构建工具**都有专门解决方案。这些解决方案相互独立，你可以在核心的基础上任意选用其他的部件，不一定要全部整合在一起。
 
-![渐进式框架](https://box.kancloud.cn/593319bbbd88ba78969cb93ed7832d8a_550x131.jpg)
+![渐进式框架](../../.vuepress/public/img/渐进式框架.jpg)
 
 + 声明式渲染：DOM 随状态（数据）更新而更新。（声明式：关注结果，命令式：关注过程（jQuery））
 
@@ -409,6 +409,8 @@ This is a warning 注意
 
 用于一些常见的文本格式化，用在双花括号插值和 `v-bind` 表达式中。
 
+::: demo
+
 ```html
 {{date|format("prop")}}
 <!-- date作为format函数的参数，format也可以传参 -->
@@ -422,7 +424,7 @@ This is a warning 注意
     filters: {
       format: function (value, prop) {
         //格式化日期
-        console.log(prop);
+        //console.log(prop);
         const Y = value.getFullYear();
         const M = value.getMonth() + 1;
         const D = value.getDate();
@@ -433,6 +435,8 @@ This is a warning 注意
   };
 </script>
 ```
+
+::: 
 
 <hr>
 
@@ -1193,7 +1197,7 @@ This is a warning 注意
      <!--父组件什么都不写的话显示默认内容-->
      <!--一个不带name的<slot>出口会带有隐含的名字“default”-->
      <!--任何没有被包裹在带有 v-slot 的 组件标签 中的内容都会被视为默认插槽的内容-->
-     <!--v-slot只能添加在<template> 上或自定义组件上(只有一种例外情况)-->
+     <!--v-slot只能添加在<template>上或自定义组件上(只有一种例外情况)-->
      ```
   
      具名插槽:`< slot name=”mySlot”>`有命名时，组件标签中使用属性`slot=”mySlot”`的元素就会替换该对应位置内容
@@ -1670,6 +1674,10 @@ This is a warning 注意
 
 ---
 
+## extends
+
+---
+
 
 ## 依赖注入
 
@@ -1759,22 +1767,30 @@ This is a warning 注意
   {{ age }}
   <el-button @click="add">加1</el-button>
   <script>
-    import { eventBus } from "./event-bus.js";
-    export default {
-      data() {
-        return { age: 18 }
-      },
-      methods: {
-        add() {
-          this.age++;
-        },
-      },
-      created() {
-        eventBus.$on("add-age", () => {
-          this.age++;
-        }); //接收消息
-      },
-    };
+      import { eventBus } from "./event-bus.js";
+      export default {
+          data() {
+              return { age: 18 }
+          },
+          methods: {
+              add() {
+                  this.age++;
+              },
+          },
+          created() {
+              eventBus.$on("add-age", () => {
+                  this.age++;
+              }); //接收消息
+          },
+          beforeDestroy() {
+              // 如果没有提供参数，则移除所有的事件监听器；
+              // 如果只提供了事件，则移除该事件所有的监听器；
+              // 如果同时提供了事件与回调，则只移除这个回调的监听器。
+              eventBus.$off("add-age", () => {
+                  this.age++;
+              });
+          },
+      };
   </script>
   ```
 
@@ -2388,7 +2404,7 @@ VueRoute.install = (_vue) => {
       //变量为响应式的才执行
       const { current, routes } = this.$router;
       const com = routes.find((item) => item.path == current);
-      console.log("com", com);
+      //console.log("com", com);
       return h(com.component);
     },
   });
@@ -2440,7 +2456,7 @@ export default VueRoute;
 
 - 单向数据流
 
-  <img src="https://vuex.vuejs.org/flow.png" alt="单向数据流" style="zoom: 33%;" />
+  <img src="../../.vuepress/public/img/单向数据流.png" alt="单向数据流" style="zoom: 33%;" />
 
 - `Vuex `数据管理框架，`VueX` 创建了一个全局唯一的仓库，用来存放全局的数据。
 
@@ -2700,152 +2716,6 @@ export default VueRoute;
 
 ---
 
-
-## vue3
-
-- setup：新的 option，所有的组合 API 函数都在此使用
-
-  ```vue
-  <div class="hello">{{ msg }}</div>
-  <script lang="ts">
-    export default {
-      setup(props, context) {
-        //组合api入口函数，只会触发一次
-        //如果返回对象，可以在模板中使用
-        const msg: string = "Hello vue3";
-        console.log(context); //包括attrs、emit、slots属性
-        console.log(props); //包含props配置的属性
-        console.log(context.attrs); //没有在props配置属性对象
-        return { msg };
-      },
-    };
-  </script>
-  ```
-
-- setup script语法糖
-
-  ```vue
-  <div>
-      <input @input="change($event)" :value="user" />
-      {{user}}
-  </div>
-  <script lang="ts" setup>
-      import { ref,useSlots, defineProps, useAttrs } from "vue";  
-      //defineEmit,defineProps,defineExpose定义属性、事件...,useContext弃用
-      const user = ref("小明");//不需要return
-      function change(e: any) {
-          user = e.target.value;
-          console.log(user);
-      }
-      const solt:any =useSlots()//获取插槽
-      console.log(solt.default())
-      console.log(useAttrs())//获取属性与事件
-  </script>
-  ```
-
-- ref：定义一个基本类型响应式数据
-
-  ```vue
-  <div>
-    {{ count }}
-    <el-button type="" @click="count++">加1</el-button>
-    <!-- html中不需使用.value写法 -->
-    <!-- vue3中使用的是element-plus -->
-    <el-button type="" @click="add">加1</el-button>
-  </div>
-  <script lang="ts">
-    import { ref, defineComponent } from "vue";
-    export default defineComponent({
-      name: "hello",
-      setup() {
-        let a = 0; //此时a不是响应式的
-        let count = ref(a);
-        function add() {
-          count.value++;
-          // 通过xxx.value操作数据
-        }
-        return {
-          count,
-          add,
-        };
-      },
-    });
-  </script>
-  ```
-
-- reactive:接收普通对象，返回该对象的响应式代理对象
-
-  ```vue
-  <div>
-      {{ `${user.name} is ${user.age}` }}
-      p>性别：{{ user.sex }}</p>
-  <el-button type="" @click="update">更新数据</el-button>
-  </div>
-  <script lang="ts">
-  import { ref, defineComponent, reactive } from "vue";
-  export default defineComponent({
-          name: "hello",
-          setup() {
-              const obj: any= {
-                  name: "小甜甜",
-                  age: 18,
-              };
-              let user = reactive(obj);
-              //返回Proxy代理对象
-              function update(): void {
-                  console.log(user)
-                  user.name = "牛夫人";
-              user.age=19
-              ser.sex = "女";
-              //需要使用代理对象更新属性值
-          }
-          return { user,update };
-      },
-  });
-  </script>
-  ```
-
-- 响应式原理
-
-  [Proxy](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)配合[Reflect](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect)(静态方法)实现响应式。
-
-  ```js
-  var obj = {
-    //目标对象
-    name: "刘备",
-    wife: {
-      name: "孙尚香",
-      age: 18,
-    },
-  };
-  const proxyObj = new Proxy(obj, {
-    //代理对象
-    get(target, value) {
-      //获取属性值
-      console.log(value + "的get调用");
-      return Reflect.get(target, value); //反射对象反射目标对象属性
-    },
-    set(target, prop, value) {
-      //添加/修改属性值
-      console.log(value + "的set调用");
-      return Reflect.set(target, prop, value);
-    },
-    deleteProperty(target, prop) {
-      //删除属性值
-      console.log(prop + "的deleteProperty调用");
-      return Reflect.set(target, prop);
-    },
-  });
-  console.log(proxyObj.name); //通过代理对象获取目标对象属性值
-  proxyObj.name = "孙策"; //通过代理对象更改目标对象属性值
-  proxyObj.sex = "男"; //通过代理对象添加属性
-  delete proxyObj.name; //通过代理对象删除属性
-  proxyObj.wife.name = "大乔";
-  console.log(obj);
-  ```
-
----
-
 ## iframe
 
 ```vue
@@ -2887,7 +2757,7 @@ export default VueRoute;
 <button onClick="send('秋鸿折单复难双,痴人痴怨恨迷狂。')">send to vue</button>
 <script>
     window.addEventListener('message', e => {
-        console.log(e.data);
+        //console.log(e.data);
     })
     function send(msg){
         window.parent.postMessage(msg,'*');
