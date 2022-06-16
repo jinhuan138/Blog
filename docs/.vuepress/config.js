@@ -1,4 +1,4 @@
-
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     title: 'Notes',
     base: '/page/',
@@ -46,10 +46,17 @@ module.exports = {
                 link: 'https://jinhuan138.github.io/portal'
             },]
     },
-    configureWebpack: (config, isServer) => {
-        if (!isServer) {
-            // mutate the config for client
-        }
+    configureWebpack: {
+    },
+    chainWebpack: (config) => {
+        config
+            .plugin('html')
+            .use(HtmlWebpackPlugin)
+            .tap(args => {
+                console.log(args)
+                // args[0].versionScript = `console.log("Portal Version: ");`;
+                return args
+            })
     },
     plugins: [
         ["@mr-hope/copy-code", {//代码块复制

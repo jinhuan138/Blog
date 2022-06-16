@@ -1639,10 +1639,7 @@ export class CatService {
   ```typescript
   //npm install vue-apollo graphql apollo-boost --save
   import ApolloClient from "apollo-boost";
-  const apolloClient = new ApolloClient({
-      // 你需要在这里使用绝对路径
-      uri: "http://localhost:3000/graphql",
-  });
+  
   import VueApollo from 'vue-apollo'
   Vue.use(VueApollo);
   new Vue({apolloProvider, render: (h) => h(App) }).$mount("#app");
