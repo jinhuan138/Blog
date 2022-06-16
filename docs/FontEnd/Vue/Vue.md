@@ -26,7 +26,7 @@
 
 `Vue` 从设计角度来讲， 虽然能够涵盖这张图上所有的东西，但是你并不需要一上手就把所有东西全用上(**`主张最少`**) ，因为没有必要。无论从学习角度，还是实际情况，这都是可选的。**声明式渲染**和**组件系统**是` Vue `的核心库所包含内容，而**客户端路由**、**状态管理**、**构建工具**都有专门解决方案。这些解决方案相互独立，你可以在核心的基础上任意选用其他的部件，不一定要全部整合在一起。
 
-![渐进式框架](../../.vuepress/public/img/渐进式框架.jpg)
+![渐进式框架](../../.vuepress/public/img/approachable.jpg)
 
 + 声明式渲染：DOM 随状态（数据）更新而更新。（声明式：关注结果，命令式：关注过程（jQuery））
 
@@ -169,7 +169,7 @@
 
 - 图谱
 
-  <img src="https://cn.vuejs.org/images/lifecycle.png" alt="lifecycle" style="zoom:50%;" />
+  <img src="./../../.vuepress/public/img/lifecycle.png" alt="lifecycle" style="zoom:50%;" />
 
 - > 1.  `beforeCreate()`在初始化 / 实例创建 之前执行的函数
   > 2.  `Created()`在初始化 / 实例创建 之后执行的函数

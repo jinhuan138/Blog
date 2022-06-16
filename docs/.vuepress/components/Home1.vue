@@ -1,6 +1,7 @@
 <template>
   <div class="home-blog">
-    <div class="hero" :style="{ ...bgImageStyle }">
+    <iframe src="/page/rainy/index.html" frameborder="0" class="rainy"></iframe>
+    <!-- <div class="hero" :style="{ ...bgImageStyle }">
       <div>
         <ModuleTransition delay="0.04">
           <h1 v-if="recoShowModule && $frontmatter.heroText !== null">
@@ -17,7 +18,7 @@
           </p>
         </ModuleTransition>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -41,6 +42,7 @@ import { ModuleTransition, RecoIcon } from "@vuepress-reco/core/lib/components";
 import PersonalInfo from "@theme/components/PersonalInfo";
 import { getOneColor } from "@theme/helpers/other";
 import { useInstance } from "@theme/helpers/composable";
+import json from "/Note/package.json";
 
 export default defineComponent({
   components: {
@@ -100,10 +102,11 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      const instance = getCurrentInstance();
-      state.heroHeight = document.querySelector(".hero").clientHeight;
-      state.recoShow = true;
+      // const instance = getCurrentInstance();
+      // state.heroHeight = document.querySelector(".hero").clientHeight;
+      // state.recoShow = true;
       instance.addLogo();
+      // instance.showVision();
     });
 
     onBeforeMount(() => {
@@ -162,6 +165,16 @@ export default defineComponent({
         instance.descriptionStyle.color = palette.DarkVibrant.hex;
       });
     },
+    //显示版本
+    showVision() {
+      const { version ,name} = json;
+      console.log(
+        `%c ${name} %c v`
+          .concat(version, " "),
+        "background: #35495e; padding: 1px; border-radius: 3px 0 0 3px; color: #fff",
+        "background: skyblue; padding: 1px; border-radius: 0 3px 3px 0; color: #fff",
+      );
+    },
   },
 });
 </script>
@@ -170,7 +183,10 @@ export default defineComponent({
 .home-blog {
   padding: 0;
   margin: 0px auto;
-
+  .rainy{
+    width: 100%;
+    height: 750px;
+  }
   .hero {
     margin: $navbarHeight auto 0;
     position: relative;
