@@ -1,6 +1,8 @@
 import Test from './components/Test.vue'
 import FocusTest from './example/focus/FocusTest.vue'
-export const routers =
+import Reader from './components/library/Reader.vue'
+import Library from './components/library/Library.vue'
+const routers =
     [
         {
             name: "Test",
@@ -12,4 +14,15 @@ export const routers =
             path: "/focus",
             component: FocusTest,
         },
+        {
+            name: "Reader",
+            path: "/reader",
+            component: Reader,
+        },
+        {
+            name: "Library",
+            path: "/library",
+            component: Library,
+        },
     ]
+export default routers

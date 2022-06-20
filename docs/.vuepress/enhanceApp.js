@@ -1,12 +1,13 @@
 import VueMarkdownEditor from '@kangc/v-md-editor';
+VueMarkdownEditor.use(vuepressTheme);
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
-import { routers } from './router.js'
+import routers from './router.js'
 import axios from 'axios'
+import { VuePlugin } from 'vuera'
 import Meta from 'vue-meta'
-VueMarkdownEditor.use(vuepressTheme);
-
-
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 export default ({
     Vue, // the version of Vue being used in the VuePress app
@@ -15,11 +16,15 @@ export default ({
     siteData // site metadata
 }) => {
     Vue.prototype.$http = axios
-    router.addRoutes(routers)
+    Vue.use(VuePlugin)
+    routers.forEach(i => {
+        router.addRoute(i)
+    })
     // Vue.use(Meta, {
     //     attribute: {
     //         keyName: 'note vue vuePress'
     //     }
     // })
+    Vue.use(ElementUI);
     Vue.use(VueMarkdownEditor);
 }

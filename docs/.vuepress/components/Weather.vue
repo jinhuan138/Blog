@@ -1,9 +1,9 @@
 <template>
-  <div class="vww__widget" :style="{ color: textColor }" v-if="currently">
+  <div class="vww__widget" v-if="currently">
     <div class="vww__currently">
       <div>
         <!-- 图标 -->
-        <skycon :condition="currently.icon" size="24" :color="textColor" />
+        <skycon :condition="currently.icon" size="24" :color="iconColor" />
         <!-- 温度 -->
         <div class="vww__temp">
           {{ Math.round(currently.temperature) }}&deg;
@@ -26,8 +26,8 @@
   </div>
 </template>
 <script>
-//文档https://api.openweathermap.org
-if (typeof window !== "undefined") window.global = window;
+//天气api文档https://api.openweathermap.org
+//图标文档https://www.npmjs.com/package/vue-skycons
 const Skycon = require("vue-skycons").default;
 const ICON_MAPPINGS = {
   "clear-day": ["01d"],
@@ -52,12 +52,6 @@ export default {
   components: {
     Skycon,
   },
-  props: {
-    textColor: {
-      type: String,
-      default: "#333",
-    },
-  },
   data() {
     return {
       weather: {
@@ -75,6 +69,18 @@ export default {
     windBearing() {
       const t = Math.round(this.currently.windBearing / 45);
       return ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"][t];
+    },
+    iconColor() {
+      const currentMode =
+        localStorage.getItem("mode") || this.$themeConfig.mode || "auto";
+      if (currentMode === "dark") {
+        return "rgba(255, 255, 255, 0.8)";
+      } else if (currentMode === "light") {
+        return "black";
+      } else {
+        const hour = new Date().getHours();
+        return hour < 6 || hour >= 18 ? "rgba(255, 255, 255, 0.8) " : "black";
+      }
     },
   },
   beforeMount() {
@@ -143,8 +149,8 @@ export default {
   text-transform: capitalize;
   line-height: 0.8em;
 }
-.vww__wind{
-  font-size: 0.60em;
-  line-height: 0.60em;
+.vww__wind {
+  font-size: 0.6em;
+  line-height: 0.6em;
 }
 </style>

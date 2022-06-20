@@ -1586,32 +1586,32 @@ This is a warning 注意
   ```js
   //定义minin
   export default {
-    data() {
-      return {
-        dataCommomd: "公共数据",
-      };
-    },
-    methods: {
-      methodsCommomd() {
-        console.log(this.type + "公共方法");
+      data() {
+          return {
+              dataCommomd: "公共数据",
+          };
       },
-    },
-    mounted() {
-      console.log("公共mounted");
-    },
+      methods: {
+          methodsCommomd() {
+              console.log(this.type + "公共方法");
+          },
+      },
+      mounted() {
+          console.log("公共mounted");
+      },
   };
   ```
 
   ```vue
   <!--子组件A(组件B类似)-->
   <template>
-      <div>
-          <button @click="methodsA">
-              组件A方法
-          </button>
-          <button @click="methodsCommomd">
-              公共方法
-          </button>
+  <div>
+      <button @click="methodsA">
+          组件A方法
+      </button>
+      <button @click="methodsCommomd">
+          公共方法
+      </button>
       </div>
   </template>
   <script>
@@ -1634,6 +1634,7 @@ This is a warning 注意
               console.log(this.type+this.dataCommomd)
           }
       }
+  </script>
   ```
 
   ```vue

@@ -5,7 +5,10 @@ module.exports = [
     {
         text: 'BackEnd', link: '/BackEnd/'
     },
+    // {
+    //     text: 'Me', link: '/Me/'
+    // },
     {
-        text: 'Me', link: '/Me/'
+        text: 'Library', link: '/library/', icon: 'reco-eye'
     }
 ]

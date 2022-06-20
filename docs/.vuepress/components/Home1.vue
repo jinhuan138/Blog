@@ -1,6 +1,6 @@
 <template>
   <div class="home-blog">
-    <iframe src="/page/rainy/index.html" frameborder="0" class="rainy"></iframe>
+    <iframe :src="$withBase('/rainy/index.html')" frameborder="0" class="rainy"></iframe>
     <!-- <div class="hero" :style="{ ...bgImageStyle }">
       <div>
         <ModuleTransition delay="0.04">
@@ -102,11 +102,11 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      // const instance = getCurrentInstance();
+      const instance = getCurrentInstance();
       // state.heroHeight = document.querySelector(".hero").clientHeight;
       // state.recoShow = true;
       instance.addLogo();
-      // instance.showVision();
+      instance.showVision();
     });
 
     onBeforeMount(() => {
