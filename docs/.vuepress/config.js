@@ -13,7 +13,7 @@ module.exports = {
     },
     head: [
         ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],//移动端优化
-        ['link', { rel: 'icon', href: '/page/logo/1.jpg' }],
+        ['link', { rel: 'icon', href: '/logo/1.jpg' }],
         // ["script", { src: "/js/logo.js" }]
     ],
     markdown: {
@@ -47,16 +47,13 @@ module.exports = {
             },]
     },
     configureWebpack: {
+        node: { global: true }
     },
-    chainWebpack: (config) => {
-        config
-            .plugin('html')
-            .use(HtmlWebpackPlugin)
-            .tap(args => {
-                console.log(args)
-                // args[0].versionScript = `console.log("Portal Version: ");`;
-                return args
-            })
+    chainWebpack(config, isServer) {
+        if (!isServer) {
+            config.resolve.modules.merge(["node_modules"]);
+        }
+        return config;
     },
     plugins: [
         ["@mr-hope/copy-code", {//代码块复制
@@ -65,9 +62,9 @@ module.exports = {
             showInMobile: true,
         }],
         ["dynamic-title", {//离开文字
-            showIcon: "/logo/3.png",
+            showIcon: "/logo/1.jpg",
             showText: "(Ő∀Ő3)ノ哇喔！欢迎！",
-            hideIcon: "/logo/3.png",
+            hideIcon: "/logo/1.jpg",
             hideText: "(●—●)喔哟，崩溃啦！",
             recoverTime: 2000
         }],
