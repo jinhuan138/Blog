@@ -17,8 +17,9 @@ export default ({
 }) => {
     Vue.prototype.$http = axios
     Vue.use(VuePlugin)
+    const docsRoutes = router.options.routes
     routers.forEach(i => {
-        router.addRoute(i)
+        router.addRoute(i)//组件需要有name,否则刷新匹配*路由
     })
     // Vue.use(Meta, {
     //     attribute: {

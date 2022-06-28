@@ -1,5 +1,5 @@
 <template>
-  <el-main :class="agent == 'pc' ? 'main' : 'main-phone'">
+  <el-main :class="'main-phone' + agent">
     <div class="grid" ref="grid">
       <div v-for="(book, index) in bookList" :key="index">
         <el-popover>
@@ -14,38 +14,19 @@
             <p v-if="book.language">语言: {{ book.language }}</p>
           </div>
           <!-- 主体 -->
-          <router-link
-            :to="{ name: 'Reader', path: '/reader', params: { url: book.url } }"
-            slot="reference"
-          >
-            <el-card
-              ref="card"
-              shadow="hover"
-              :class="agent == 'pc' ? 'box-card' : 'box-card-phone'"
-              :body-style="{ padding: '0px' }"
-            >
-              <el-image
-                :src="coverPath(book.url)"
-                :fit="'fill'"
-                :class="agent == 'pc' ? 'el-image' : 'el-image-phone'"
-              >
+          <router-link :to="{ name: 'Reader', path: '/reader', params: { url: book.url } }" slot="reference">
+            <el-card ref="card" shadow="hover" :class="'box-card' + agent" :body-style="{ padding: '0px' }">
+              <el-image :src="coverPath(book.url)" :fit="'fill'" :class="'el-image' + agent">
                 <div slot="error" class="image-slot">
-                  <el-image
-                    :src="$withBase('/books/cover/default-cover.png')"
-                    :fit="'fill'"
-                  >
+                  <el-image :src="$withBase('/books/cover/default-cover.png')" :fit="'fill'">
                   </el-image>
                 </div>
               </el-image>
-              <div
-                class="title"
-                :class="agent == 'pc' ? '' : 'title-phone'"
-                :style="{
-                  background: book.bgColorFromCover
-                    ? book.bgColorFromCover
-                    : '#6d6d6d',
-                }"
-              >
+              <div :class="'title' + agent" :style="{
+                background: book.bgColorFromCover
+                  ? book.bgColorFromCover
+                  : '#6d6d6d',
+              }">
                 {{ trunc(book.title, 30) }}
               </div>
             </el-card>
@@ -59,12 +40,13 @@
 <script>
 import books from "../../public/books/books.json";
 export default {
+  name: 'Library',
   data() {
+    this.bookList = books
     return {
-      bookList: books,
       maxColWidth: 280,
       gap: 32,
-      agent: "pc",
+      agent: "",//default pc
     };
   },
   props: {
@@ -90,13 +72,14 @@ export default {
       )
     ) {
       //移动端页面
-      this.agent = "phone";
+      this.agent = "-phone";
       this.maxColWidth = 100;
       this.gap = 5;
     }
   },
   mounted() {
     console.log("allBooks", books);
+    if (!this.bookList.length) return
     this.initStyle();
     this.positionItems();
     window.addEventListener("resize", this.resize);
@@ -107,7 +90,7 @@ export default {
     },
     coverPath(name) {
       return this.$withBase(
-        "/books/cover/" + name.replace(".epub", "") + ".jpg"
+        "/books/cover/" + name.replace(".epub", "") + ".webp"
       );
     },
     initStyle() {
@@ -196,31 +179,39 @@ export default {
 .main {
   margin-top: 40px;
 }
+
 .main-phone {
   font-size: 12px;
 }
+
 .grid {
   margin: 40px;
+  height: 100%;
 }
+
 .tip {
   width: 280px;
 }
+
 .box-card {
   width: 170px;
   height: 250px;
   /* background: #fff; */
   user-select: none;
 }
+
 .box-card-phone {
   width: 85px;
   height: 125px;
   /* background: #fff; */
   user-select: none;
 }
+
 .el-image {
   height: 200px;
   width: 100%;
 }
+
 .el-image-phone {
   height: 100px;
   width: 100%;
@@ -237,6 +228,7 @@ export default {
   position: relative;
   top: -3px;
 }
+
 .title-phone {
   height: 60px;
 }

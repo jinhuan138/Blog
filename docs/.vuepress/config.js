@@ -1,10 +1,10 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+// import { defineConfig } from "vuepress/config";
 module.exports = {
     title: 'Notes',
     base: '/page/',
     description: 'Welcome to your vuePress-theme-reco site',
     dest: './dist',
-    port: '7777',
+    port: 7777,
     theme: 'reco',
     locales: {
         '/': {
@@ -14,7 +14,8 @@ module.exports = {
     head: [
         ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],//移动端优化
         ['link', { rel: 'icon', href: '/logo/1.jpg' }],
-        // ["script", { src: "/js/logo.js" }]
+        ["link", { rel: "stylesheet", href: "/css/SQPlayer.css" }],
+        ["script", { src: "/js/SQPlayer.js" }]
     ],
     markdown: {
         lineNumbers: true
@@ -86,7 +87,7 @@ module.exports = {
             }
         }],
         ["@vuepress-reco/vuepress-plugin-kan-ban-niang", {//看板娘        
-            theme: ['22']
+            theme: ['mikoto','22']
         }],
         ["vuepress-plugin-boxx"],
         ['@vuepress-reco/extract-code'],

@@ -6,6 +6,15 @@ const { resolve } = require('path')
 const image_path = resolve(__dirname, '../docs/.vuepress/public/bgImage')
 const images = fs.readdirSync(image_path)
 console.log(images)
+const toWebp = async (path) => {
+    //E:\Note\docs\.vuepress\public\rainy\img\city.png=>city.webp
+    const arr = path.split('.')
+    const newImage = path.replace(arr[arr.length - 1], 'webp')
+    const data = await sharp(path)
+        .webp({ lossless: true })
+        .toFile(newImage)
+    console.log('新图片' + newImage)
+}
 images.forEach(async name => {//背景图片转webp格式
     if (name.endsWith('.svg')) return
     const type = name.slice(-3)
@@ -13,3 +22,4 @@ images.forEach(async name => {//背景图片转webp格式
         .webp({ lossless: true })
         .toFile(resolve(image_path, name.replace(type, 'webp')))
 })
+// toWebp('E:\\Note\\docs\\.vuepress\\public\\rainy\\img\\city.png')
