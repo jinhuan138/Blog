@@ -1,24 +1,15 @@
 <template>
   <div class="home-blog">
-    <iframe :src="$withBase('/rainy/index.html')" frameborder="0" class="rainy"></iframe>
-    <!-- <div class="hero" :style="{ ...bgImageStyle }">
+    <iframe :src="$withBase('/rainy/index.html')" frameborder="0" class="rainy" v-if='rainy'></iframe>
+    <div class="hero" :style="{ ...bgImageStyle }" v-else>
       <div>
-        <ModuleTransition delay="0.04">
-          <h1 v-if="recoShowModule && $frontmatter.heroText !== null">
-            {{ $frontmatter.heroText || $title || "vuePress-theme-reco" }}
-          </h1>
-        </ModuleTransition>
         <ModuleTransition delay="0.08">
-          <p
-            v-if="recoShowModule && $frontmatter.tagline !== null"
-            class="description"
-            :style="descriptionStyle"
-          >
+          <p class="description" :style="descriptionStyle">
             {{ description }}
           </p>
         </ModuleTransition>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -35,102 +26,55 @@ import {
   nextTick,
 } from "vue-demi";
 import Vibrant from "node-vibrant";
-import TagList from "@theme/components/TagList";
-import FriendLink from "@theme/components/FriendLink";
-import NoteAbstract from "@theme/components/NoteAbstract";
 import { ModuleTransition, RecoIcon } from "@vuepress-reco/core/lib/components";
-import PersonalInfo from "@theme/components/PersonalInfo";
-import { getOneColor } from "@theme/helpers/other";
 import { useInstance } from "@theme/helpers/composable";
 import json from "/Note/package.json";
-
+const bgArr = ["8.svg", 'rainy', "1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.jpg",];
 export default defineComponent({
   components: {
-    NoteAbstract,
-    TagList,
-    FriendLink,
     ModuleTransition,
-    PersonalInfo,
-    RecoIcon,
   },
   setup(props, ctx) {
     const instance = useInstance();
-
-    const state = reactive({
-      recoShow: false,
-      heroHeight: 0,
-    });
-
     let description = ref("");
     let descriptionStyle = reactive({ color: "#6d6d6d" });
-    let bgImageUrl = ref("");
-    const recoShowModule = computed(
-      () => instance && instance.$parent.recoShowModule
-    );
-
-    const heroImageStyle = computed(
-      () => instance.$frontmatter.heroImageStyle || {}
-    );
-
+    let rainy = ref(false)
+    const theme = ref('8.svg')
+    const imgUrl = computed(() => {
+      return instance.$withBase('/bgImage/' + theme.value)
+    })
     const bgImageStyle = computed(() => {
-      const bgArr = [
-        "1.webp",
-        "2.webp",
-        "3.webp",
-        "4.webp",
-        "5.webp",
-        "6.webp",
-        "7.jpg",
-        "8.svg",
-      ];
-      const index = Math.round(Math.random() * 10) % bgArr.length;
-      const url = instance.$site.base + "bgImage/" + bgArr[index];
-      instance.bgImageUrl = url;
-      // const url = instance.$frontmatter.bgImage
-      //   ? instance.$withBase(instance.$frontmatter.bgImage)
-      //   : require('../../images/bg.svg')
       const initBgImageStyle = {
         textAlign: "center",
         overflow: "hidden",
-        background: `url(${url}) center/cover no-repeat`,
+        background: `url(${imgUrl.value}) center/cover no-repeat`,
       };
       const { bgImageStyle } = instance.$frontmatter;
-
       return bgImageStyle
         ? { ...initBgImageStyle, ...bgImageStyle }
         : initBgImageStyle;
     });
 
-    onMounted(() => {
+    onMounted(async () => {
       const instance = getCurrentInstance();
-      // state.heroHeight = document.querySelector(".hero").clientHeight;
-      // state.recoShow = true;
+      // await instance.getTheme();
       instance.addLogo();
       instance.showVision();
     });
-
     onBeforeMount(() => {
       const instance = getCurrentInstance();
-      instance.changeDescriptionStyle();
       instance.getDescription();
     });
     return {
-      recoShowModule,
-      heroImageStyle,
       bgImageStyle,
-      ...toRefs(state),
-      getOneColor,
       description,
+      rainy,
       descriptionStyle,
-      bgImageUrl,
+      theme,
+      imgUrl
     };
   },
   methods: {
-    paginationChange(page) {
-      setTimeout(() => {
-        window.scrollTo(0, this.heroHeight);
-      }, 100);
-    },
     getPagesByTags(tagInfo) {
       this.$router.push({ path: tagInfo.path });
     },
@@ -149,6 +93,25 @@ export default defineComponent({
       logo.src = base + "logo/" + logoArr[index];
       homeLink.insertBefore(logo, siteName);
     },
+    //主题
+    getTheme() {
+      const theme = localStorage.getItem("theme")
+      const instance = getCurrentInstance();
+      let current
+      if (!theme) {
+        current = 0
+      } else {
+        let index = bgArr.findIndex(i => i === theme)
+        current = (++index % bgArr.length)
+        if (bgArr[current] === 'rainy')
+          instance.rainy = true
+        else instance.theme = bgArr[current]
+      }
+      instance.theme = bgArr[current]
+      instance.changeDescriptionStyle();
+      localStorage.setItem('theme', bgArr[current])
+    },
+    //获取随机标题
     async getDescription() {
       const instance = getCurrentInstance();
       const url = "https://v1.hitokoto.cn/?encode=json";
@@ -161,13 +124,14 @@ export default defineComponent({
     async changeDescriptionStyle() {
       const instance = getCurrentInstance();
       nextTick(async () => {
-        const palette = await Vibrant.from(instance.bgImageUrl).getPalette();
+        console.log(instance)
+        const palette = await Vibrant.from(instance.imgUrl).getPalette();
         instance.descriptionStyle.color = palette.DarkVibrant.hex;
       });
     },
     //显示版本
     showVision() {
-      const { version ,name} = json;
+      const { version, name } = json;
       console.log(
         `%c ${name} %c v`
           .concat(version, " "),

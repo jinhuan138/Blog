@@ -171,20 +171,20 @@
 
   <img src="./../../.vuepress/public/img/lifecycle.png" alt="lifecycle" style="zoom:50%;" />
 
-- > 1.  `beforeCreate()`在初始化 / 实例创建 之前执行的函数
-  > 2.  `Created()`在初始化 / 实例创建 之后执行的函数
-  > 3.  `beforeMount( )`在组件内容被渲染到页面之前自动执行的函数
+- > 1.  `beforeCreate`在初始化 / 实例创建 之前执行的函数
+  > 2.  `Created`在初始化 / 实例创建 之后执行的函数,可以访问methods， data， computed等上的方法和数据
+  > 3.  `beforeMount`在组件内容被渲染到页面之前自动执行的函数
   >
-  > （注意：此时无法找到任何模板 DOM 节点）
+  > （注意：可获取到`vm.el`，但并未挂载）
   >
-  > 4.  `Mounted( )`在组件内容被渲染到页面之后自动执行的函数
-  > 5.  `beforeUpdate( )`在数据将要变化之前自动执行的函数
-  > 6.  `updated( )`在数据发生变化之后自动执行的函数
-  > 7.  `beforeUnmount( )`在` VUE `实例销毁之前自动执行的函数
-  > 8.  `unmounted( )`在` VUE` 实例销毁之后自动执行的函数
+  > 4.  `Mounted`在组件内容被渲染到页面之后自动执行的函数
+  > 5.  `beforeUpdate`在数据将要变化之前自动执行的函数
+  > 6.  `updated`在数据发生变化之后自动执行的函数
+  > 7.  `beforeUnmount`在` VUE `实例销毁之前自动执行的函数
+  > 8.  `unmounted`在` VUE` 实例销毁之后自动执行的函数
+  > 9.  `errorCaptured` 捕获一个来自子孙组件的错误时被调用
 
 ::: warning
-This is a warning 注意
 不要在选项 property 或回调上使用[箭头函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)，比如 `created: () => console.log(this.a)` 或 `vm.$watch('a', newValue => this.myMethod())`。因为箭头函数并没有 `this`，`this`会作为变量一直向上级词法作用域查找，直至找到为止，经常导致 `Uncaught TypeError: Cannot read property of undefined` 或 `Uncaught TypeError: this.myMethod is not a function` 之类的错误。
 :::
 
@@ -218,6 +218,22 @@ This is a warning 注意
     }
   },
   ```
+  
+- 父子组件生命周期执行顺序
+
+  **初始化：**
+  
+  <img src="./../../.vuepress/public/img/life.webp" alt="life" />
+
+  原理：子组件作为父组件的DOM子节点，父组件实例化完成后要挂载这个父组件，调用父组件的render方法方向有子组件，则去 创建渲染子组件并缓存（因为可能有多层），子组件都完成完成父组件的挂载 子组件挂载完成后，父组件还未挂载
+
+  **更新** 同理：先完成子组件的更新，再完成父组件
+
+  父beforeUpdate -> 子beforeUpdate -> 子updated -> 父updated
+
+  **销毁**
+
+  父beforeDestroy -> 子beforeDestroy -> 子destroyed -> 父destroyed
 
 ---
 
@@ -509,10 +525,17 @@ This is a warning 注意
 
   1. 事件修饰符：`@click.prevent`（阻止默认行为）
   2. 模板中绑定事件：`<Son @click=‘handleClick’> \</Son>`
-  3. `$event`传递原生事件：`hanclick(num,$event)`
+  3. `$event`传递原生事件：`hanclick(num,$event)`，不传参数，第一个参数为e
+  
+- ##### 修饰符
+
+  `表单`：lazy，trim，number
+
+  `事件`：stop(冒泡)，prevent(阻止默认)，capture(捕获，使事件触发从包含这个元素的顶层开始往下触发)，once(只触发一次)，self(只当在 event.target 是当前元素自身时触发处理函数),passive(onscroll事件加一个.lazy),native(监听根元素的原生事件)
+
+  `鼠标、键盘`:left、right、middle：鼠标左、右、中键点击,keycode：对应键盘码
 
 ---
-
 
 ## 样式绑定
 
@@ -792,10 +815,12 @@ This is a warning 注意
 
 + diff
 
-
+  <blockquote style="border-left: 4px solid #42b983;">  
       <p>同级比较：Diff算法比较只会在同层级进行, 不会跨层级比较</p>
       <p>patch：对比当前同层的虚拟节点是否为同一种类型的标签，是继续执行patch进行深层比对，不是把节点替换成新虚拟节点</p>
       <p>sameVnode:判断是否为同一类型节点(key值，标签名。。。)</p>
+  </blockquote>
+
 ---
 
 ## 双向绑定
@@ -1694,9 +1719,10 @@ This is a warning 注意
         data() {
             return {
                 msg: "Some people choose to see the ugliness in this world.The disarray.I choose to see the beauty",
+                obj:{name:'dax1'},//同样是响应的
             };
         },
-        provide: function () {
+        provide: function () {//对象或返回一个对象的函数
             this.store = store;
             return {
                 store: this.store,//如果你传入了一个可监听的对象，那么其对象的 property 还是可响应的
@@ -1719,7 +1745,7 @@ This is a warning 注意
 <div>{{this.msg}}</div>
 <script>
   export default {
-    inject: ["msg", "parent"],
+    inject: ["msg", "parent"],//一个字符串数组，或一个对象
     mounted() {
       console.log(this.parent);
     },
@@ -2359,65 +2385,69 @@ Vue.use(a); //use时会执行a中的代码，如果a有install属性，则执行
 //vueRoute.js
 let Vue;
 class VueRoute {
-  constructor(options) {
-    // console.log(options);
-    // this.current = "/";
-    Vue.util.defineReactive(this, "current", "/"); //将current实现响应式
-    console.log(this.current);
-    this.routes = options.routes; //用户定义路由表
-    this.modes = options.mode || "hash";
-    this.init(); //监听路由改变
-    this.push = () => {}; //...
-  }
-  init() {
-    if (this.modes === "hash") {
-      //第一次加载
-      window.addEventListener("load", () => {
-        this.current = location.hash.slice(1);
-      });
-      //地址栏改变时
-      window.addEventListener("hashchange", () => {
-        this.current = location.hash.slice(1);
-      });
-    } else {
-      //处理history
+    constructor(options) {
+        // console.log(options);
+        // this.current = "/";
+        Vue.util.defineReactive(this, "current", "/"); //将current实现响应式
+        console.log(this.current);
+        this.routes = options.routes; //用户定义路由表
+        this.modes = options.mode || "hash";
+        this.init(); //监听路由改变
+        this.push = () => {}; //...
     }
-  }
+    init() {
+        if (this.modes === "hash") {
+            //第一次加载
+            window.addEventListener("load", () => {
+                this.current = location.hash.slice(1);
+            });
+            //地址栏改变时
+            window.addEventListener("hashchange", () => {
+                //通过hashchange监听
+                this.current = location.hash.slice(1);
+            });
+        } else {
+            //处理history
+            //利用了 HTML5 History Interface 中新增的 pushState() 和 replaceState() 方法结合window.popstate事件（监听浏览器前进后退）。
+            window.addEventListener('popstate',()=>{
+            })
+        }
+    }
 }
 VueRoute.install = (_vue) => {
-  Vue = _vue; //保存Vue
-  //创建全局组件
-  Vue.component("router-link", {
-    props: {
-      to: {
-        //使用组件需要传href
-        type: String,
-        require: true,
-      },
-    },
-    render(h) {
-      //创建html标签，router-link避免了重复渲
-      return h("a", { attrs: { href: "#" + this.to } }, this.$slots.default);
-    },
-  });
-  Vue.component("router-view", {
-    render(h) {
-      //变量为响应式的才执行
-      const { current, routes } = this.$router;
-      const com = routes.find((item) => item.path == current);
-      //console.log("com", com);
-      return h(com.component);
-    },
-  });
-  //全局混入,给vue原型添加router属性
-  Vue.mixin({
-    beforeCreate() {
-      if (this.$options.router) {
-        //根实例
-        Vue.prototype.$router = this.$options.router; //给vue原型添加$router属性
-      }
-    },
-  });
+    Vue = _vue; //保存Vue
+    //创建全局组件
+    Vue.component("router-link", {
+        props: {
+            to: {
+                //使用组件需要传href
+                type: String,
+                require: true,
+            },
+        },
+        render(h) {
+            //创建html标签，router-link避免了重复渲
+            return h("a", { attrs: { href: "#" + this.to } }, this.$slots.default);
+        },
+    });
+    Vue.component("router-view", {
+        render(h) {
+            //变量为响应式的才执行
+            const { current, routes } = this.$router;
+            const com = routes.find((item) => item.path == current);
+            //console.log("com", com);
+            return h(com.component);
+        },
+    });
+    //全局混入,给vue原型添加router属性
+    Vue.mixin({
+        beforeCreate() {
+            if (this.$options.router) {
+                //根实例
+                Vue.prototype.$router = this.$options.router; //给vue原型添加$router属性
+            }
+        },
+    });
 };
 export default VueRoute;
 ```
@@ -2627,96 +2657,6 @@ export default VueRoute;
 
 ---
 
-## [pinia](https://pinia.vuejs.org/)
-
-+ 安装
-
-  ```ts
-  import { createPinia } from 'pinia'
-  import piniaPluginPersist from 'pinia-plugin-persist'
-  const pinia = createPinia()
-  pinia.use(piniaPluginPersist)//使用数据缓存
-  import App from './App.vue'
-  const app = createApp(App)
-  app.use(pinia)
-  ```
-
-+ 定义容器&&数据持久化
-
-  ```ts
-  //定义导出容器
-  //store/index.ts
-  import { defineStore } from 'pinia'
-  export const useMainStore = defineStore('main', {//容器id必须唯一，pinia会把容器挂载到根容器
-      state: () => {//类似data1.必须是函数：避免服务端渲染数据污染2.必须是箭头函数：更好的TS类型推导
-          return { count: 0, name: '星野梦美',arr:[1,2,3] }
-      },
-      getters: {//有缓存功能
-          count10(state) {//使用state有类型推导
-              return state.count + 10
-          },
-          //count10(): number {
-          //  return this.count + 10
-          //}
-      },
-      actions: {//类似methods，不能使用箭头函数，this指向变了
-          increment() {
-              this.count++
-          },
-      },
-      // 开启数据缓存
-      persist: {
-          enabled: true,
-          strategies: [
-              {
-                  key:'my_user',//默认容器id作为key
-                  storage: localStorage,//默认sessionStorage
-                  paths: ['count', 'name']//缓存字段
-              }
-          ]
-      }
-  })
-  ```
-
-+ 使用
-
-  ```vue
-  <template>
-  <p>{{ count }}</p>
-  <p>{{ name }}</p>
-  <p>{{ arr }}</p>
-  <el-button @click="add"> add</el-button>
-  </template>
-  <script lang='ts' setup>
-      import { useMainStore } from "./store/index";
-      const mainStore = useMainStore();
-      const { count, name, arr } = storeToRefs(mainStore); //直接解构数据不是响应式的
-      function add() {
-          //方式一：直接修改数据
-          // mainStore.count++;
-  
-          //方式二：修改多个数据
-          // mainStore.$patch({//修改多个数据建议使用$patch性能优化
-          //   count: mainStore.count+1,
-          //   name: "凉宫春日",
-          //   arr:[...mainStore.arr,mainStore.arr.length+1]
-          // });
-  
-          //方式三
-          // mainStore.$patch(state => {
-          //   state.count++;
-          //   state.name = "凉宫春日";
-          //   state.arr.push(arr.value.length+1);
-          // });
-  
-          //方式四:封装action
-          mainStore.increment()
-      }
-  </script>
-  ```
-
----
-
 ## iframe
 
 ```vue
@@ -2866,6 +2806,7 @@ module.exports = {
 8. [最全 Vue 前端代码风格指南](https://mp.weixin.qq.com/s/sWZn41_Fs-zD9OLQGzZ3Sg)
 9. [Vue技术内幕](http://caibaojian.com/vue-design/)
 10. https://juejin.cn/post/6984210440276410399#heading-56
+11. https://juejin.cn/post/7088305435370848263
 
 ---
 

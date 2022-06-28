@@ -149,6 +149,7 @@
                   name: "Vue.js设计与实现",
                   img: "https://img3.jarhu.com/goodimg/202202/151/di1644900399702.jpg",
               });
+              //直接解构并不是响应式的
               let { author, name, img } = toRefs(book); //toRefs保持响应式
               const render = h("input", {
                   value: name.value,
@@ -166,48 +167,48 @@
       };
   </script>
   ```
+  
+- 响应式原理
 
-  :::
-
-## 响应式原理
-
-+ [Proxy](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)配合[Reflect](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect)(静态方法)实现响应式。
-
-  ```js
-  var obj = {
-      //目标对象
-      name: "刘备",
-      wife: {
-          name: "孙尚香",
-          age: 18,
-      },
-  };
-  const proxyObj = new Proxy(obj, {
-      //代理对象
-      get(target, value) {
-          //获取属性值
-          console.log(value + "的get调用");
-          return Reflect.get(target, value); //反射对象反射目标对象属性
-      },
-      set(target, prop, value) {
-          //添加/修改属性值
-          console.log(value + "的set调用");
-          return Reflect.set(target, prop, value);
-      },
-      deleteProperty(target, prop) {
-          //删除属性值
-          console.log(prop + "的deleteProperty调用");
-          return Reflect.set(target, prop);
-      },
-  });
-  console.log(proxyObj.name); //通过代理对象获取目标对象属性值
-  proxyObj.name = "孙策"; //通过代理对象更改目标对象属性值
-  proxyObj.sex = "男"; //通过代理对象添加属性
-  delete proxyObj.name; //通过代理对象删除属性
-  proxyObj.wife.name = "大乔";
-  console.log(obj);
+  ```
+  + [Proxy](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)配合[Reflect](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect)(静态方法)实现响应式。
+  
+    ```js
+    var obj = {
+        //目标对象
+        name: "刘备",
+        wife: {
+            name: "孙尚香",
+            age: 18,
+        },
+    };
+    const proxyObj = new Proxy(obj, {
+        //代理对象
+        get(target, value) {
+            //获取属性值
+            console.log(value + "的get调用");
+            return Reflect.get(target, value); //反射对象反射目标对象属性
+        },
+        set(target, prop, value) {
+            //添加/修改属性值
+            console.log(value + "的set调用");
+            return Reflect.set(target, prop, value);
+        },
+        deleteProperty(target, prop) {
+            //删除属性值
+            console.log(prop + "的deleteProperty调用");
+            return Reflect.set(target, prop);
+        },
+    });
+    console.log(proxyObj.name); //通过代理对象获取目标对象属性值
+    proxyObj.name = "孙策"; //通过代理对象更改目标对象属性值
+    proxyObj.sex = "男"; //通过代理对象添加属性
+    delete proxyObj.name; //通过代理对象删除属性
+    proxyObj.wife.name = "大乔";
+    console.log(obj);
   ```
 
+  
 ---
 
 ## 生命周期钩子
@@ -287,3 +288,95 @@
   ```
 
   :::
+
+  
+
+  ---
+  ## [pinia](https://pinia.vuejs.org/)
+
++ 安装
+
+  ```ts
+  import { createPinia } from 'pinia'
+  import piniaPluginPersist from 'pinia-plugin-persist'
+  const pinia = createPinia()
+  pinia.use(piniaPluginPersist)//使用数据缓存
+  import App from './App.vue'
+  const app = createApp(App)
+  app.use(pinia)
+  ```
+
++ 定义容器&&数据持久化
+
+  ```ts
+  //定义导出容器
+  //store/index.ts
+  import { defineStore } from 'pinia'
+  export const useMainStore = defineStore('main', {//容器id必须唯一，pinia会把容器挂载到根容器
+      state: () => {//类似data1.必须是函数：避免服务端渲染数据污染2.必须是箭头函数：更好的TS类型推导
+          return { count: 0, name: '星野梦美',arr:[1,2,3] }
+      },
+      getters: {//有缓存功能
+          count10(state) {//使用state有类型推导
+              return state.count + 10
+          },
+          //count10(): number {
+          //  return this.count + 10
+          //}
+      },
+      actions: {//类似methods，不能使用箭头函数，this指向变了
+          increment() {
+              this.count++
+          },
+      },
+      // 开启数据缓存
+      persist: {
+          enabled: true,
+          strategies: [
+              {
+                  key:'my_user',//默认容器id作为key
+                  storage: localStorage,//默认sessionStorage
+                  paths: ['count', 'name']//缓存字段
+              }
+          ]
+      }
+  })
+  ```
+
++ 使用
+
+  ```vue
+  <template>
+  <p>{{ count }}</p>
+  <p>{{ name }}</p>
+  <p>{{ arr }}</p>
+  <el-button @click="add"> add</el-button>
+  </template>
+  <script lang='ts' setup>
+      import { useMainStore } from "./store/index";
+      const mainStore = useMainStore();
+      const { count, name, arr } = storeToRefs(mainStore); //直接解构数据(getters)不是响应式的
+      function add() {
+          //方式一：直接修改数据
+          // mainStore.count++;
+  
+          //方式二：修改多个数据
+          // mainStore.$patch({//修改多个数据建议使用$patch性能优化
+          //   count: mainStore.count+1,
+          //   name: "凉宫春日",
+          //   arr:[...mainStore.arr,mainStore.arr.length+1]
+          // });
+  
+          //方式三
+          // mainStore.$patch(state => {
+          //   state.count++;
+          //   state.name = "凉宫春日";
+          //   state.arr.push(arr.value.length+1);
+          // });
+  
+          //方式四:封装action
+          mainStore.increment()
+      }
+  </script>
+  ```
+  ---
