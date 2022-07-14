@@ -22,9 +22,8 @@ import {
   onMounted,
   onBeforeMount,
   ref,
-  getCurrentInstance,
   nextTick,
-} from "vue-demi";
+} from "vue";
 import Vibrant from "node-vibrant";
 import { ModuleTransition, RecoIcon } from "@vuepress-reco/core/lib/components";
 import { useInstance } from "@theme/helpers/composable";
@@ -38,7 +37,7 @@ export default defineComponent({
     const instance = useInstance();
     let description = ref("");
     let descriptionStyle = reactive({ color: "#6d6d6d" });
-    let rainy = ref(false)
+    let rainy = ref(true)
     const theme = ref('8.svg')
     const imgUrl = computed(() => {
       return instance.$withBase('/bgImage/' + theme.value)
@@ -56,13 +55,13 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      const instance = getCurrentInstance();
+      const instance = useInstance();
       // await instance.getTheme();
       instance.addLogo();
       instance.showVision();
     });
     onBeforeMount(() => {
-      const instance = getCurrentInstance();
+      const instance = useInstance();
       instance.getDescription();
     });
     return {
@@ -81,7 +80,7 @@ export default defineComponent({
     //添加logo
     addLogo() {
       const navLogo = document.querySelector(".navbar .logo");
-      const { base } = getCurrentInstance().$site;
+      const { base } = useInstance().$site;
       if (navLogo) return;
       const logoArr = ["1.jpg", "2.jpg", "3.png", "4.jpg"];
       const index = Math.round(Math.random() * 10) % logoArr.length;
@@ -96,7 +95,7 @@ export default defineComponent({
     //主题
     getTheme() {
       const theme = localStorage.getItem("theme")
-      const instance = getCurrentInstance();
+      const instance = useInstance();
       let current
       if (!theme) {
         current = 0
@@ -113,7 +112,7 @@ export default defineComponent({
     },
     //获取随机标题
     async getDescription() {
-      const instance = getCurrentInstance();
+      const instance = useInstance();
       const url = "https://v1.hitokoto.cn/?encode=json";
       const res = await instance.$http.get(url);
       if (res.status !== 200) return;
@@ -122,7 +121,7 @@ export default defineComponent({
     },
     //标题颜色
     async changeDescriptionStyle() {
-      const instance = getCurrentInstance();
+      const instance = useInstance();
       nextTick(async () => {
         console.log(instance)
         const palette = await Vibrant.from(instance.imgUrl).getPalette();

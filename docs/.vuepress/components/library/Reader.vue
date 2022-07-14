@@ -119,10 +119,10 @@ export default {
     },
     click() {
       console.log("click");
-      this.epubOptions = {
-        flow: "scrolled",
-        manager: "continuous",
-      };
+      // this.epubOptions = {
+      //   flow: "scrolled",
+      //   manager: "continuous",
+      // };
       this.$forceUpdate();
     },
   },

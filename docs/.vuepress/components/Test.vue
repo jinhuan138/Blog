@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import { ref, onMounted } from 'vue-demi'
+  import { ref, onMounted } from 'vue'
 
   export default {
     setup() {

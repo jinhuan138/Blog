@@ -9,6 +9,6 @@ module.exports = [
     //     text: 'Me', link: '/Me/'
     // },
     {
-        text: 'Library', link: '/library/', icon: 'fa-books'
+        text: 'Library', link: '/library/', icon: 'fa-solid fa-book'
     }
 ]

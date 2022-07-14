@@ -10,8 +10,11 @@
 
   ```vue
   <div class="hello">{{ msg }}</div>
+  <el-button @click="log('props')">props</el-button>
+  <el-button @click="log('context')">context</el-button>
+  <el-button @click="log('context')">instance</el-button>
   <script>
-      import { defineComponent ,toRefs,getCurrentInstance} from 'vue-demi'
+      import { defineComponent ,toRefs,getCurrentInstance} from 'vue'
       export default defineComponent({
           props: {
               title: {
@@ -29,7 +32,10 @@
               const { title } = toRefs(props)//使用toRefs解构保持响应性
               //没有this,可以通过getCurrentInstance获取实例
               const instance= getCurrentInstance()//VueComponent
-              return { msg };
+              const log=(type)=>{
+                  console.log(eval(type))
+              }
+              return { msg,log };
           },
       })
   </script>
@@ -45,13 +51,13 @@
       {{user}}
   </div>
   <script lang="ts" setup>
-      import { ref,useSlots, defineProps, useAttrs } from "vue-demi";  
+      import { ref,useSlots, defineProps, useAttrs } from "vue";  
       //defineEmit,defineProps,defineExpose定义属性、事件...,useContext弃用
       const user = ref("小明");//不需要return
-      function change(e: any) {
+      function change(e: Event) {
           user = e.target.value;
       }
-      const solt:any =useSlots()//获取插槽
+      const solt:Object =useSlots()//获取插槽
       console.log(solt.default())
       console.log(useAttrs())//获取属性与事件
   </script>
@@ -66,12 +72,12 @@
   ```vue
   <div>
       {{ count }}
-      <button @click="count++">加1</button>
+      <el-button @click="count++">加1</el-button>
       <!-- 模板中不需使用.value写法 -->
-      <button @click="add">加1</button>
+      <el-button @click="add">加1</el-button>
   </div>
   <script>
-      import { ref } from "vue-demi";
+      import { ref } from "vue";
       export default {
           name: "hello",
           setup() {
@@ -99,15 +105,15 @@
   <div>
       {{ `${user.name} is ${user.age}` }}
       <p>性别：{{ user.sex }}</p>
-  <button @click="update">更新数据</button>
+  <el-button @click="update">更新数据</el-button>
   </div>
   <script>
-      import { ref, reactive } from "vue-demi";
+      import { ref, reactive } from "vue";
       export default {
           name: "hello",
           setup() {
               const obj= {
-                  name: "小甜甜",
+                  name: "Tom",
                   age: 18,
               };
               let user = reactive(obj);//使用Proxy来实现响应式（数据劫持）, 并通过Reflect操作源对象内部的数据。
@@ -123,9 +129,24 @@
       }
   </script>
   ```
-  
+  :::
 
-​       :::
++ toRef
+
+  ```vue
+  <template>
+    {{ refCount }}
+  </template>
+  
+  <script setup lang="ts">
+  import { reactive, toRef } from "vue";
+  const state = reactive({
+    count: 1,
+  })
+  const refCount = toRef(state, 'count')//转换单个属性
+  refCount.value++
+  </script>
+  ```
 
 - toRefs
 
@@ -141,7 +162,7 @@
   <div id="ipt"></div>
   </template>
   <script>
-      import { toRefs, reactive, h, createApp, nextTick, onMounted } from "vue-demi";
+      import { toRefs, reactive, h, nextTick, onMounted } from "vue";
       export default {
           setup() {
               const book = reactive({
@@ -157,58 +178,68 @@
                       name.value = e.target.value;
                   },
               });
-              nextTick(() => {
-                  createApp({
-                      render: () => render,
-                  }).mount("#ipt");
-              });
               return { author, name, img };
           },
       };
   </script>
   ```
+  :::
+- readonly
+
+  ```vue
+  <script setup lang="ts">
+      import { ref, readonly } from "vue";
   
+      const state = readonly<{
+          msg: string
+      }>({ msg: '123' })
+      state.msg='12122'//接受一个对象 (不论是响应式还是一般的) 或是一个 ref，只读属性无法修改
+  </script>
+  ```
+
 - 响应式原理
 
+  ```js
+  var obj = {
+      //目标对象
+      name: "刘备",
+      wife: {
+          name: "孙尚香",
+          age: 18,
+      },
+  };
+  const proxyObj = new Proxy(obj, {
+      //代理对象
+      get(target, value) {
+          //获取属性值
+          console.log(value + "的get调用");
+          return Reflect.get(target, value); //反射对象反射目标对象属性
+      },
+      set(target, prop, value) {
+          //添加/修改属性值
+          console.log(value + "的set调用");
+          return Reflect.set(target, prop, value);
+      },
+      deleteProperty(target, prop) {
+          //删除属性值
+          console.log(prop + "的deleteProperty调用");
+          return Reflect.set(target, prop);
+      },
+  });
+  console.log(proxyObj.name); //通过代理对象获取目标对象属性值
+  proxyObj.name = "孙策"; //通过代理对象更改目标对象属性值
+  proxyObj.sex = "男"; //通过代理对象添加属性
+  delete proxyObj.name; //通过代理对象删除属性
+  proxyObj.wife.name = "大乔";
+  console.log(obj);
   ```
-  + [Proxy](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)配合[Reflect](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect)(静态方法)实现响应式。
   
-    ```js
-    var obj = {
-        //目标对象
-        name: "刘备",
-        wife: {
-            name: "孙尚香",
-            age: 18,
-        },
-    };
-    const proxyObj = new Proxy(obj, {
-        //代理对象
-        get(target, value) {
-            //获取属性值
-            console.log(value + "的get调用");
-            return Reflect.get(target, value); //反射对象反射目标对象属性
-        },
-        set(target, prop, value) {
-            //添加/修改属性值
-            console.log(value + "的set调用");
-            return Reflect.set(target, prop, value);
-        },
-        deleteProperty(target, prop) {
-            //删除属性值
-            console.log(prop + "的deleteProperty调用");
-            return Reflect.set(target, prop);
-        },
-    });
-    console.log(proxyObj.name); //通过代理对象获取目标对象属性值
-    proxyObj.name = "孙策"; //通过代理对象更改目标对象属性值
-    proxyObj.sex = "男"; //通过代理对象添加属性
-    delete proxyObj.name; //通过代理对象删除属性
-    proxyObj.wife.name = "大乔";
-    console.log(obj);
-  ```
+## 进阶
+
++ customRef()
 
   
+
 ---
 
 ## 生命周期钩子
@@ -219,7 +250,7 @@
 
   ```vue
   <script>
-  import { defineComponent,onMounted } from 'vue-demi'
+  import { defineComponent,onMounted } from 'vue'
   
   export default defineComponent({
     setup() {
@@ -235,7 +266,7 @@
 
 ---
 
-## 独立的计算属性
+## 计算属性
 
 + 从 Vue 导入的 `computed` 函数
 
@@ -243,7 +274,7 @@
 
   ```vue
   <script>
-  import { ref, computed ,defineComponent} from 'vue-demi'
+  import { ref, computed ,defineComponent} from 'vue'
   
   export default defineComponent({
     setup() {
@@ -257,8 +288,191 @@
   ```
 
   :::
+  
++ 可写的计算属性
 
 ---
+
+## 侦听器
+
++ watch
+
+  ```vue
+  <script setup lang="ts">
+      import { ref, watch, watchEffect } from 'vue'
+      const count = ref(0)
+      //依赖源，回调，配置
+      const unwatch = watch(count, (n, o) => {
+          console.log(n)
+      },{
+          deep: false,//深层侦听器
+          immediate: true,
+          flush: 'post'//Vue 更新之后的DOM
+      })
+  </script>
+  ```
+
++ watchEffect
+
+  ```vue
+  <script setup lang="ts">
+  import { ref, watch, watchEffect } from 'vue'
+  const age = ref(18)
+  const name = ref('zs')
+  age.value++
+  const unwatch = watchEffect(() => {
+    console.log(age.value, name.value)//立即执行，不需要指定状态,追踪多个依赖
+  })
+  </script>
+  ```
+
+
+
+---
+
+## 组件传值
+
++ prop/emit
+
+  ```vue
+  <template>
+  <!-- 父组件 -->
+  <Son :msg='msg' @change='change' />
+  </template>
+  
+  <script setup lang="ts">
+      import { ref } from 'vue'
+      import Son from './components/Son.vue'
+      const msg = ref('msg')
+      const change = (param: string) => {
+          console.log(param)
+      }
+  </script>
+  ```
+
+  ```vue
+  <script setup lang="ts">
+      //子组件
+      import { defineProps, defineEmits, toRefs } from 'vue'
+      const props = defineProps(['msg'])
+      const { msg } = toRefs(props)
+      console.log(msg.value)
+      const emits = defineEmits(['change'])
+      emits('change', 'son message')
+  </script>
+  ```
+
++ provide/inject
+
+  ```vue
+  <script setup lang="ts">
+      //祖先组件
+      import { ref, provide } from 'vue'
+      import Son from './components/Son.vue'
+      const name = ref('name')
+      const age = ref(18)
+      provide('info', {
+          name,age
+      })
+  </script>
+  ```
+
+  ```vue
+  <script setup lang="ts">
+      //后代组件
+      import { inject } from 'vue'
+      const info = inject('info')
+      console.log(info)
+  </script>
+  ```
+
++ attrs/listeners
+
+  ```vue
+  <template>
+  <!-- 父组件 -->
+  <Son @fun='fun' :msg='msg' />
+  </template>
+  
+  <script setup lang="ts">
+      import Son from './components/Son.vue'
+      import { ref, provide } from 'vue'
+      const msg = ref('message')
+      const fun = () => {
+          console.log('fun')
+      }
+  </script>
+  ```
+
+  ```vue
+  <script setup lang="ts">
+      //子组件
+      import { useAttrs } from 'vue'
+      const attrs: any = useAttrs()//获取传来的属性和v-on事件监听器
+      console.log(attrs)//Proxy {onFun: ƒ, msg: "message"}
+      const { onFun, msg } = attrs//自定义事件有on前缀
+      onFun()
+  </script>
+  ```
+
++ solt
+
+  ```vue
+  <template>
+  <!--子组件传递数据-->  
+  <slot name="son" msg="son data">default</slot>
+  </template>
+  ```
+
+  ```vue
+  <template>
+  <!--父组件使用一个变量接收-->  
+  <Son v-slot:son="data">
+      {{ data.msg }}
+      </Son>
+  </template>
+  
+  <script setup lang='ts'>
+      import Son from './components/Son.vue'
+  </script>
+  ```
+
++ expose/ref
+
+  ```vue
+  <script lang="ts" setup>
+      //子组件使用defineExpose暴露属性
+      import { ref,defineExpose } from 'vue'
+      const a = ref(1)
+      const b = ref(2)
+      defineExpose({
+          a,
+          b
+      })
+  </script>
+  ```
+
+  ```vue
+  <template>
+    <Son ref="son" />
+  </template>
+  
+  <script setup lang='ts'>
+  import Son from './components/Son.vue'
+  import { nextTick } from 'vue';
+  
+  const son = ref(null)
+  nextTick(() => {
+    console.log(son.value)
+  })
+  </script>
+  ```
+
++ EventBus/mitt
+
+## 渲染函数 & JSX
+
++ 函数式组件
 
 ## 模板引用
 
@@ -268,31 +482,30 @@
 
   ```vue
   <template> 
-    <div ref="demo">demo</div>
+  <el-button @click='getEl'>ref</el-button>
+  <div ref="demo">demo</div>
   </template>
   
-  <script>
-    import { ref, onMounted } from 'vue-demi'
-  
-    export default {
-      setup() {
-        const demo = ref(null)
-  
-        onMounted(() => {
-          // DOM 元素将在初始渲染后分配给 ref
-          //console.log(demo.value) // <div>demo</div>
-        })
+  <script setup>
+      import { ref } from 'vue-demi'
+      export default {
+          setup(){
+              const demo = ref(null)
+              const getEl = ()=>{
+                  // DOM 元素将在初始渲染后分配给 ref
+                  console.log(demo.value) // <div>demo</div>
+              } 
+              return{ getEl ,demo }
+          }
       }
-    }
   </script>
   ```
-
   :::
 
-  
-
   ---
-  ## [pinia](https://pinia.vuejs.org/)
+## 指令
+
+## [pinia](https://pinia.vuejs.org/)
 
 + 安装
 
@@ -380,3 +593,7 @@
   </script>
   ```
   ---
+
+## 工具
+
++ vue-global-api
