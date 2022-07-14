@@ -1,5 +1,5 @@
 <template>
-  <el-main :class="'main-phone' + agent">
+  <el-main :class="'main' + agent">
     <div class="grid" ref="grid">
       <div v-for="(book, index) in bookList" :key="index">
         <el-popover>
@@ -42,8 +42,20 @@ import books from "../../public/books/books.json";
 export default {
   name: 'Library',
   data() {
-    this.bookList = books
     return {
+      bookList: [
+        {
+          url: 'http://ts.xcatliu.com/basics/type-inference.html',
+          title: 'TypeScript 入门教程'
+        }, {
+          url: 'https://webpack.wuhaolin.cn/',
+          title: '深入浅出 Webpack'
+        },
+        {
+          url: 'https://es6.ruanyifeng.com/',
+          title: 'ECMAScript 6 入门教程'
+        }
+      ],
       maxColWidth: 280,
       gap: 32,
       agent: "",//default pc
@@ -65,6 +77,7 @@ export default {
     },
   },
   beforeMount() {
+    this.bookList = books
     const sUserAgent = navigator.userAgent.toLowerCase();
     if (
       /ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(
@@ -168,6 +181,13 @@ export default {
       });
       return max;
     },
+    getMin(cols) {
+      let min = cols[0];
+      cols.forEach(col => {
+        if (col.height < min.height) min = col;
+      });
+      return min;
+    },
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.resize);
@@ -178,14 +198,15 @@ export default {
 <style scopped>
 .main {
   margin-top: 40px;
+  height: 100%;
 }
 
 .main-phone {
   font-size: 12px;
+  height: 100%;
 }
 
 .grid {
-  margin: 40px;
   height: 100%;
 }
 

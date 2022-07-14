@@ -76,7 +76,6 @@ class FocusManagerCode {
     mousedownEvent(e) {
         const el = e.target.closest(`[data-focus-type]`)
         if (!el) return //没点击到焦点元素
-        
         e.stopPropagation()
         e.preventDefault()
         //参考http://cubicspot.blogspot.com/2020/05/when-to-actually-use-preventdefault.html

@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vuepress dev docs NODE_ENV=development",
     "build": "vuepress build docs",
+    "deploy": "sh ./build/deploy.sh",
     "book": "node ./build/book"
   },
   "repository": {
@@ -31,13 +32,12 @@
     "@vue/composition-api": "^1.0.0-beta.21",
     "@vuepress-reco/vuepress-plugin-extract-code": "^1.0.4",
     "@vuepress-reco/vuepress-plugin-kan-ban-niang": "^1.0.5",
+    "NeteaseCloudMusicApi": "^4.5.11",
     "async-validator": "^4.1.1",
     "axios": "^0.26.1",
     "core-js": "^2.6.12",
     "element-ui": "^2.15.9",
     "epub": "^1.2.1",
-    "html-webpack-plugin": "^4.5.0",
-    "NeteaseCloudMusicApi": "^4.5.11",
     "node-vibrant": "^3.1.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -46,13 +46,12 @@
     "sass-loader": "^7.3.1",
     "sharp": "^0.30.6",
     "vee-validate": "^3.4.14",
-    "vue-demi": "^0.5.3",
+    "vue": "^2.7.5",
     "vue-meta": "^2.4.0",
     "vue-skycons": "^4.2.0",
     "vuepress-plugin-boxx": "0.0.7",
     "vuepress-plugin-demo-container-v2": "^2.3.4",
-    "vuepress-theme-reco": "^1.6.11",
-    "vuera": "^0.2.7",
-    "webpack-bundle-analyzer": "^4.5.0"
+    "vuepress-theme-reco": "^1.6.14",
+    "vuera": "^0.2.7"
   }
 }

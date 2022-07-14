@@ -223,7 +223,7 @@
 
   **初始化：**
   
-  <img src="./../../.vuepress/public/img/life.webp" alt="life" />
+  <img src="./../../.vuepress/public/img/life.png" alt="life" />
 
   原理：子组件作为父组件的DOM子节点，父组件实例化完成后要挂载这个父组件，调用父组件的render方法方向有子组件，则去 创建渲染子组件并缓存（因为可能有多层），子组件都完成完成父组件的挂载 子组件挂载完成后，父组件还未挂载
 
@@ -525,7 +525,7 @@
 
   1. 事件修饰符：`@click.prevent`（阻止默认行为）
   2. 模板中绑定事件：`<Son @click=‘handleClick’> \</Son>`
-  3. `$event`传递原生事件：`hanclick(num,$event)`，不传参数，第一个参数为e
+  3. `$event`传递原生事件：`hanclick(count,$event)`，不传参数，第一个参数为e
   
 - ##### 修饰符
 
@@ -683,7 +683,7 @@
    ::: demo
 
    ```vue
-   <button :style="list[types]" @click="change" ref="btn">点击变色</button>
+   <el-button :style="list[types]" @click="change" ref="btn">点击变色</el-button>
    <script>
        export default {
            data() {
@@ -709,7 +709,7 @@
    ::: demo
 
    ```vue
-   <button
+   <el-button
            :class="{red:types==0,
                    blue:types==1,
                    yellow:types==2}"
@@ -717,7 +717,7 @@
            ref="btn"
            >
        点击变色
-   </button>
+   </el-button>
    <script>
        export default {
            data() {
@@ -885,7 +885,7 @@
   <!--父组件-->
   <div id="app">
     .sync的使用
-    <button v-if="!show" @click="show=true">显示</button>
+    <el-button v-if="!show" @click="show=true">显示</el-button>
     <Son :visible.sync="show" />
     <!--:visible.sync="show"是
   @update:visible="（val）=>{show = val}" 和             
@@ -911,7 +911,7 @@
   <!--子组件-->
   <div v-if="visible">
     对话框
-    <button @click="$emit('update:visible', false);">隐藏</button>
+    <el-button @click="$emit('update:visible', false);">隐藏</el-button>
     <!--触发update:visible事件改变父组件的值-->
   </div>
   <script>
@@ -1089,7 +1089,7 @@
      ```html
      <!--父组件-->
      <div id="app">
-         {{num}}
+         {{count}}
          <!--自定义事件，通过$emit触发-->
          <Son @increment="add" />
      </div>
@@ -1100,13 +1100,13 @@
              components: { Son },
              data() {
                  return {
-                     num: 0,
+                     count: 0,
                  };
              },
              methods: {
                  add(value, sec) {
                      //触发事件时传的值
-                     this.num += value;
+                     this.count += value;
                      console.log(value);
                      console.log(sec);
                  },
@@ -1120,7 +1120,7 @@
      ```vue
      <!--父组件-->
      <div id="app">
-         {{num}}
+         {{count}}
          <Son :change="add" />
          <!--传递了add方法，父组件的方法能改变父组件的数据-->
      </div>
@@ -1131,13 +1131,13 @@
              components: { Son },
              data() {
                  return {
-                     num: 0,
+                     count: 0,
                  };
              },
              methods: {
                  add(value) {
                      //子组件调用时传值
-                     this.num += value;
+                     this.count += value;
                      console.log(value);
                  },
              },
@@ -1344,7 +1344,7 @@
       <keep-alive>
           <component :is="com" />
       </keep-alive>
-      <button @click="change">change</button>
+      <el-button @click="change">change</el-button>
   </div>
   <script>
       const Component1 = {
@@ -1853,7 +1853,7 @@
 
 ---
 
-## directive 自定义指令
+## directive
 
 - 定义方法
 
@@ -2653,6 +2653,34 @@ export default VueRoute;
           }, `count is: ${state.count}`)
       }
   }
+  ```
+  
+  ```vue
+  <template>
+      <div>
+          {{ count }}
+          <el-button @click="add">add</el-button>
+      </div>
+  </template>
+  <script>
+  import Vue from 'vue'
+  const store = Vue.observable({
+      count: 1
+  })
+  export default {
+      name: "test",
+      computed: {
+          count() {//模板中使用用computed
+              return store.count
+          }
+      },
+      methods: {
+          add() {
+              store.count++
+          }
+      }
+  }
+  </script>
   ```
 
 ---

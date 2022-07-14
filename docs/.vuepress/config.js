@@ -1,4 +1,3 @@
-// import { defineConfig } from "vuepress/config";
 module.exports = {
     title: 'Notes',
     base: '/page/',
@@ -14,8 +13,6 @@ module.exports = {
     head: [
         ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],//移动端优化
         ['link', { rel: 'icon', href: '/logo/1.jpg' }],
-        ["link", { rel: "stylesheet", href: "/css/SQPlayer.css" }],
-        ["script", { src: "/js/SQPlayer.js" }]
     ],
     markdown: {
         lineNumbers: true
@@ -87,7 +84,7 @@ module.exports = {
             }
         }],
         ["@vuepress-reco/vuepress-plugin-kan-ban-niang", {//看板娘        
-            theme: ['mikoto','22']
+            theme: ['22','mikoto',]
         }],
         ["vuepress-plugin-boxx"],
         ['@vuepress-reco/extract-code'],

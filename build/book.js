@@ -20,9 +20,10 @@ const parseBook = (name) => {
                     const data = await sharp(img)//转换成webp生成封面
                         .webp({ lossless: true })
                         .toBuffer()
+                    
                     fs.writeFileSync(coverPath, data)
-                    //获取图书封面主题颜色,node-vibrant不支持webp直接使用buffer
-                    const palette = await Vibrant.from(img).getPalette() 
+                    // 获取图书封面主题颜色,node-vibrant不支持webp直接使用buffer
+                    const palette = await Vibrant.from(img).getPalette()
                     booksJson.push({ ...book.metadata, url: name, bgColorFromCover: palette.DarkVibrant.hex })
                 }
             });
@@ -33,6 +34,11 @@ const parseBook = (name) => {
     })
 }
 const saveBookInfo = async () => {
+    //不存在cover文件夹创建
+    fs.stat(join(libraryPath, 'cover'), fs.constants.F_OK, (err) => {
+        if (err)
+            fs.mkdirSync(join(libraryPath, 'cover'))
+    })
     const books = fs.readdirSync(libraryPath)
     const promise = books.map(name => {
         if (name.endsWith('epub'))
