@@ -273,20 +273,16 @@
   ::: demo
 
   ```vue
-  <script>
-  import { ref, computed ,defineComponent} from 'vue'
+  <script setup>
+      import { ref, computed ,defineComponent} from 'vue'
   
-  export default defineComponent({
-    setup() {
       const mun=ref(1)
       const mun1=computed(()=>mun.value*2)
       mun.value++
       //console.log(mun1.value)//4
-    },
-  });
   </script>
   ```
-
+  
   :::
   
 + 可写的计算属性
@@ -487,21 +483,17 @@
   </template>
   
   <script setup>
-      import { ref } from 'vue-demi'
-      export default {
-          setup(){
+      import { ref } from 'vue'
               const demo = ref(null)
               const getEl = ()=>{
                   // DOM 元素将在初始渲染后分配给 ref
                   console.log(demo.value) // <div>demo</div>
               } 
-              return{ getEl ,demo }
-          }
       }
   </script>
   ```
   :::
-
+  
   ---
 ## 指令
 
