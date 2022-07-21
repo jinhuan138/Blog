@@ -1973,34 +1973,6 @@ module.exports = {
 }
 ```
 
-## 测试
-
-+ colors.js
-
-  ```js
-  //改变控制台颜色
-  const colors = require('colors');
-  console.log('hello'.green); // outputs green text
-  console.log('i like cake and pies'.underline.red) // outputs red underlined text
-  console.log('inverse the color'.inverse); // inverses the color
-  console.log('OMG Rainbows!'.rainbow); // rainbow
-  console.log('Run the trap'.trap); // Drops the bass
-  ```
-
-+ faker.js
-
-  ```js
-  const faker = require('faker/locale/zh_CN');
-  const user={
-      name:faker.name.findName(),
-      email:faker.internet.email(),
-      address:faker.address.streetAddress() + faker.address.city() + faker.address.country(),
-      bio: faker.lorem.sentences(),
-      image: faker.image.avatar()
-  }
-  console.log(user);
-  ```
-
 ---
 
 ## 工具
@@ -2068,138 +2040,10 @@ nest：
 
 + [MySQL数据库设计规范](https://www.jianshu.com/p/55d3e45d3b48)
 
----
-
-## git
-
-+ 参考
-
-  1. [git教程廖雪峰](https://www.liaoxuefeng.com/wiki/896043488029600/)
-  2. [git教程菜鸟教程](https://www.runoob.com/git/git-tutorial.html)
-  3. [Git远程操作详解阮一峰](https://www.ruanyifeng.com/blog/2014/06/git_remote.html)
-
-+ ```javascript
-  git clone <版本库的网址> <本地目录名>  //生成一个目录，不输入本地目录名则与远程主机的版本库同名
-  ```
-
-+ ```javascript
-  git init  //创建版本库
-  ```
-
-+ ```javascript
-  git commit -m “message” 
-  ```
-
-+ ```javascript
-  //git remote远程主机
-  git remote  //origin,查看所有主机,主机自动被Git命名为origin
-  git remote -v //origin  git@192.9.200.187:abc-platform/portal-server.git查看远程主机的网址
-  ```
-
-+ ```javascript
-  //git fetch更新版本库
-  git fetch <远程主机名>  //全部取回本地
-  git fetch <远程主机名> <分支名> //git fetch origin master取回origin的master分支
-  ```
-
-+ ```javascript
-  //git branch分支操作
-  git branch -a //查看所有分支，红色为远程分支
-  git branch -r//查看远程分支
-  git branch //查看本地分支，当前分支用*标记
-  git branch dev//创建本地dev分支（仍在原来分支）
-  git branch -d dev//删除dev分支
-  git branch -vv //查看本地分支对应的远程分支
-  ```
-
-+ ```javascript
-  //checkout 操作文件
-  git checkout filename //放弃对单文件修稿
-  git checkout . //放弃当前目录下的修改
-  //checkout 操作分支
-  git checkout master //切换到master
-  git checkout -b master //建并切换到master分支
-  //问题：git切换到别的分支，把修改也带过去了
-  //解决：切换分支前先 git commit 一下
-  ```
-  
-+ ```javascript
-  //回退
-  git log //查看历史记录
-  git reset --hard HEAD //HEAD版本号没必要写全
-  ```
-
-+ ```javascript
-  //git push推送
-  git push <远程主机名> <本地分支名>:<远程分支名>
-  git push origin master:remotes/origin/master//本地master分支推送到origin主机的remotes/origin/master分支
-  ```
-
-+ ```javascript
-  git pull//取回远程主机某个分支的更新，再与本地的指定分支合并
-  git pull <远程主机名> <远程分支名>:<本地分支名>
-  git pull   --allow-unrelated-histories
-  ```
-  
-+ ```typescript
-  //关联
-  git branch  --track maeter  origin/remotes/origin/master
-  //maeter分支关联到origin主机的/remotes/origin/master分支
-  git branch --set-upstream-to=origin/remote_branch  your_branch
-  //本地your_branch分支关联到origin主机的remote_branch分支
-  git branch dev
-  //创建dev分支
-  ```
-  
-+ ```typescript
-  //回退
-  git log
-  git reset
-  ```
-  
-+ ```typescript
-  //解决远程合并冲突
-  //1.拉去远程master分支新建temp分支
-  git fetch origin master:temp
-  //当前分支合并temp分支
-  git merge temp
-  //git add .->git push
-  ```
 
 ---
 
-## git规范
-
-+ ```typescript
-  inport { x } from "xxx" //x前后加空格
-  //最后一个import换行
-  ```
-
-+ ```typescript
-  //提交的合并请求(MR)只能有一个commit
-  //如确实需要多次修改代码，可使用git commit --amend和git rebase -i
-  //http://192.9.200.187:53201/git-guide/#%E4%BF%AE%E6%94%B9%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2
-  git commit --amend --no-edit -m "latest message" //跳过编辑器追加提交
-  documentation
-  ```
-  
-+ ```typescript
-  git rebase --abort//放弃上次合并
-  git rebase -i HEAD~3
-  git rebase -i --root //从第一个提交开始rebase
-  pick改为squash表示合并
-  esc->:wq
-  git rebase -i 21a254a2b7 //删除单个commit
-  git add .
-  git rebase --continue 合并冲突
-  git commit --amend --no-edit -m "optimized refreshToken"
-  git push -f
-  ```
-  
-
----
-
-## hole
+## note
 
 + ```typescript
   //数据库实体位置
@@ -2241,7 +2085,6 @@ nest：
   //Maximum call stack size 与node14不兼容
   //https://stackoverflow.com/questions/59620803/createreadstream-throwing-rangeerror-maximum-call-stack-size-exceeded-when-up/67083012#67083012
   //apollo-server-express@2.x.x的GraphQLUpload版本为@11.0.0
-  //deal
   //1.添加package.json
   "resolutions": {
       "fs-capacitor": "^6.2.0",
@@ -2280,12 +2123,6 @@ nest：
       maxFiles: 2
   }})
   //File truncated as it exceeds the byte size limit.
-  ```
-
-+ ```typescript
-  //快速删除node_modules
-  1.安装 npm install rimraf -g
-  2.rimraf node_modules
   ```
 
 + ```typescript
