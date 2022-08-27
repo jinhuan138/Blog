@@ -1,6 +1,6 @@
 <template>
   <div class="home-blog">
-    <iframe :src="$withBase('/rainy/index.html')" frameborder="0" class="rainy" v-if='rainy'></iframe>
+    <iframe :src="$withBase('/backGround/MC/index.html')" frameborder="0" class="backGround" v-if='rainy'></iframe>
     <div class="hero" :style="{ ...bgImageStyle }" v-else>
       <div>
         <ModuleTransition delay="0.08">
@@ -146,9 +146,10 @@ export default defineComponent({
 .home-blog {
   padding: 0;
   margin: 0px auto;
-  .rainy{
+  .backGround{
     width: 100%;
-    height: 750px;
+    height: 675px;
+    margin-top: 60px;
   }
   .hero {
     margin: $navbarHeight auto 0;

@@ -4,4 +4,4 @@ yarn.lock
 dist/
 .cache
 .temp
-books
+**/books/
