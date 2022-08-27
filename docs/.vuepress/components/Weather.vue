@@ -43,7 +43,6 @@ const ICON_MAPPINGS = {
 };
 const apiOption = {
   appid: "16e915fcec1efefcbcf906c15c8daaf3",
-  city: "Beijing",
   lang: "zh_cn",
   units: "metric",
 };
@@ -94,8 +93,17 @@ export default {
     },
     async getWeather() {
       const base = "https://api.openweathermap.org/data/2.5/weather";
-      const { appid, city, lang, units } = apiOption;
-      const url = `${base}?q=${city}&appid=${appid}&lang=${lang}&units=${units}`;
+      let position ,url
+      const { appid, lang, units } = apiOption;
+      navigator.geolocation.getCurrentPosition(p=> position=p)
+      if( position ){
+        const { latitude , longitude } = position.coords
+        url = `${base}?lat=${latitude}&lon=${longitude}&appid=${appid}&lang=${lang}&units=${units}`;
+      }else{
+        const city= "Beijing"
+        url = `${base}?q=${city}&appid=${appid}&lang=${lang}&units=${units}`;
+      }
+      console.log('url',url)
       const res = await this.$http.get(url);
       if (res.status !== 200) return;
       const { main, weather, wind } = res.data;

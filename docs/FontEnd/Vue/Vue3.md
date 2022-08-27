@@ -14,7 +14,7 @@
   <el-button @click="log('context')">context</el-button>
   <el-button @click="log('context')">instance</el-button>
   <script>
-      import { defineComponent ,toRefs,getCurrentInstance} from 'vue'
+      import { defineComponent ,toRefs, getCurrentInstance } from 'vue'
       export default defineComponent({
           props: {
               title: {
@@ -51,7 +51,7 @@
       {{user}}
   </div>
   <script lang="ts" setup>
-      import { ref,useSlots, defineProps, useAttrs } from "vue";  
+      import { ref, useSlots, defineProps, useAttrs } from "vue";  
       //defineEmit,defineProps,defineExpose定义属性、事件...,useContext弃用
       const user = ref("小明");//不需要return
       function change(e: Event) {
@@ -196,49 +196,11 @@
       state.msg='12122'//接受一个对象 (不论是响应式还是一般的) 或是一个 ref，只读属性无法修改
   </script>
   ```
-
-- 响应式原理
-
-  ```js
-  var obj = {
-      //目标对象
-      name: "刘备",
-      wife: {
-          name: "孙尚香",
-          age: 18,
-      },
-  };
-  const proxyObj = new Proxy(obj, {
-      //代理对象
-      get(target, value) {
-          //获取属性值
-          console.log(value + "的get调用");
-          return Reflect.get(target, value); //反射对象反射目标对象属性
-      },
-      set(target, prop, value) {
-          //添加/修改属性值
-          console.log(value + "的set调用");
-          return Reflect.set(target, prop, value);
-      },
-      deleteProperty(target, prop) {
-          //删除属性值
-          console.log(prop + "的deleteProperty调用");
-          return Reflect.set(target, prop);
-      },
-  });
-  console.log(proxyObj.name); //通过代理对象获取目标对象属性值
-  proxyObj.name = "孙策"; //通过代理对象更改目标对象属性值
-  proxyObj.sex = "男"; //通过代理对象添加属性
-  delete proxyObj.name; //通过代理对象删除属性
-  proxyObj.wife.name = "大乔";
-  console.log(obj);
-  ```
   
 ## 进阶
 
 + customRef()
 
-  
 
 ---
 
@@ -270,21 +232,6 @@
 
 + 从 Vue 导入的 `computed` 函数
 
-  ::: demo
-
-  ```vue
-  <script setup>
-      import { ref, computed ,defineComponent} from 'vue'
-  
-      const mun=ref(1)
-      const mun1=computed(()=>mun.value*2)
-      mun.value++
-      //console.log(mun1.value)//4
-  </script>
-  ```
-  
-  :::
-  
 + 可写的计算属性
 
 ---
@@ -321,8 +268,6 @@
   })
   </script>
   ```
-
-
 
 ---
 
@@ -482,14 +427,16 @@
   <div ref="demo">demo</div>
   </template>
   
-  <script setup>
+  <script>
       import { ref } from 'vue'
-              const demo = ref(null)
-              const getEl = ()=>{
-                  // DOM 元素将在初始渲染后分配给 ref
-                  console.log(demo.value) // <div>demo</div>
-              } 
+      export default{
+          setup(){
+              const demo = ref(null)// DOM 元素将在初始渲染后分配给 ref
+              const getEl = ()=> console.log(demo.value)
+              return { demo, getEl }
+          }
       }
+  
   </script>
   ```
   :::
