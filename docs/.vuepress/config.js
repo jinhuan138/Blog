@@ -12,7 +12,7 @@ module.exports = {
     },
     head: [
         ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],//移动端优化
-        ['link', { rel: 'icon', href: '/logo/1.jpg' }],
+        ['link', { rel: 'icon', href: '/page/logo/1.jpg' }],
     ],
     markdown: {
         lineNumbers: true
@@ -77,10 +77,10 @@ module.exports = {
                 type: 'playlist',
                 mini: true,
                 listFolded: true,
-                lrcType: 3,
+                lrcType: 0,
             },
             mobile: {
-                lrc: true //歌词显示
+                lrc: false //歌词显示
             }
         }],
         ["@vuepress-reco/vuepress-plugin-kan-ban-niang", {//看板娘        
