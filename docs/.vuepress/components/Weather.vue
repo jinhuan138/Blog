@@ -103,7 +103,6 @@ export default {
         const city= "Beijing"
         url = `${base}?q=${city}&appid=${appid}&lang=${lang}&units=${units}`;
       }
-      console.log('url',url)
       const res = await this.$http.get(url);
       if (res.status !== 200) return;
       const { main, weather, wind } = res.data;

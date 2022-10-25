@@ -2233,6 +2233,7 @@
       },
     },
   };
+  </script>
   ```
 
   `addRoutes `添加的路由为一级路由，，如果是二级路，那要把父路由、祖先路由也带上，否则不会识别。`vue3 `改用 `router.addRoute`，可以添加一条新的路由规则记录作为现有路由的子路由。
@@ -2315,7 +2316,7 @@
         else next("/login");
       },
     };
-  </script>
+  </、script>
   ```
 
 - api
@@ -2570,7 +2571,7 @@ export default VueRoute;
         };
       },
     };
-  </script>
+  </>
   ```
 
 - 核心内容

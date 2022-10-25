@@ -8,6 +8,7 @@ import { VuePlugin } from 'vuera'
 import Meta from 'vue-meta'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import error404 from "vuepress-theme-reco/layouts/404.vue";
 
 export default ({
     Vue, // the version of Vue being used in the VuePress app
@@ -18,8 +19,10 @@ export default ({
     Vue.prototype.$http = axios
     Vue.use(VuePlugin)
     routers.forEach(i => {
-        router.addRoute(i)//组件需要有name,否则刷新匹配*路由
+        router.addRoute(i)
     })
+    //动态路由刷新页面404
+    router.addRoute({path: "*", redirect: "/404", hidden: true ,Comment:error404})
     Vue.use(Meta, {
         attribute: {
             keyName: 'note vue vuePress',
