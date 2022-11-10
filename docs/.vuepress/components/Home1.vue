@@ -1,7 +1,7 @@
 <template>
   <div class="home-blog">
-    <iframe :src="$withBase('/backGround/MC/index.html')" frameborder="0" class="backGround" v-if='rainy'></iframe>
-    <div class="hero" :style="{ ...bgImageStyle }" v-else>
+    <iframe :src="$withBase('/backGround/rainy/index.html')" frameborder="0" class="backGround" ></iframe>
+    <!-- <div class="hero" :style="{ ...bgImageStyle }">
       <div>
         <ModuleTransition delay="0.08">
           <p class="description" :style="descriptionStyle">
@@ -9,7 +9,7 @@
           </p>
         </ModuleTransition>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -28,7 +28,7 @@ import Vibrant from "node-vibrant";
 import { ModuleTransition, RecoIcon } from "@vuepress-reco/core/lib/components";
 import { useInstance } from "@theme/helpers/composable";
 import json from "/Note/package.json";
-const bgArr = ["8.svg", 'rainy', "1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.jpg",];
+const bgArr = ["8.svg", "1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.jpg",];
 export default defineComponent({
   components: {
     ModuleTransition,
@@ -37,7 +37,6 @@ export default defineComponent({
     const instance = useInstance();
     let description = ref("");
     let descriptionStyle = reactive({ color: "#6d6d6d" });
-    let rainy = ref(true)
     const theme = ref('8.svg')
     const imgUrl = computed(() => {
       return instance.$withBase('/bgImage/' + theme.value)
@@ -56,8 +55,6 @@ export default defineComponent({
 
     onMounted(async () => {
       const instance = useInstance();
-      // await instance.getTheme();
-      instance.addLogo();
       instance.showVision();
     });
     onBeforeMount(() => {
@@ -67,7 +64,6 @@ export default defineComponent({
     return {
       bgImageStyle,
       description,
-      rainy,
       descriptionStyle,
       theme,
       imgUrl
@@ -77,38 +73,8 @@ export default defineComponent({
     getPagesByTags(tagInfo) {
       this.$router.push({ path: tagInfo.path });
     },
-    //添加logo
-    addLogo() {
-      const navLogo = document.querySelector(".navbar .logo");
-      const { base } = useInstance().$site;
-      if (navLogo) return;
-      const logoArr = ["1.jpg", "2.jpg", "3.png", "4.jpg"];
-      const index = Math.round(Math.random() * 10) % logoArr.length;
-      const homeLink = document.querySelector(".home-link");
-      const siteName = document.querySelector(".site-name");
-      const logo = document.createElement("img");
-      logo.alt = "home";
-      logo.className = "logo";
-      logo.src = base + "logo/" + logoArr[index];
-      homeLink.insertBefore(logo, siteName);
-    },
     //主题
     getTheme() {
-      const theme = localStorage.getItem("theme")
-      const instance = useInstance();
-      let current
-      if (!theme) {
-        current = 0
-      } else {
-        let index = bgArr.findIndex(i => i === theme)
-        current = (++index % bgArr.length)
-        if (bgArr[current] === 'rainy')
-          instance.rainy = true
-        else instance.theme = bgArr[current]
-      }
-      instance.theme = bgArr[current]
-      instance.changeDescriptionStyle();
-      localStorage.setItem('theme', bgArr[current])
     },
     //获取随机标题
     async getDescription() {

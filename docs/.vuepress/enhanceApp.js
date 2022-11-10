@@ -22,7 +22,7 @@ export default ({
         router.addRoute(i)
     })
     //动态路由刷新页面404
-    router.addRoute({path: "*", redirect: "/404", hidden: true ,Comment:error404})
+    router.addRoute({path: "*",name: "404" ,component:error404})
     Vue.use(Meta, {
         attribute: {
             keyName: 'note vue vuePress',
