@@ -60,9 +60,9 @@ module.exports = {
             showInMobile: true,
         }],
         ["dynamic-title", {//离开文字
-            showIcon: "/logo/1.jpg",
+            showIcon: "/page/logo/1.jpg",
             showText: "(Ő∀Ő3)ノ哇喔！欢迎！",
-            hideIcon: "/logo/1.jpg",
+            hideIcon: "/page/logo/1.jpg",
             hideText: "(●—●)喔哟，崩溃啦！",
             recoverTime: 2000
         }],

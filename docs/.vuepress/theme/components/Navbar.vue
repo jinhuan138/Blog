@@ -1,33 +1,25 @@
 <template>
   <header class="navbar">
-    <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')"/>
+    <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')" />
 
-    <router-link
-      :to="$localePath"
-      class="home-link">
-      <img
-        class="logo"
-        v-if="$themeConfig.logo"
-        :src="$withBase($themeConfig.logo)"
-        :alt="$siteTitle">
+    <router-link :to="$localePath" class="home-link">
+      <img class="logo" :src="$withBase(`logo/${logoSrc}.gif`)" :alt="$siteTitle">
+      <!-- https://www.67tool.com/video/convert?to=mp4&type=all -->
+      <!-- 642px 513px -->
       <!-- <span
         ref="siteName"
         class="site-name"
         v-if="$siteTitle">{{ $siteTitle }}</span> -->
     </router-link>
-    <Weather/>
-    <div
-      class="links"
-      :style="linksWrapMaxWidth ? {
-        'max-width': linksWrapMaxWidth + 'px'
-      } : {}">
+    <Weather />
+    <div class="links" :style="linksWrapMaxWidth ? {
+      'max-width': linksWrapMaxWidth + 'px'
+    } : {}">
 
       <Mode />
-      <AlgoliaSearchBox
-        v-if="isAlgoliaSearch"
-        :options="algolia"/>
-      <SearchBox v-else-if="$themeConfig.search !== false && $frontmatter.search !== false"/>
-      <NavLinks class="can-hide"/>
+      <AlgoliaSearchBox v-if="isAlgoliaSearch" :options="algolia" />
+      <SearchBox v-else-if="$themeConfig.search !== false && $frontmatter.search !== false" />
+      <NavLinks class="can-hide" />
     </div>
   </header>
 </template>
@@ -44,7 +36,7 @@ import { useInstance } from '@theme/helpers/composable'
 export default defineComponent({
   components: { SidebarButton, NavLinks, SearchBox, AlgoliaSearchBox, Mode },
 
-  setup (props, ctx) {
+  setup(props, ctx) {
     const instance = useInstance()
     const linksWrapMaxWidth = ref(null)
 
@@ -56,19 +48,20 @@ export default defineComponent({
       algolia.value && algolia.value.apiKey && algolia.value.indexName
     })
 
-    function css (el, property) {
+    function css(el, property) {
       // NOTE: Known bug, will return 'auto' if style value is 'auto'
       const win = el.ownerDocument.defaultView
       // null means not to return pseudo styles
       return win.getComputedStyle(el, null)[property]
     }
-
+    //avatar
+    const logoArr = ["北冥有鱼", "贪睡小熊", '凤冠霞帔']
+    const logoSrc = logoArr[0] 
     onMounted(() => {
       const MOBILE_DESKTOP_BREAKPOINT = 719 // refer to config.styl
       const NAVBAR_VERTICAL_PADDING =
         parseInt(css(instance.$el, 'paddingLeft')) +
         parseInt(css(instance.$el, 'paddingRight'))
-
       const handleLinksWrapWidth = () => {
         if (document.documentElement.clientWidth < MOBILE_DESKTOP_BREAKPOINT) {
           linksWrapMaxWidth.value = null
@@ -83,8 +76,7 @@ export default defineComponent({
       handleLinksWrapWidth()
       window.addEventListener('resize', handleLinksWrapWidth, false)
     })
-
-    return { linksWrapMaxWidth, algolia, isAlgoliaSearch, css }
+    return { linksWrapMaxWidth, algolia, isAlgoliaSearch, css,logoSrc }
   }
 })
 </script>
@@ -101,9 +93,10 @@ $navbar-horizontal-padding = 1.5rem
   a, span, img
     display inline-block
   .logo
-    height $navbarHeight - 1.4rem
-    min-width $navbarHeight - 1.4rem
+    height $navbarHeight - 0.5rem
+    min-width $navbarHeight - 0.5rem
     margin-right 0.8rem
+    margin-top -0.7rem
     vertical-align top
     border-radius 50%
   .site-name
