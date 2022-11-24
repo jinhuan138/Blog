@@ -1,7 +1,7 @@
-import VueMarkdownEditor from '@kangc/v-md-editor';
-VueMarkdownEditor.use(vuepressTheme);
-import '@kangc/v-md-editor/lib/style/base-editor.css';
-import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
+// import '@kangc/v-md-editor/lib/style/base-editor.css';
+// import VueMarkdownEditor from '@kangc/v-md-editor';
+// VueMarkdownEditor.use(vuepressTheme);
+// import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
 import routers from './router.js'
 import axios from 'axios'
 import { VuePlugin } from 'vuera'
@@ -17,6 +17,7 @@ export default ({
     siteData // site metadata
 }) => {
     Vue.prototype.$http = axios
+    Vue.config.devtools = true
     Vue.use(VuePlugin)
     routers.forEach(i => {
         router.addRoute(i)
@@ -34,5 +35,4 @@ export default ({
         }
     })
     Vue.use(ElementUI);
-    Vue.use(VueMarkdownEditor);
 }

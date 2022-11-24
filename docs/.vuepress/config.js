@@ -18,8 +18,8 @@ module.exports = {
         lineNumbers: true
     },
     themeConfig: {
+        type: 'MyHome',
         // type: 'blog',
-        type: 'Home1',
         authorAvatar: '/logo/3.png',
         nav: require('./nav'),
         sidebar: require('./sidebar'),
@@ -80,6 +80,7 @@ module.exports = {
                 lrcType: 0,
             },
             mobile: {
+                cover: false,// 手机端去掉cover图
                 lrc: false //歌词显示
             }
         }],

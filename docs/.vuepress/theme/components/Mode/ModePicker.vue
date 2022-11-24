@@ -45,12 +45,15 @@ export default {
     applyMode(this.currentMode)
   },
 
+  inject:['chengeWeatherColor'],
+
   methods: {
     selectMode (mode) {
       if (mode !== this.currentMode) {
         this.currentMode = mode
         applyMode(mode)
         localStorage.setItem('mode', mode)
+        this.chengeWeatherColor()
       }
     },
     getClass (mode) {

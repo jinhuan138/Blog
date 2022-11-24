@@ -27,7 +27,7 @@ import {
 import Vibrant from "node-vibrant";
 import { ModuleTransition, RecoIcon } from "@vuepress-reco/core/lib/components";
 import { useInstance } from "@theme/helpers/composable";
-import json from "/Note/package.json";
+import json from "../../../package.json";
 const bgArr = ["8.svg", "1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.jpg",];
 export default defineComponent({
   components: {

@@ -14,11 +14,4 @@ module.exports = [
         '/FontEnd/Electron/Electron',
         ]
     },
-    {
-      title:'Vuepress',
-      collapsable: true,
-      children:[
-        '/FontEnd/Vuepress/Vuepress',
-        ]
-    },
 ]

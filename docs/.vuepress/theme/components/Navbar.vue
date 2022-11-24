@@ -11,7 +11,7 @@
         class="site-name"
         v-if="$siteTitle">{{ $siteTitle }}</span> -->
     </router-link>
-    <Weather />
+    <Weather ref="refWeather"/>
     <div class="links" :style="linksWrapMaxWidth ? {
       'max-width': linksWrapMaxWidth + 'px'
     } : {}">
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, computed } from 'vue'
+import { defineComponent, ref, onMounted, computed ,provide } from 'vue'
 import AlgoliaSearchBox from '@AlgoliaSearchBox'
 import SearchBox from '@SearchBox'
 import SidebarButton from '@theme/components/SidebarButton'
@@ -57,6 +57,14 @@ export default defineComponent({
     //avatar
     const logoArr = ["北冥有鱼", "贪睡小熊", '凤冠霞帔']
     const logoSrc = logoArr[0] 
+    //weather
+    const  refWeather = ref(null)
+    const chengeWeatherColor =()=>{
+      const component  = refWeather.value
+      // component.iconColor=component.getIconColor()
+      console.log(component)
+    }
+    provide('chengeWeatherColor',chengeWeatherColor)
     onMounted(() => {
       const MOBILE_DESKTOP_BREAKPOINT = 719 // refer to config.styl
       const NAVBAR_VERTICAL_PADDING =

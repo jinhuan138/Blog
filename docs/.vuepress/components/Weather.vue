@@ -56,6 +56,7 @@ export default {
       weather: {
         currently: null,
       },
+      iconColor: this.getIconColor(),
     };
   },
   computed: {
@@ -66,20 +67,10 @@ export default {
       return true;
     },
     windBearing() {
+     if(this.currently) {
       const t = Math.round(this.currently.windBearing / 45);
       return ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"][t];
-    },
-    iconColor() {
-      const currentMode =
-        localStorage.getItem("mode") || this.$themeConfig.mode || "auto";
-      if (currentMode === "dark") {
-        return "rgba(255, 255, 255, 0.8)";
-      } else if (currentMode === "light") {
-        return "black";
-      } else {
-        const hour = new Date().getHours();
-        return hour < 6 || hour >= 18 ? "rgba(255, 255, 255, 0.8) " : "black";
-      }
+     }
     },
   },
   beforeMount() {
@@ -93,14 +84,14 @@ export default {
     },
     async getWeather() {
       const base = "https://api.openweathermap.org/data/2.5/weather";
-      let position ,url
+      let position, url;
       const { appid, lang, units } = apiOption;
-      navigator.geolocation.getCurrentPosition(p=> position=p)
-      if( position ){
-        const { latitude , longitude } = position.coords
+      navigator.geolocation.getCurrentPosition((p) => (position = p));
+      if (position) {
+        const { latitude, longitude } = position.coords;
         url = `${base}?lat=${latitude}&lon=${longitude}&appid=${appid}&lang=${lang}&units=${units}`;
-      }else{
-        const city= "Beijing"
+      } else {
+        const city = "Beijing";
         url = `${base}?q=${city}&appid=${appid}&lang=${lang}&units=${units}`;
       }
       const res = await this.$http.get(url);
@@ -120,6 +111,20 @@ export default {
       };
       this.$set(this, "weather", mapData);
     },
+    getIconColor() {
+      const currentMode = this.getMode()
+      if (currentMode === "dark") {
+        return "rgba(255, 255, 255, 0.8)";
+      } else if (currentMode === "light") {
+        return "black";
+      } else {
+        const hour = new Date().getHours();
+        return hour < 6 || hour >= 18 ? "rgba(255, 255, 255, 0.8) " : "black";
+      }
+    },
+    getMode(){
+      return localStorage.getItem("mode") || this.$themeConfig.mode || "auto";
+    }
   },
 };
 </script>

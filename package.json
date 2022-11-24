@@ -1,6 +1,6 @@
 {
   "name": "note",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "",
   "homepage": "https://jinhuan138.github.io/page/",
   "main": "index.js",
@@ -28,7 +28,6 @@
     "vuepress-plugin-meting": "^0.3.1"
   },
   "dependencies": {
-    "@kangc/v-md-editor": "^1.7.8",
     "@vue/composition-api": "^1.0.0-beta.21",
     "@vuepress-reco/vuepress-plugin-extract-code": "^1.0.4",
     "@vuepress-reco/vuepress-plugin-kan-ban-niang": "^1.0.5",
@@ -39,6 +38,7 @@
     "element-ui": "^2.15.9",
     "epub": "^1.2.1",
     "node-vibrant": "^3.1.6",
+    "perfect-json": "^0.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-reader": "^0.21.2",
@@ -46,9 +46,11 @@
     "sass-loader": "^7.3.1",
     "sharp": "^0.30.6",
     "vee-validate": "^3.4.14",
-    "vue": "^2.7.5",
+    "vue": "2.7.5",
     "vue-meta": "^2.4.0",
+    "vue-server-renderer": "2.7.5",
     "vue-skycons": "^4.2.0",
+    "vue-template-compiler": "2.7.5",
     "vuepress-plugin-boxx": "0.0.7",
     "vuepress-plugin-demo-container-v2": "^2.3.4",
     "vuepress-theme-reco": "^1.6.16",

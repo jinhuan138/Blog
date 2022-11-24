@@ -1455,6 +1455,57 @@ export class CatService {
 
 ---
 
+## 	WebSocket
+
++ 安装
+
+  ```bash
+  npm i --save @nestjs/websockets @nestjs/platform-socket.io
+  ```
+
++ **gateway**
+
+  ```js
+  //ws.gateway.ts
+  import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway } from "@nestjs/websockets";
+  import * as WebSocket from 'ws';
+  //gateway(网关)只是一个用 @WebSocketGateway() 装饰器注释的类
+  @WebSocketGateway(3001)//端口不能和http冲突
+  export class WsStartGateway {
+    //订阅消息
+    @SubscribeMessage('hello')
+    hello(@MessageBody() data: any): any {
+      return {
+        "event": "hello",
+        "data": data,
+        "msg": 'rustfisher.com'
+      };
+    }
+  
+    @SubscribeMessage('hello2')
+    hello2(@MessageBody() data: any, @ConnectedSocket() client: WebSocket): any {
+      console.log('收到消息 client:', client);
+      client.send(JSON.stringify({ event: 'tmp', data: '这里是个临时信息' }));
+      return { event: 'hello2', data: data };
+    }
+  }
+  ```
+
++ 注入
+
+  ```js
+  //app.module.ts
+  import { Module } from '@nestjs/common';
+  import { WsStartGateway } from './ws.gateway'
+  
+  @Module({
+    providers: [AppService, WsStartGateway],
+  })
+  export class AppModule { }
+  ```
+
+---
+
 ## 数据库
 
 ### TypeORM 集成
