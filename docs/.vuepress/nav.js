@@ -5,9 +5,6 @@ module.exports = [
     {
         text: 'BackEnd', link: '/BackEnd/'
     },
-    // {
-    //     text: 'Me', link: '/Me/'
-    // },
     {
         text: 'Library', link: '/library/', icon: 'fa-solid fa-book'
     }

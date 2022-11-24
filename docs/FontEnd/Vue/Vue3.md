@@ -62,6 +62,18 @@
       console.log(useAttrs())//获取属性与事件
   </script>
   ```
+  
+- defineExpose
+
+  ```vue
+  <script setup lang="ts">
+  //子组件
+  const method=()=>{}
+  //使用 <script setup> 的组件是默认关闭的,不会暴露任何在 <script setup> 中声明的绑定。
+  defineExpose({
+    method
+  })
+  ```
 
 ## 响应式
 
