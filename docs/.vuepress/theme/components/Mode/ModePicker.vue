@@ -30,7 +30,7 @@ export default {
 
   mounted () {
     // modePicker 开启时默认使用用户主动设置的模式
-    this.currentMode = localStorage.getItem('mode') || this.$themeConfig.mode || 'auto'
+    this.currentMode = global.localStorage.getItem('mode') || this.$themeConfig.mode || 'auto'
 
     // Dark and Light autoswitches
     // 为了避免在 server-side 被执行，故在 Vue 组件中设置监听器

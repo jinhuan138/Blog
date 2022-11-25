@@ -47,6 +47,7 @@ const apiOption = {
   lang: "zh_cn",
   units: "metric",
 };
+const storage = global.localStorage || null;
 export default {
   name: "Weather",
   components: {
@@ -57,7 +58,7 @@ export default {
       weather: {
         currently: null,
       },
-      mode: localStorage.getItem('mode') || this.$themeConfig.mode || 'auto',
+      mode: '',
     };
   },
   computed: {
@@ -83,6 +84,9 @@ export default {
         return hour < 6 || hour >= 18 ? "rgba(255, 255, 255, 0.8) " : "black";
       }
     },
+  },
+  mounted(){
+    this.mode=storage.getItem('mode') || this.$themeConfig.mode || 'auto'
   },
   beforeMount() {
     emitter.on("changeMode", this.changeMode);

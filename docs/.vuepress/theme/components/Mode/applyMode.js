@@ -21,7 +21,7 @@ function render(mode) {
  */
 export default function applyMode(mode) {
   emitter.emit("changeMode", mode)
-  localStorage.setItem('mode',mode)
+  global.localStorage.setItem('mode',mode)
   if (mode !== 'auto') {
     render(mode)
     return
