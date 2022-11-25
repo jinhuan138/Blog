@@ -28,6 +28,12 @@ model: {
  }
 ``` 
 
+## 修改skycon图标
+```js
+//node_modules/vue-skycons/src/Skycon.vue
+//监听color修改icon
+``` 
+
 ## Running the app
 
 ```bash

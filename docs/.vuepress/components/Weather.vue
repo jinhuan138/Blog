@@ -28,6 +28,7 @@
 <script>
 //天气api文档https://api.openweathermap.org
 //图标文档https://www.npmjs.com/package/vue-skycons
+import emitter from "../untils/eventbus";
 const Skycon = require("vue-skycons").default;
 const ICON_MAPPINGS = {
   "clear-day": ["01d"],
@@ -56,7 +57,7 @@ export default {
       weather: {
         currently: null,
       },
-      iconColor: this.getIconColor(),
+      mode: localStorage.getItem('mode') || this.$themeConfig.mode || 'auto',
     };
   },
   computed: {
@@ -67,14 +68,28 @@ export default {
       return true;
     },
     windBearing() {
-     if(this.currently) {
-      const t = Math.round(this.currently.windBearing / 45);
-      return ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"][t];
-     }
+      if (this.currently) {
+        const t = Math.round(this.currently.windBearing / 45);
+        return ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"][t];
+      }
+    },
+    iconColor() {
+      if (this.mode === "light") {
+        return "black";
+      } else if (this.mode === "dark") {
+        return "rgba(255, 255, 255, 0.8)";
+      } else {
+        const hour = new Date().getHours();
+        return hour < 6 || hour >= 18 ? "rgba(255, 255, 255, 0.8) " : "black";
+      }
     },
   },
   beforeMount() {
+    emitter.on("changeMode", this.changeMode);
     this.getWeather();
+  },
+  beforeDestroy() {
+    emitter.off("changeMode", this.changeMode);
   },
   methods: {
     mapIcon: (code) => {
@@ -111,20 +126,9 @@ export default {
       };
       this.$set(this, "weather", mapData);
     },
-    getIconColor() {
-      const currentMode = this.getMode()
-      if (currentMode === "dark") {
-        return "rgba(255, 255, 255, 0.8)";
-      } else if (currentMode === "light") {
-        return "black";
-      } else {
-        const hour = new Date().getHours();
-        return hour < 6 || hour >= 18 ? "rgba(255, 255, 255, 0.8) " : "black";
-      }
+    changeMode(mode) {
+      this.mode = mode;
     },
-    getMode(){
-      return localStorage.getItem("mode") || this.$themeConfig.mode || "auto";
-    }
   },
 };
 </script>

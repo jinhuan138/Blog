@@ -1,6 +1,6 @@
 {
   "name": "note",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "",
   "homepage": "https://jinhuan138.github.io/page/",
   "main": "index.js",
@@ -37,6 +37,7 @@
     "core-js": "^2.6.12",
     "element-ui": "^2.15.9",
     "epub": "^1.2.1",
+    "mitt": "^3.0.0",
     "node-vibrant": "^3.1.6",
     "perfect-json": "^0.3.1",
     "react": "^17.0.2",
