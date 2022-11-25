@@ -16,6 +16,7 @@ import { RecoIcon, ModuleTransition } from '@vuepress-reco/core/lib/components'
 import ClickOutside from 'vue-click-outside'
 import ModePicker from './ModePicker'
 import applyMode from './applyMode'
+import emitter from '../../../untils/eventbus'
 
 export default {
   name: 'UserSettings',
@@ -40,6 +41,7 @@ export default {
   mounted () {
     // modePicker 关闭时默认使用主题设置的模式
     const themeMode = this.$themeConfig.mode || 'auto'
+    emitter.emit("changeMode", themeMode)
     const { modePicker } = this.$themeConfig
     if (modePicker === false) {
       // 为 'auto' 模式设置监听器
