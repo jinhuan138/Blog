@@ -75,6 +75,30 @@
 	</div>
 	<!-- /container -->
 	<script src="./js/index.min.js"></script>
+	<script>
+    if(!window.parent.window.rainyTimer) window.parent.window.rainyTimer = null
+	function debounce(func,wait=500,immediate=false) {
+		let timer = window.parent.window.rainyTimer
+		return function () {
+			let context = this;
+			let args = arguments;
+			if (timer) clearTimeout(timer);
+			if (immediate) {
+				var callNow = !timer;
+				timer = setTimeout(() => {
+					timer = null;
+				}, wait)
+				if (callNow) func.apply(context, args)
+			} else {
+				timer = setTimeout(function(){
+					func.apply(context, args)
+				}, wait);
+			}
+		}
+	}
+	const reload = debounce(()=>window.location.reload())
+	window.addEventListener('resize',reload)
+	</script>
 </body>
 
 </html>
