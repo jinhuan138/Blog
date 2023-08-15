@@ -26,13 +26,13 @@ model: {
     mikoto:
       '/kanBanNiang/mikoto/mikoto.model.json'
  }
-``` 
+```
 
 ## 修改skycon图标
 ```js
 //node_modules/vue-skycons/src/Skycon.vue
 //监听color修改icon
-``` 
+```
 
 ## Running the app
 
@@ -42,10 +42,10 @@ model: {
 
  build
  $ npm run build
- ```
+```
 
 ## Site
 
  https://jinhuan138.github.io/page/
 
-![notes](https://jinhuan138.github.io/page/logo/1.jpg) -->
+![notes](https://jinhuan138.github.io/page/logo/1.jpg) 

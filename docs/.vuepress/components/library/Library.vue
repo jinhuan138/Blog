@@ -195,7 +195,7 @@ export default {
 };
 </script>
 
-<style scopped>
+<style scoped>
 .main {
   margin-top: 40px;
   height: 100%;
