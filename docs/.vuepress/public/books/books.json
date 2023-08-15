@@ -12,19 +12,6 @@
   "url": "生吞.epub",
   "bgColorFromCover": "#734511"
 }, {
-  "date": "2022-06-14T16:00:00+00:00",
-  "creator": "J.G.巴拉德；等",
-  "creatorFileAs": "J.G.巴拉德；等",
-  "UUID": "5F97C4F7-2187-480F-B452-BD0D1DD4EC63",
-  "language": "zh",
-  "title": "爱，死亡和机器人（全三季）(NetFlix现象级同名神剧原著小说，官方唯一授权结集，云集星云奖、雨果奖、奥斯卡奖、艾美奖得主的想象力盛宴) (译林幻系列)",
-  "publisher": "译林出版社",
-  "calibre:title_sort": "爱，死亡和机器人（全三季）(NetFlix现象级同名神剧原著小说，官方唯一授权结集，云集星云奖、雨果奖、奥斯卡奖、艾美奖得主的想象力盛宴) (译林幻系列)",
-  "calibre:timestamp": "2022-06-04T04:03:38.551000+00:00",
-  "cover": "cover",
-  "url": "爱，死亡和机器人.epub",
-  "bgColorFromCover": "#712c13"
-}, {
   "publisher": "重庆出版社",
   "title": "三体（全集）",
   "language": "und",
@@ -38,17 +25,18 @@
   "url": "三体（全集）.epub",
   "bgColorFromCover": "#74341c"
 }, {
-  "creator": "张寒寺",
-  "creatorFileAs": "张寒寺",
+  "date": "2022-06-14T16:00:00+00:00",
+  "creator": "J.G.巴拉德；等",
+  "creatorFileAs": "J.G.巴拉德；等",
+  "UUID": "5F97C4F7-2187-480F-B452-BD0D1DD4EC63",
   "language": "zh",
-  "UUID": "9DE68EB4-62CD-4E6C-B98D-1A04212594C5",
-  "title": "不正常人类症候群",
-  "date": "2016-08-31T16:00:00+00:00",
+  "title": "爱，死亡和机器人（全三季）(NetFlix现象级同名神剧原著小说，官方唯一授权结集，云集星云奖、雨果奖、奥斯卡奖、艾美奖得主的想象力盛宴) (译林幻系列)",
+  "publisher": "译林出版社",
+  "calibre:title_sort": "爱，死亡和机器人（全三季）(NetFlix现象级同名神剧原著小说，官方唯一授权结集，云集星云奖、雨果奖、奥斯卡奖、艾美奖得主的想象力盛宴) (译林幻系列)",
+  "calibre:timestamp": "2022-06-04T04:03:38.551000+00:00",
   "cover": "cover",
-  "calibre:title_sort": "不正常人类症候群",
-  "calibre:timestamp": "2016-12-19T03:44:38.814000+00:00",
-  "url": "不正常人类症候群.epub",
-  "bgColorFromCover": "#4c3c24"
+  "url": "爱，死亡和机器人.epub",
+  "bgColorFromCover": "#712c13"
 }, {
   "title": "一个陌生女人的来信",
   "language": "zh",
@@ -78,6 +66,18 @@
   "primary-writing-mode": "horizontal-lr",
   "url": "啼笑因缘.epub",
   "bgColorFromCover": "#604523"
+}, {
+  "creator": "张寒寺",
+  "creatorFileAs": "张寒寺",
+  "language": "zh",
+  "UUID": "9DE68EB4-62CD-4E6C-B98D-1A04212594C5",
+  "title": "不正常人类症候群",
+  "date": "2016-08-31T16:00:00+00:00",
+  "cover": "cover",
+  "calibre:title_sort": "不正常人类症候群",
+  "calibre:timestamp": "2016-12-19T03:44:38.814000+00:00",
+  "url": "不正常人类症候群.epub",
+  "bgColorFromCover": "#4c3c24"
 }, {
   "language": "zh",
   "title": "图灵前端核心知识进阶系列（套装全10册）【涵盖前端入门、进阶必备知识！专家级前端工程师核心技能！】",
