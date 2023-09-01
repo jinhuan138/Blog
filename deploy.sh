@@ -12,7 +12,7 @@ cd dist
 
 git init
 git checkout -b gh-pages
-git remote add origin git@github.com:jinhuan138/portal-mini.git
+git remote add origin git@github.com:jinhuan138/Blog.git
 git add . 
 git commit -m 'deploy'
 

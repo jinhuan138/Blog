@@ -1,6 +1,6 @@
 module.exports = {
     title: 'Notes',
-    base: '/page/',
+    base: '/Blog/',
     description: 'Welcome to your vuePress-theme-reco site',
     dest: './dist',
     port: 7777,
@@ -12,7 +12,7 @@ module.exports = {
     },
     head: [
         ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],//移动端优化
-        ['link', { rel: 'icon', href: '/page/logo/1.jpg' }],
+        ['link', { rel: 'icon', href: '/Blog/logo/1.jpg' }],
     ],
     markdown: {
         lineNumbers: true
@@ -60,9 +60,9 @@ module.exports = {
             showInMobile: true,
         }],
         ["dynamic-title", {//离开文字
-            showIcon: "/page/logo/1.jpg",
+            showIcon: "/Blog/logo/1.jpg",
             showText: "(Ő∀Ő3)ノ哇喔！欢迎！",
-            hideIcon: "/page/logo/1.jpg",
+            hideIcon: "/Blog/logo/1.jpg",
             hideText: "(●—●)喔哟，崩溃啦！",
             recoverTime: 2000
         }],

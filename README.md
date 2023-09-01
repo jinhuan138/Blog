@@ -41,6 +41,6 @@ model: {
 
 ## Site
 
- https://jinhuan138.github.io/page/
+ https://jinhuan138.github.io/Blog/
 
-![notes](https://jinhuan138.github.io/page/logo/1.jpg) 
+![notes](https://jinhuan138.github.io/Blog/logo/1.jpg) 
