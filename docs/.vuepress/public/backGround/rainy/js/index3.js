@@ -1167,6 +1167,7 @@ module.exports = Math.sign || function sign(x){
   return (x = +x) == 0 || x != x ? x : x < 0 ? -1 : 1;
 };
 },{}],64:[function(require,module,exports){
+<<<<<<< HEAD
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject  = require('./$.an-object')
   , aFunction = require('./$.a-function')
@@ -1174,6 +1175,15 @@ var anObject  = require('./$.an-object')
 module.exports = function(O, D){
   var C = anObject(O).constructor, S;
   return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
+=======
+// 7.3.20 SpeciesConstructor(O, defaultConstructor)
+var anObject  = require('./$.an-object')
+  , aFunction = require('./$.a-function')
+  , SPECIES   = require('./$.wks')('species');
+module.exports = function(O, D){
+  var C = anObject(O).constructor, S;
+  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
+>>>>>>> 5743786 (切换github pages)
 };
 },{"./$.a-function":2,"./$.an-object":3,"./$.wks":82}],65:[function(require,module,exports){
 'use strict';
