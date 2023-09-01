@@ -17,9 +17,9 @@ $ npm run book
 themeName: ['22','mikoto'],
 model: {
   22:
-      '/kanBanNiang/22/model.2017.newyear.json',
+      '/Blog/kanBanNiang/22/model.2017.newyear.json',
     mikoto:
-      '/kanBanNiang/mikoto/mikoto.model.json'
+      '/Blog/kanBanNiang/mikoto/mikoto.model.json'
  }
 ```
 
