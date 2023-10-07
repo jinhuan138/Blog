@@ -14,4 +14,11 @@ module.exports = [
         '/FontEnd/Electron/Electron',
         ]
     },
+    {
+      title:'React',
+      collapsable: true,
+      children:[
+        '/FontEnd/React/React',
+        ]
+    },
 ]
