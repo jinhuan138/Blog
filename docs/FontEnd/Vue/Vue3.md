@@ -427,6 +427,46 @@
 
 + 函数式组件
 
+  ```vue
+  <script>
+      import { h } from 'vue'
+      export default {
+          setup(props) {
+              //setup钩子可以返回渲染`函数`
+              return () => h('h5',{title:"锦瑟"},'此前可待成追忆 只是当时已惘然')//标签/组件，属性，children
+          }
+      }
+  </script>
+  ```
+
++ jsx
+
+  安装插件`@vitejs/plugin-vue-jsx`
+
+  ```js
+  //vite.config.js
+  import { defineConfig } from 'vite'
+  import vue from '@vitejs/plugin-vue'
+  import vueJsx from '@vitejs/plugin-vue-jsx'
+  
+  export default defineConfig({
+    plugins: [ vue(),vueJsx({})],
+  })
+  ```
+
+  在vue中使用
+
+  ```vue
+  <script lang="jsx">
+      export default {
+          setup(props) {
+              //lang="jsx"
+              return () => <div>阮声落华裳,梅出似点妆</div>
+          }
+      }
+  </script>
+  ```
+
 ## 模板引用
 
 + ref
