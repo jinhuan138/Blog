@@ -62,6 +62,16 @@
   
   export default Button;
   ```
+  
++ dangerouslySetInnerHTML
+
+  ```jsx
+  export default function App() {
+      //与v-html类似
+      const html = "<input/ placeholder='这是一个输入框'>"
+      return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  }
+  ```
 
 ## Hook
 
