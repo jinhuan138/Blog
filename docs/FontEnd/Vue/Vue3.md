@@ -584,7 +584,3 @@
   </script>
   ```
   ---
-
-## 工具
-
-+ vue-global-api

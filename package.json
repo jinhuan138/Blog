@@ -50,11 +50,11 @@
     "vue": "2.7.5",
     "vue-meta": "^2.4.0",
     "vue-server-renderer": "2.7.5",
-    "vue-skycons": "^4.2.0",
+    "vue-skycons": "^4.3.4",
     "vue-template-compiler": "2.7.5",
     "vuepress-plugin-boxx": "0.0.7",
     "vuepress-plugin-demo-container-v2": "^2.3.4",
-    "vuepress-theme-reco": "^1.6.16",
+    "vuepress-theme-reco": "^1.6.17",
     "vuera": "^0.2.7"
   }
 }
