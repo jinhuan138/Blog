@@ -14,6 +14,6 @@ git init
 git add .
 git commit -m 'deploy'
 
-git push -f git@github.com:jinhuan138/page.git master:master
+git push -f git@github.com:jinhuan138/Blog.git master:master
 
 cd -

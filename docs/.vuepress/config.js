@@ -13,6 +13,8 @@ module.exports = {
     head: [
         ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],//移动端优化
         ['link', { rel: 'icon', href: '/Blog/logo/1.jpg' }],
+        ['script', {async:true, src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9017742413133429', crossorigin: 'anonymous' }],
+        ['meta', { name: 'google-adsense-account', content: 'ca-pub-9017742413133429' }],
     ],
     markdown: {
         lineNumbers: true
@@ -85,7 +87,7 @@ module.exports = {
             }
         }],
         ["@vuepress-reco/vuepress-plugin-kan-ban-niang", {//看板娘        
-            theme: ['22','mikoto',]
+            theme: ['22', 'mikoto',]
         }],
         ["vuepress-plugin-boxx"],
         ['@vuepress-reco/extract-code'],
