@@ -1,3 +1,25 @@
+diff --git a/src/Skycon.vue b/src/Skycon.vue
+index 57f96431469fe028fd2b833df7e57b8e42c6aa41..6dd694783a00862426d68c6866c495c4c0ecd85f 100644
+--- a/src/Skycon.vue
++++ b/src/Skycon.vue
+@@ -52,6 +52,17 @@ export default defineComponent({
+       default: 1
+     }
+   },
++  watch: {
++    color() {
++      const skycons = new Skycons({
++        color: this.color,
++        speed: this.speed
++      });
++      skycons.set(this.$el, Skycons[this.icon]);
++      if (!this.paused) skycons.play();
++      this.$emit("load", buildWrapper(skycons));
++    }
++  },
+   computed: {
+     width() {
+       return "" + this.size;
 diff --git a/src/skycons.js b/src/skycons.js
 index bfa288ec673fa1ad4bd4abe3327c423d625f0a33..c5640a4ff08fd562ef4b0e62a06b7765c5318377 100644
 --- a/src/skycons.js

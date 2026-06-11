@@ -5,7 +5,7 @@
   "homepage": "https://jinhuan138.github.io/Blog/",
   "main": "index.js",
   "scripts": {
-    "preinstall": "node -e \"const ua = process.env.npm_config_user_agent || ''; if(!ua.startsWith('pnpm')) { console.error('请使用 pnpm 安装'); process.exit(1); }\"",
+    "preinstall": "node -e \"const ua = process.env.npm_config_user_agent || ''; const isPnpm = ua.includes('pnpm'); if(!isPnpm) { console.error('请使用 pnpm 安装'); process.exit(1); }\"",
     "dev": "vuepress dev docs NODE_ENV=development",
     "build": "vuepress build docs",
     "book": "node ./build/book"
@@ -27,7 +27,6 @@
     "vuepress-plugin-meting": "^0.3.1"
   },
   "dependencies": {
-    "@vue/composition-api": "^1.0.0-beta.21",
     "@vuepress-reco/vuepress-plugin-extract-code": "^1.0.4",
     "@vuepress-reco/vuepress-plugin-kan-ban-niang": "^1.0.5",
     "NeteaseCloudMusicApi": "^4.5.11",
@@ -41,7 +40,6 @@
     "react-reader": "^0.21.2",
     "sass": "^1.49.8",
     "sass-loader": "^7.3.1",
-    "vee-validate": "^3.4.14",
     "vue": "2.7.5",
     "vue-meta": "^2.4.0",
     "vue-server-renderer": "2.7.5",

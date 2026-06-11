@@ -9,101 +9,93 @@ overrides:
 
 patchedDependencies:
   '@vuepress-reco/vuepress-plugin-kan-ban-niang@1.0.5':
-    hash: icvze4wpdq4qbqr7uqhr5paks4
+    hash: v2w2ffuayqbrbeusc6x3mmoray
     path: patches/@vuepress-reco__vuepress-plugin-kan-ban-niang@1.0.5.patch
   vue-skycons@4.3.5:
-    hash: zokjxsfr7unpczw5oz4wgo7m7m
+    hash: u2lj4a3db5hhs7zkevwycvvgg4
     path: patches/vue-skycons@4.3.5.patch
 
-importers:
+dependencies:
+  '@vuepress-reco/vuepress-plugin-extract-code':
+    specifier: ^1.0.4
+    version: 1.0.4
+  '@vuepress-reco/vuepress-plugin-kan-ban-niang':
+    specifier: ^1.0.5
+    version: 1.0.5(patch_hash=v2w2ffuayqbrbeusc6x3mmoray)
+  NeteaseCloudMusicApi:
+    specifier: ^4.5.11
+    version: 4.32.0
+  core-js:
+    specifier: ^2.6.12
+    version: 2.6.12
+  element-ui:
+    specifier: ^2.15.9
+    version: 2.15.14(vue@2.7.5)
+  epub:
+    specifier: ^1.2.1
+    version: 1.3.0
+  mitt:
+    specifier: ^3.0.0
+    version: 3.0.1
+  node-vibrant:
+    specifier: ^3.1.6
+    version: 3.1.6
+  react:
+    specifier: ^17.0.2
+    version: 17.0.2
+  react-dom:
+    specifier: ^17.0.2
+    version: 17.0.2(react@17.0.2)
+  react-reader:
+    specifier: ^0.21.2
+    version: 0.21.3(react@17.0.2)
+  sass:
+    specifier: ^1.49.8
+    version: 1.100.0
+  sass-loader:
+    specifier: ^7.3.1
+    version: 7.3.1(webpack@4.47.0)
+  vue:
+    specifier: 2.7.5
+    version: 2.7.5
+  vue-meta:
+    specifier: ^2.4.0
+    version: 2.4.0
+  vue-server-renderer:
+    specifier: 2.7.5
+    version: 2.7.5
+  vue-skycons:
+    specifier: 4.3.5
+    version: 4.3.5(patch_hash=u2lj4a3db5hhs7zkevwycvvgg4)
+  vue-template-compiler:
+    specifier: 2.7.5
+    version: 2.7.5
+  vuepress-plugin-boxx:
+    specifier: 0.0.7
+    version: 0.0.7
+  vuepress-plugin-demo-container-v2:
+    specifier: ^2.3.4
+    version: 2.3.4
+  vuepress-theme-reco:
+    specifier: ^1.6.17
+    version: 1.6.17(chalk@2.4.2)(commander@2.20.3)(esm@3.2.25)(vue-class-component@7.2.6)(vuepress@1.9.10)
+  vuera:
+    specifier: ^0.2.7
+    version: 0.2.7(react-dom@17.0.2)(react@17.0.2)(vue@2.7.5)
 
-  .:
-    dependencies:
-      '@vue/composition-api':
-        specifier: ^1.0.0-beta.21
-        version: 1.7.2(vue@2.7.5)
-      '@vuepress-reco/vuepress-plugin-extract-code':
-        specifier: ^1.0.4
-        version: 1.0.4
-      '@vuepress-reco/vuepress-plugin-kan-ban-niang':
-        specifier: ^1.0.5
-        version: 1.0.5(patch_hash=icvze4wpdq4qbqr7uqhr5paks4)
-      NeteaseCloudMusicApi:
-        specifier: ^4.5.11
-        version: 4.32.0
-      core-js:
-        specifier: ^2.6.12
-        version: 2.6.12
-      element-ui:
-        specifier: ^2.15.9
-        version: 2.15.14(vue@2.7.5)
-      epub:
-        specifier: ^1.2.1
-        version: 1.3.0
-      mitt:
-        specifier: ^3.0.0
-        version: 3.0.1
-      node-vibrant:
-        specifier: ^3.1.6
-        version: 3.1.6
-      react:
-        specifier: ^17.0.2
-        version: 17.0.2
-      react-dom:
-        specifier: ^17.0.2
-        version: 17.0.2(react@17.0.2)
-      react-reader:
-        specifier: ^0.21.2
-        version: 0.21.3(react@17.0.2)
-      sass:
-        specifier: ^1.49.8
-        version: 1.100.0
-      sass-loader:
-        specifier: ^7.3.1
-        version: 7.3.1(webpack@4.47.0)
-      vee-validate:
-        specifier: ^3.4.14
-        version: 3.4.15(vue@2.7.5)
-      vue:
-        specifier: 2.7.5
-        version: 2.7.5
-      vue-meta:
-        specifier: ^2.4.0
-        version: 2.4.0
-      vue-server-renderer:
-        specifier: 2.7.5
-        version: 2.7.5
-      vue-skycons:
-        specifier: 4.3.5
-        version: 4.3.5(patch_hash=zokjxsfr7unpczw5oz4wgo7m7m)
-      vue-template-compiler:
-        specifier: 2.7.5
-        version: 2.7.5
-      vuepress-plugin-boxx:
-        specifier: 0.0.7
-        version: 0.0.7
-      vuepress-plugin-demo-container-v2:
-        specifier: ^2.3.4
-        version: 2.3.4
-      vuepress-theme-reco:
-        specifier: ^1.6.17
-        version: 1.6.17(chalk@2.4.2)(commander@2.20.3)(esm@3.2.25)(vue-class-component@7.2.6)(vuepress@1.9.10)
-      vuera:
-        specifier: ^0.2.7
-        version: 0.2.7(react-dom@17.0.2)(react@17.0.2)(vue@2.7.5)
-    devDependencies:
-      '@mr-hope/vuepress-plugin-copy-code':
-        specifier: ^1.26.0
-        version: 1.30.0(markdown-it@14.2.0)(vuepress@1.9.10)
-      vuepress:
-        specifier: ^1.9.7
-        version: 1.9.10(react-dom@17.0.2)(react@17.0.2)
-      vuepress-plugin-dynamic-title:
-        specifier: ^1.0.0
-        version: 1.0.0
-      vuepress-plugin-meting:
-        specifier: ^0.3.1
-        version: 0.3.3(vue@2.7.5)
+devDependencies:
+  '@mr-hope/vuepress-plugin-copy-code':
+    specifier: ^1.26.0
+    version: 1.30.0(markdown-it@14.2.0)(vuepress@1.9.10)
+  vuepress:
+    specifier: ^1.9.7
+    version: 1.9.10(react-dom@17.0.2)(react@17.0.2)
+  vuepress-plugin-dynamic-title:
+    specifier: ^1.0.0
+    version: 1.0.0
+  vuepress-plugin-meting:
+    specifier: ^0.3.1
+    version: 0.3.3(vue@2.7.5)
 
 packages:
 
@@ -2148,14 +2140,6 @@ packages:
       - walrus
       - whiskers
 
-  /@vue/composition-api@1.7.2(vue@2.7.5):
-    resolution: {integrity: sha512-M8jm9J/laYrYT02665HkZ5l2fWTK4dcVg3BsDHm/pfz+MjDYwX+9FUaZyGwEyXEDonQYRCo0H7aLgdklcIELjw==}
-    peerDependencies:
-      vue: '>= 2.5 < 2.7'
-    dependencies:
-      vue: 2.7.5
-    dev: false
-
   /@vue/shared@3.5.35:
     resolution: {integrity: sha512-zSbjL7gRXwks2ZQLRGCajBtBXEOXW9Ddhn/HvSdrGkE2dqGnumzW8XtusRrxrE9LvqtiqDXQ+A60Hp6mvdYxfA==}
 
@@ -2193,7 +2177,7 @@ packages:
     resolution: {integrity: sha512-J4Cas3JRxs0TnfjtzQ+3bl7iNwL/va9cOXMtpayse3sETul863BwYk1vEBXRAZMiLmbmWqnBrGIrJGmD/TnO5Q==}
     dev: false
 
-  /@vuepress-reco/vuepress-plugin-kan-ban-niang@1.0.5(patch_hash=icvze4wpdq4qbqr7uqhr5paks4):
+  /@vuepress-reco/vuepress-plugin-kan-ban-niang@1.0.5(patch_hash=v2w2ffuayqbrbeusc6x3mmoray):
     resolution: {integrity: sha512-ufqpOw0zhLxv3PvoYlHTsjmG4CFiCaQ8dnf950Ov7JmajKgpAMarZ3ObB+xi5ex0sgetxU82YSf+CptQceXQIw==}
     dev: false
     patched: true
@@ -10316,14 +10300,6 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  /vee-validate@3.4.15(vue@2.7.5):
-    resolution: {integrity: sha512-qEtvq9X2N7l5pjBe/6YGrrIBHxJA4KTrb3QrER3qzM7fzkH730m8LyVWMIzM47l//618nlUa7VvTdMFTRKr8tQ==}
-    peerDependencies:
-      vue: ^2.5.18
-    dependencies:
-      vue: 2.7.5
-    dev: false
-
   /vendors@1.0.4:
     resolution: {integrity: sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w==}
 
@@ -10503,7 +10479,7 @@ packages:
       serialize-javascript: 6.0.2
       source-map: 0.5.6
 
-  /vue-skycons@4.3.5(patch_hash=zokjxsfr7unpczw5oz4wgo7m7m):
+  /vue-skycons@4.3.5(patch_hash=u2lj4a3db5hhs7zkevwycvvgg4):
     resolution: {integrity: sha512-6xp0cq9Yp008jr6q6Alw3Du6Nr5fUJfGTKY9cDsYFvjMlo+r4gDoJv/zGj/FoSUtavdqu/8vDGlFcLAIm+vaxA==}
     dev: false
     patched: true

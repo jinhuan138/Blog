@@ -1,3 +1,0 @@
-patchedDependencies:
-  '@vuepress-reco/vuepress-plugin-kan-ban-niang': patches/@vuepress-reco__vuepress-plugin-kan-ban-niang.patch
-  vue-skycons: patches/vue-skycons.patch
