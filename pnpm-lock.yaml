@@ -55,6 +55,9 @@ dependencies:
   sass-loader:
     specifier: ^7.3.1
     version: 7.3.1(webpack@4.47.0)
+  vee-validate:
+    specifier: ^3.4.15
+    version: 3.4.15(vue@2.7.5)
   vue:
     specifier: 2.7.5
     version: 2.7.5
@@ -10299,6 +10302,14 @@ packages:
   /vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
+
+  /vee-validate@3.4.15(vue@2.7.5):
+    resolution: {integrity: sha512-qEtvq9X2N7l5pjBe/6YGrrIBHxJA4KTrb3QrER3qzM7fzkH730m8LyVWMIzM47l//618nlUa7VvTdMFTRKr8tQ==}
+    peerDependencies:
+      vue: ^2.5.18
+    dependencies:
+      vue: 2.7.5
+    dev: false
 
   /vendors@1.0.4:
     resolution: {integrity: sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w==}
