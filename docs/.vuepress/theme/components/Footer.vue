@@ -33,7 +33,7 @@
 <script>
 import { defineComponent, computed } from 'vue'
 import { RecoIcon } from '@vuepress-reco/core/lib/components'
-import Tag from './Mytag.vue'
+import Tag from './MyTag.vue'
 import { version } from '../package.json'
 import { useInstance } from '@theme/helpers/composable'
 
