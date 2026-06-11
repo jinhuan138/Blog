@@ -113,22 +113,27 @@ export default {
         const city = "Beijing";
         url = `${base}?q=${city}&appid=${appid}&lang=${lang}&units=${units}`;
       }
-      const res = await this.$http.get(url);
-      if (res.status !== 200) return;
-      const { main, weather, wind } = res.data;
-      const { description, icon } = weather[0];
-      const { speed, deg } = wind;
-      const that = this;
-      const mapData = {
-        currently: {
-          icon: that.mapIcon(icon),
-          temperature: main.temp,
-          description,
-          windSpeed: speed,
-          windBearing: deg,
-        },
-      };
-      this.$set(this, "weather", mapData);
+
+      try {
+        const res = await fetch(url);
+        if (!res.ok) return;
+        const data = await res.json();
+        const { main, weather, wind } = data;
+        const { description, icon } = weather[0];
+        const { speed, deg } = wind;
+        const mapData = {
+          currently: {
+            icon: this.mapIcon(icon),
+            temperature: main.temp,
+            description,
+            windSpeed: speed,
+            windBearing: deg,
+          },
+        };
+        this.$set(this, "weather", mapData);
+      } catch (error) {
+        console.error("获取天气失败:", error);
+      }
     },
     changeMode(mode) {
       this.mode = mode;

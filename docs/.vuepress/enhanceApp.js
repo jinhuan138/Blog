@@ -3,7 +3,6 @@
 // VueMarkdownEditor.use(vuepressTheme);
 // import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
 import routers from './router.js'
-import axios from 'axios'
 import { VuePlugin } from 'vuera'
 import Meta from 'vue-meta'
 import ElementUI from 'element-ui';
@@ -16,7 +15,6 @@ export default ({
     router, // the router instance for the app
     siteData // site metadata
 }) => {
-    Vue.prototype.$http = axios
     Vue.config.devtools = true
     Vue.use(VuePlugin)
     routers.forEach(i => {

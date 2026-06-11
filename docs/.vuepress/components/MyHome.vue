@@ -1,6 +1,6 @@
 <template>
   <div class="home-blog">
-    <iframe :src="$withBase('/backGround/rainy/index.html')" frameborder="0" class="backGround" ></iframe>
+    <iframe :src="$withBase('/backGround/rainy/index.html')" frameborder="0" class="backGround"></iframe>
     <!-- <div class="hero" :style="{ ...bgImageStyle }">
       <div>
         <ModuleTransition delay="0.08">
@@ -80,10 +80,15 @@ export default defineComponent({
     async getDescription() {
       const instance = useInstance();
       const url = "https://v1.hitokoto.cn/?encode=json";
-      const res = await instance.$http.get(url);
-      if (res.status !== 200) return;
-      const desText = res.data.hitokoto;
-      instance.description = desText;
+      try {
+        const res = await fetch(url);
+        if (res.status !== 200) return;
+        const data = await res.json();
+        const desText = data.hitokoto;
+        instance.description = desText;
+      } catch (error) {
+        console.error('获取随机标题失败:', error);
+      }
     },
     //标题颜色
     async changeDescriptionStyle() {

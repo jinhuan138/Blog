@@ -1,0 +1,80 @@
+diff --git a/bin/KanBanNiang.vue b/bin/KanBanNiang.vue
+index a744f9dd2aaf159e6dbd067f98c8ce984232087c..0557254a3e7b748db9c75145a4fc042569fea786 100644
+--- a/bin/KanBanNiang.vue
++++ b/bin/KanBanNiang.vue
+@@ -27,8 +27,7 @@
+       ></canvas>
+     </div>
+     <div class="showBanNiang" v-show="displayBanNiang" @click="showBanNiang">
+-      看板娘
+-    </div>
++      看板�?    </div>
+   </div>
+ </template>
+ 
+@@ -51,7 +50,7 @@ export default {
+       },
+       currentTheme: THEME[0],
+       myTheme: THEME,
+-      themeName: ['blackCat', 'whiteCat', 'haru1', 'haru2', 'haruto', 'koharu', 'izumi', 'shizuku', 'wanko', 'miku', 'z16'],
++      themeName: ['blackCat', 'whiteCat', 'haru1', 'haru2', 'haruto', 'koharu', 'izumi', 'shizuku', 'wanko', 'miku', 'z16', '22', 'mikoto'],
+       // 模型地址
+       model: {
+         blackCat:
+@@ -75,19 +74,19 @@ export default {
+         miku:
+           'https://cdn.jsdelivr.net/gh/QiShaoXuan/live2DModel@1.0.0/live2d-widget-model-miku/assets/miku.model.json',
+         z16:
+-          'https://cdn.jsdelivr.net/gh/QiShaoXuan/live2DModel@1.0.0/live2d-widget-model-z16/assets/z16.model.json'
++          'https://cdn.jsdelivr.net/gh/QiShaoXuan/live2DModel@1.0.0/live2d-widget-model-z16/assets/z16.model.json',
++        22:
++          '/Blog/kanBanNiang/22/model.2017.newyear.json',
++        mikoto:
++          '/Blog/kanBanNiang/mikoto/mikoto.model.json'
+       },
+-      // model的高宽
+-      style: {
++      // model的高�?      style: {
+         width: WIDTH,
+         height: HEIGHT
+       },
+-      // model的样式
+-      modelStyle: MODEL_STYLE,
+-      // messageBox的样式
+-      messageStyle: MESSAGE_STYLE,
+-      // 按钮的样式
+-      btnStyle: BTN_STYLE
++      // model的样�?      modelStyle: MODEL_STYLE,
++      // messageBox的样�?      messageStyle: MESSAGE_STYLE,
++      // 按钮的样�?      btnStyle: BTN_STYLE
+     }
+   },
+   mounted () {
+@@ -106,7 +105,7 @@ export default {
+       this.messages.message = this.messages.theme
+     },
+     hoverMoreInfo () {
+-      this.messages.message = '想知道关于我的更多信息吗？'
++      this.messages.message = '想知道关于我的更多信息吗�?
+     },
+     hoverCloseBanNiang () {
+       this.messages.message = this.messages.close
+@@ -141,7 +140,7 @@ export default {
+     },
+     initBanNiang () {
+       if (this.themeName.indexOf(this.currentTheme) === -1) {
+-        console.log('@vuepress-reco/vuepress-plugin-kan-ban-niang不支持主题' + this.currentTheme + ', 请检查主题名, 或前往https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html 查看支持的主题')
++        console.log('@vuepress-reco/vuepress-plugin-kan-ban-niang不支持主�? + this.currentTheme + ', 请检查主题名, 或前往https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html 查看支持的主�?)
+         document.querySelector('.kanbanniang').style.display = 'none'
+         return
+       }
+@@ -187,8 +186,7 @@ export default {
+     padding 10px
+     cursor pointer
+     border-radius 4px
+-    // 其他主题识别不到变量时使用
+-    background-color rgba(231, 234, 241, 0.5)
++    // 其他主题识别不到变量时使�?    background-color rgba(231, 234, 241, 0.5)
+     // reco主题
+     box-shadow var(--box-shadow)
+     background-color var(--background-color)

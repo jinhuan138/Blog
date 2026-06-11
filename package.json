@@ -5,10 +5,9 @@
   "homepage": "https://jinhuan138.github.io/Blog/",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "node -e \"const ua = process.env.npm_config_user_agent || ''; if(!ua.startsWith('pnpm')) { console.error('请使用 pnpm 安装'); process.exit(1); }\"",
     "dev": "vuepress dev docs NODE_ENV=development",
     "build": "vuepress build docs",
-    "deploy": "sh ./build/deploy.sh",
     "book": "node ./build/book"
   },
   "repository": {
@@ -32,14 +31,11 @@
     "@vuepress-reco/vuepress-plugin-extract-code": "^1.0.4",
     "@vuepress-reco/vuepress-plugin-kan-ban-niang": "^1.0.5",
     "NeteaseCloudMusicApi": "^4.5.11",
-    "async-validator": "^4.1.1",
-    "axios": "^0.26.1",
     "core-js": "^2.6.12",
     "element-ui": "^2.15.9",
     "epub": "^1.2.1",
     "mitt": "^3.0.0",
     "node-vibrant": "^3.1.6",
-    "perfect-json": "^0.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-reader": "^0.21.2",
@@ -49,11 +45,25 @@
     "vue": "2.7.5",
     "vue-meta": "^2.4.0",
     "vue-server-renderer": "2.7.5",
-    "vue-skycons": "^4.3.4",
+    "vue-skycons": "4.3.5",
     "vue-template-compiler": "2.7.5",
     "vuepress-plugin-boxx": "0.0.7",
     "vuepress-plugin-demo-container-v2": "^2.3.4",
     "vuepress-theme-reco": "^1.6.17",
     "vuera": "^0.2.7"
+  },
+  "packageManager": "pnpm@8.10.0",
+  "engines": {
+    "pnpm": ">=8.0.0",
+    "node": ">=16"
+  },
+  "pnpm": {
+    "overrides": {
+      "agent-base": "6.0.2"
+    },
+    "patchedDependencies": {
+      "vue-skycons@4.3.5": "patches/vue-skycons@4.3.5.patch",
+      "@vuepress-reco/vuepress-plugin-kan-ban-niang@1.0.5": "patches/@vuepress-reco__vuepress-plugin-kan-ban-niang@1.0.5.patch"
+    }
   }
 }

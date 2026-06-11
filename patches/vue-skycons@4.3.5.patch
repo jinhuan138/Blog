@@ -1,0 +1,31 @@
+diff --git a/src/skycons.js b/src/skycons.js
+index bfa288ec673fa1ad4bd4abe3327c423d625f0a33..c5640a4ff08fd562ef4b0e62a06b7765c5318377 100644
+--- a/src/skycons.js
++++ b/src/skycons.js
+@@ -502,7 +502,7 @@ export class Skycons {
+     line(ctx, c + w * 0.2 + k * 0.5, f, d + w * 0.8 - k * 0.5, f);
+   }
+ 
+-  #determineDrawingFunction = (draw) => {
++  determineDrawingFunction(draw) {
+     if (typeof draw === "string") {
+       draw = Skycons[draw.toUpperCase().replace(/-/g, "_")] || null;
+     }
+@@ -517,7 +517,7 @@ export class Skycons {
+     // Does nothing if canvas name doesn't exists
+     if (el === null || el === undefined) return;
+ 
+-    draw = this.#determineDrawingFunction(draw);
++    draw = this.determineDrawingFunction(draw);
+ 
+     // Does nothing if the draw function isn't actually a function
+     if (typeof draw !== "function") return;
+@@ -539,7 +539,7 @@ export class Skycons {
+ 
+     for (let i = this.list.length; i--; ) {
+       if (this.list[i].element === el) {
+-        this.list[i].drawing = this.#determineDrawingFunction(draw);
++        this.list[i].drawing = this.determineDrawingFunction(draw);
+         this.draw(this.list[i], KEYFRAME);
+         return;
+       }
