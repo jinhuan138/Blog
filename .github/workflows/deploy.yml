@@ -32,13 +32,12 @@ jobs:
           fetch-depth: 0 # 如果未启用 lastUpdated，则不需要
       - uses: pnpm/action-setup@v3 # 使用 pnpm
         with:
-          version: 9
+          version: 8.10.0
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20.19.4
+          node-version: 20
           cache: pnpm # 缓存设置为 pnpm
-          version: 9.15.9 # 您可以根据需要指定特定的 pnpm 版本
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Install dependencies
