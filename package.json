@@ -22,6 +22,7 @@
   "license": "ISC",
   "devDependencies": {
     "@mr-hope/vuepress-plugin-copy-code": "^1.26.0",
+    "NeteaseCloudMusicApi": "^4.32.0",
     "vuepress": "^1.9.7",
     "vuepress-plugin-dynamic-title": "^1.0.0",
     "vuepress-plugin-meting": "^0.3.1"
@@ -29,7 +30,6 @@
   "dependencies": {
     "@vuepress-reco/vuepress-plugin-extract-code": "^1.0.4",
     "@vuepress-reco/vuepress-plugin-kan-ban-niang": "^1.0.5",
-    "NeteaseCloudMusicApi": "^4.5.11",
     "core-js": "^2.6.12",
     "element-ui": "^2.15.9",
     "epub": "^1.2.1",
