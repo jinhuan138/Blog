@@ -1,0 +1,92 @@
+{
+  "title": "鸢大头",
+  "author": "梭梭树",
+  "workshop_id": "2469550951",
+  "format": "Live2D Cubism 3",
+  "files": [
+    {
+      "source_id": "b3e495662128c9d112562b14d07434ea",
+      "path": "model.moc3",
+      "size": 418048,
+      "sha256": "cf24de498eea4b0aca4b0b0d8bca555ffc43241e646c77334553797ce2983b77"
+    },
+    {
+      "source_id": "104e13847b1a631434c4cbb53f7699d0",
+      "path": "textures/texture_00.png",
+      "size": 3514354,
+      "sha256": "0af2a85871164ee8756ebb028f8c1081a00291664d8d89f097fa5f0fe9647664"
+    },
+    {
+      "source_id": "8fe693dba958db5d2777ceb748340fe2",
+      "path": "textures/texture_01.png",
+      "size": 2797897,
+      "sha256": "c532b6764dcd0ae3fefa03fc9462a62a786edb9e6698622aeacdd1911c5ac3f8"
+    },
+    {
+      "source_id": "7571628c26abcbbbe463702dc14b4169",
+      "path": "physics/physics3.json",
+      "size": 38182,
+      "sha256": "51dd1dbc114776803c396422b7e062a18c6dc00db528fd46d424dd50b8f1d3c6"
+    },
+    {
+      "source_id": "55c6316421407051159fc6f042b89588",
+      "path": "motions/idle.motion3.json",
+      "size": 119761,
+      "sha256": "ff5de832002ac594e4845c7808cc5f9d8cdff61c860b5864fc2043a128f702aa"
+    },
+    {
+      "source_id": "55282a44bcbde0170f2169de0c9b1ce7",
+      "path": "expressions/1.exp3.json",
+      "size": 113,
+      "sha256": "6027651f1bbcd55847abc15d0ef54076c25448908d1c73bf99eadadb262871fd"
+    },
+    {
+      "source_id": "39201203713a43431fe540cd7b82b5f4",
+      "path": "expressions/2.exp3.json",
+      "size": 113,
+      "sha256": "576eea16df57587ba17357b2f0ce4061fc6d71161d3d00e09dc0e18499e7ee81"
+    },
+    {
+      "source_id": "63e3c09ddb5bd4ab8acd1cd4e752baea",
+      "path": "expressions/3.exp3.json",
+      "size": 174,
+      "sha256": "3ef4f7f6cc59dfbbf538ed10d0bab1e909ad58d48a22608f7d9176d87b83c2ef"
+    },
+    {
+      "source_id": "877631f4490dc46f17ab7b21c5cf8231",
+      "path": "expressions/4.exp3.json",
+      "size": 113,
+      "sha256": "bba2d104bec462cf890769fd0d74509ea6f8a0ce0eb977402a2426195ae75a6a"
+    },
+    {
+      "source_id": "c2ed7e956d4fcf3373581d1c9e24b40f",
+      "path": "expressions/5.exp3.json",
+      "size": 113,
+      "sha256": "814547291b7aec3767dc919c97ea11ffe9ea8ae443b23c3b6698d5a76d455e18"
+    },
+    {
+      "source_id": "42773389f6774d414b182e5b1792f4c1",
+      "path": "expressions/6.exp3.json",
+      "size": 113,
+      "sha256": "f8ab3da7f8e86b5b6cc4b393680f3a9fb895a105de4ab828f7cf8601168b9a36"
+    },
+    {
+      "source_id": "481c4d55947e5073b25b17c6f4aea357",
+      "path": "original/live2dviewerex.extra-config.json",
+      "size": 2222,
+      "sha256": "f5322278731127cb26844043753716ed9ae3bdf01271c675dd395fd994bbfa0d"
+    },
+    {
+      "source_id": "b461cb27d97b239c599d8c41799cff84",
+      "path": "original/live2dviewerex.model3.json",
+      "size": 1317,
+      "sha256": "6a78c7b7c66104d5d5f42336688003c7751b55cdc1b00e62cc8a28e7afc97a56"
+    },
+    {
+      "source_id": "generated-web-config",
+      "path": "yuan-datou.model3.json",
+      "size": 992,
+      "sha256": "fdf9736c4374b9a7f740461f620b35ea0fa14f9f071b8b63c9bda84ebc654f86"
+    }
+  ]
+}

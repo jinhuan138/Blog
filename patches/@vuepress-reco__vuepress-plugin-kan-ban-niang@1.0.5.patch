@@ -1,17 +1,50 @@
 diff --git a/bin/KanBanNiang.vue b/bin/KanBanNiang.vue
-index a744f9dd2aaf159e6dbd067f98c8ce984232087c..9f775552bcbda376cad1666a8bf71df00df4f36a 100644
+index a744f9d..bbfe19e 100644
 --- a/bin/KanBanNiang.vue
 +++ b/bin/KanBanNiang.vue
-@@ -51,7 +51,7 @@ export default {
+@@ -34,6 +34,32 @@
+ 
+ <script>
+ import live2dJSString from './assets/js/live2d'
++
++const vendorBase = '/Blog/kanBanNiang/vendor/'
++
++function loadScript (src, isReady) {
++  if (isReady()) return Promise.resolve()
++
++  return new Promise((resolve, reject) => {
++    let script = document.querySelector(`script[data-kanbanniang-src="${src}"]`)
++    const handleLoad = () => {
++      if (isReady()) resolve()
++      else reject(new Error(`看板娘运行库加载后不可用: ${src}`))
++    }
++    const handleError = () => reject(new Error(`看板娘运行库加载失败: ${src}`))
++
++    if (!script) {
++      script = document.createElement('script')
++      script.src = src
++      script.async = true
++      script.dataset.kanbanniangSrc = src
++      document.head.appendChild(script)
++    }
++    script.addEventListener('load', handleLoad, { once: true })
++    script.addEventListener('error', handleError, { once: true })
++  })
++}
++
+ export default {
+   name: 'KanBanNiang',
+   data () {
+@@ -51,7 +77,7 @@ export default {
        },
        currentTheme: THEME[0],
        myTheme: THEME,
 -      themeName: ['blackCat', 'whiteCat', 'haru1', 'haru2', 'haruto', 'koharu', 'izumi', 'shizuku', 'wanko', 'miku', 'z16'],
-+      themeName: ['blackCat', 'whiteCat', 'haru1', 'haru2', 'haruto', 'koharu', 'izumi', 'shizuku', 'wanko', 'miku', 'z16','22','mikoto'],
++      themeName: ['blackCat', 'whiteCat', 'haru1', 'haru2', 'haruto', 'koharu', 'izumi', 'shizuku', 'wanko', 'miku', 'z16', '22', 'mikoto', 'yuanDatou'],
        // 模型地址
        model: {
          blackCat:
-@@ -75,7 +75,11 @@ export default {
+@@ -75,7 +101,13 @@ export default {
          miku:
            'https://cdn.jsdelivr.net/gh/QiShaoXuan/live2DModel@1.0.0/live2d-widget-model-miku/assets/miku.model.json',
          z16:
@@ -20,7 +53,170 @@ index a744f9dd2aaf159e6dbd067f98c8ce984232087c..9f775552bcbda376cad1666a8bf71df0
 +        22:
 +          '/Blog/kanBanNiang/22/model.2017.newyear.json',
 +        mikoto:
-+          '/Blog/kanBanNiang/mikoto/mikoto.model.json'
++          '/Blog/kanBanNiang/mikoto/mikoto.model.json',
++        yuanDatou:
++          '/Blog/kanBanNiang/yuan-datou/yuan-datou.model3.json'
        },
        // model的高宽
        style: {
+@@ -91,6 +123,9 @@ export default {
+     }
+   },
+   mounted () {
++    this.live2dApp = null
++    this.live2dModel = null
++    this.loadSequence = 0
+     this.btnStyle = {
+       ...this.btnStyle,
+       height: this.myTheme.length > 1 ? '120px' : '100px'
+@@ -98,6 +133,21 @@ export default {
+     // 初始化live2d模型
++    window.addEventListener('pointermove', this.handlePointerMove, { passive: true })
+     this.initBanNiang()
+   },
++  beforeDestroy () {
++    window.removeEventListener('pointermove', this.handlePointerMove)
++    this.destroyBanNiang()
++  },
+   methods: {
++    handlePointerMove (event) {
++      if (!this.live2dModel || !this.isLoaded) return
++      const canvas = document.getElementById('banniang')
++      if (!canvas) return
++      const rect = canvas.getBoundingClientRect()
++      this.live2dModel.focus(
++        (event.clientX - rect.left) * this.style.width / rect.width,
++        (event.clientY - rect.top) * this.style.height / rect.height
++      )
++    },
+     hoverGoHome () {
+       this.messages.message = this.messages.home
+@@ -133,13 +183,59 @@ export default {
+     closeBanNiang () {
+       this.isLoaded = false
+       this.displayBanNiang = true
++      if (this.live2dApp) this.live2dApp.stop()
+     },
+     showBanNiang () {
+       this.isLoaded = true
+       this.displayBanNiang = false
+-      this.initBanNiang()
++      if (this.live2dApp) this.live2dApp.start()
++      else this.initBanNiang()
++    },
++    ensureRuntime () {
++      if (!window.__kanBanNiangRuntimePromise) {
++        window.__kanBanNiangRuntimePromise = Promise.resolve()
++          .then(() => {
++            // 原插件内置的 Cubism 2 Core，继续用于旧 .moc 模型。
++            if (!window.Live2D) {
++              const script = document.createElement('script')
++              script.innerHTML = live2dJSString
++              document.body.appendChild(script)
++            }
++          })
++          .then(() => loadScript(
++            vendorBase + 'live2dcubismcore.min.js',
++            () => !!window.Live2DCubismCore
++          ))
++          .then(() => loadScript(
++            vendorBase + 'pixi.min.js',
++            () => !!window.PIXI
++          ))
++          .then(() => loadScript(
++            vendorBase + 'pixi-live2d-display.min.js',
++            () => !!(window.PIXI && window.PIXI.live2d && window.PIXI.live2d.Live2DModel)
++          ))
++          .catch(error => {
++            window.__kanBanNiangRuntimePromise = null
++            throw error
++          })
++      }
++      return window.__kanBanNiangRuntimePromise
++    },
++    destroyCurrentModel () {
++      if (!this.live2dModel) return
++      if (this.live2dApp) this.live2dApp.stage.removeChild(this.live2dModel)
++      this.live2dModel.destroy({ children: true, texture: true, baseTexture: true })
++      this.live2dModel = null
++    },
++    destroyBanNiang () {
++      this.loadSequence++
++      this.destroyCurrentModel()
++      if (this.live2dApp) {
++        this.live2dApp.destroy(false, { children: true, texture: true, baseTexture: true })
++        this.live2dApp = null
++      }
+     },
+-    initBanNiang () {
++    async initBanNiang () {
+       if (this.themeName.indexOf(this.currentTheme) === -1) {
+         console.log('@vuepress-reco/vuepress-plugin-kan-ban-niang不支持主题' + this.currentTheme + ', 请检查主题名, 或前往https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html 查看支持的主题')
+         document.querySelector('.kanbanniang').style.display = 'none'
+@@ -152,24 +248,50 @@ export default {
+         this.isLoaded = false
+         return console.log('mobile do not load model')
+       }
+-      if (!window.loadlive2d) {
+-        const script = document.createElement('script')
+-        script.innerHTML = live2dJSString
+-        document.body.appendChild(script)
+-      }
+-      var ajax = new XMLHttpRequest()
+-      ajax.open('get', this.model[this.currentTheme])
+-      ajax.send()
+-      ajax.onreadystatechange = function () {
+-        if (ajax.status !== 200) {
+-          console.log('看板娘的CDN资源加载失败了，请稍后刷新页面重试！')
+-          document.querySelector('.kanbanniang').style.display = 'none'
++      const sequence = ++this.loadSequence
++      try {
++        await this.ensureRuntime()
++        if (sequence !== this.loadSequence) return
++
++        if (!this.live2dApp) {
++          this.live2dApp = new window.PIXI.Application({
++            view: document.getElementById('banniang'),
++            width: this.style.width,
++            height: this.style.height,
++            backgroundAlpha: 0,
++            antialias: true,
++            autoDensity: true
++          })
+         }
++
++        const model = await window.PIXI.live2d.Live2DModel.from(
++          this.model[this.currentTheme],
++          { autoInteract: false }
++        )
++        if (sequence !== this.loadSequence) {
++          model.destroy({ children: true, texture: true, baseTexture: true })
++          return
++        }
++
++        this.destroyCurrentModel()
++        this.live2dModel = model
++        model.anchor.set(0.5, 0.5)
++        // Mikoto 的 layout.width 较大，完整适配宽高会让模型被宽度压矮。
++        const scale = this.currentTheme === 'mikoto'
++          ? this.style.height / model.height
++          : Math.min(
++            this.style.width / model.width,
++            this.style.height / model.height
++          )
++        model.scale.set(scale)
++        model.position.set(this.style.width / 2, this.style.height / 2)
++        this.live2dApp.stage.addChild(model)
++        this.live2dApp.start()
++      } catch (error) {
++        console.error('看板娘模型加载失败，请刷新页面重试。', error)
++        this.isLoaded = false
++        this.displayBanNiang = true
+       }
+-      window.loadlive2d(
+-        'banniang',
+-        this.model[this.currentTheme]
+-      )
+     }
+   }
+ }

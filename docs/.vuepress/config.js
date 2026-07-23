@@ -87,7 +87,7 @@ module.exports = {
             }
         }],
         ["@vuepress-reco/vuepress-plugin-kan-ban-niang", {//看板娘        
-            theme: ['22', 'mikoto',]
+            theme: ['yuanDatou', '22', 'mikoto']
         }],
         ["vuepress-plugin-boxx"],
         ['@vuepress-reco/extract-code'],
