@@ -9,7 +9,7 @@ overrides:
 
 patchedDependencies:
   '@vuepress-reco/vuepress-plugin-kan-ban-niang@1.0.5':
-    hash: 3b5wjr3uxkuinl7zlwlf2k4coe
+    hash: rkjlzb5mfj7mnadvzml2jtqh6q
     path: patches/@vuepress-reco__vuepress-plugin-kan-ban-niang@1.0.5.patch
   vue-skycons@4.3.5:
     hash: u2lj4a3db5hhs7zkevwycvvgg4
@@ -21,7 +21,7 @@ dependencies:
     version: 1.0.4
   '@vuepress-reco/vuepress-plugin-kan-ban-niang':
     specifier: ^1.0.5
-    version: 1.0.5(patch_hash=3b5wjr3uxkuinl7zlwlf2k4coe)
+    version: 1.0.5(patch_hash=rkjlzb5mfj7mnadvzml2jtqh6q)
   core-js:
     specifier: ^2.6.12
     version: 2.6.12
@@ -2179,7 +2179,7 @@ packages:
     resolution: {integrity: sha512-J4Cas3JRxs0TnfjtzQ+3bl7iNwL/va9cOXMtpayse3sETul863BwYk1vEBXRAZMiLmbmWqnBrGIrJGmD/TnO5Q==}
     dev: false
 
-  /@vuepress-reco/vuepress-plugin-kan-ban-niang@1.0.5(patch_hash=3b5wjr3uxkuinl7zlwlf2k4coe):
+  /@vuepress-reco/vuepress-plugin-kan-ban-niang@1.0.5(patch_hash=rkjlzb5mfj7mnadvzml2jtqh6q):
     resolution: {integrity: sha512-ufqpOw0zhLxv3PvoYlHTsjmG4CFiCaQ8dnf950Ov7JmajKgpAMarZ3ObB+xi5ex0sgetxU82YSf+CptQceXQIw==}
     dev: false
     patched: true
