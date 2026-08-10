@@ -38,6 +38,13 @@ module.exports = {
         },
         editLinks: true,
         editLinkText: '在 GitHub 上编辑此页 ！',
+        utterances: {
+            repo: 'jinhuan138/Blog',
+            issueTerm: 'pathname',
+            lightTheme: 'github-light',
+            darkTheme: 'github-dark',
+            showComment: true
+        },
         friendLink: [
             {
                 title: 'portal mini',

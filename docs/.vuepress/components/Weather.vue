@@ -110,7 +110,7 @@ export default {
         const { latitude, longitude } = position.coords;
         url = `${base}?lat=${latitude}&lon=${longitude}&appid=${appid}&lang=${lang}&units=${units}`;
       } else {
-        const city = "Beijing";
+        const city = "Lianjiang,Fujian,CN";
         url = `${base}?q=${city}&appid=${appid}&lang=${lang}&units=${units}`;
       }
 

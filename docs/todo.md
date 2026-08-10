@@ -21,7 +21,6 @@ http://www.lvyestudy.com/css/css-selector
       showInMobile: true,
   }]
   ```
-
 + 动态标题
 
   ```sh
@@ -37,7 +36,6 @@ http://www.lvyestudy.com/css/css-selector
       recoverTime: 2000
   }]
   ```
-
 + [boxx]([https://zpj80231.gitee.io/znote/views/frontend/vuepress-plugin-boxx.html#%E5%BA%8F%E8%A8%80](https://zpj80231.gitee.io/znote/views/frontend/vuepress-plugin-boxx.html#序言))
 
   ```shell
@@ -50,10 +48,10 @@ http://www.lvyestudy.com/css/css-selector
 
   ```js
   //使用的地方加上标签
-  <Boxx/> 
+  <Boxx/>
   ```
+
   <Boxx changeTime='2000' />
-  
 + [音乐](https://moefyit.github.io/moefy-vuepress/packages/meting.html#install)
 
   ```shell
@@ -86,11 +84,10 @@ http://www.lvyestudy.com/css/css-selector
   ```
 
   ```json
-  ["@vuepress-reco/vuepress-plugin-kan-ban-niang", {//看板娘        
+  ["@vuepress-reco/vuepress-plugin-kan-ban-niang", {//看板娘      
       theme: ['blackCat']
   }],
   ```
-
 + 图片放大
 
   ```shell
@@ -100,7 +97,6 @@ http://www.lvyestudy.com/css/css-selector
   ```json
   ['@vuepress/medium-zoom']
   ```
-
 + [extract-code](https://github.com/vuepress-reco/vuepress-plugin-extract-code)
 
   ```shell
@@ -127,7 +123,6 @@ http://www.lvyestudy.com/css/css-selector
   </RecoDemo>
   <!--组件放在.vuepress/components会被注册为全局组件，或使用@vuepress/plugin-register-components注册-->
   ```
-
 + [Demo Container](https://docs.chenjianhui.site/vuepress-plugin-demo-container/zh/)
 
   ```shell
@@ -139,6 +134,7 @@ http://www.lvyestudy.com/css/css-selector
   ```
 
   ::: demo 动态异步组件
+
   ```html
   <template>
   <div class="red-center-text">
@@ -195,15 +191,16 @@ http://www.lvyestudy.com/css/css-selector
   }
   </style>
   ```
-  :::
 
+  :::
 + [v-md-editor](https://code-farmer-i.github.io/vue-markdown-editor/zh/)
-  
+
   ```shell
   npm i npm i @kangc/v-md-editor -S
   ```
 
   ::: demo v-md-editor
+
   ```vue
   <template>
     <v-md-editor v-model="text" height="400px"></v-md-editor>
@@ -224,6 +221,8 @@ http://www.lvyestudy.com/css/css-selector
     };
   </script>
   :::
+  ```
+
 ---
 
 ## 时间轴

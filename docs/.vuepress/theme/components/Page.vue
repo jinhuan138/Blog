@@ -3,7 +3,7 @@
       <section v-show="recoShowModule">
         <div class="page-title">
           <h1 class="title">{{ $page.title }}</h1>
-          <PageInfo :pageInfo="$page" :showAccessNumber="showAccessNumber"></PageInfo>
+          <PageInfo :pageInfo="$page"></PageInfo>
         </div>
         <!-- 这里使用 v-show，否则影响 SSR -->
         <Content class="theme-reco-content" />
@@ -36,7 +36,7 @@
         </p>
       </div>
 
-      <Comments v-if="recoShowModule" :isShowComments="shouldShowComments" />
+      <Utterances v-if="recoShowModule" :isShowComments="shouldShowComments" />
 
       <SubSidebar v-if="recoShowModule" class="side-bar" />
     </main>
@@ -47,10 +47,11 @@ import { defineComponent, computed, toRefs } from 'vue'
 import PageInfo from '@theme/components/PageInfo'
 import { resolvePage, outboundRE, endingSlashRE } from '@theme/helpers/utils'
 import SubSidebar from '@theme/components/SubSidebar'
+import Utterances from '@theme/components/Utterances'
 import { useInstance, useShowModule } from '@theme/helpers/composable'
 
 export default defineComponent({
-  components: { PageInfo, SubSidebar },
+  components: { PageInfo, SubSidebar, Utterances },
 
   props: ['sidebarItems'],
 
@@ -64,19 +65,8 @@ export default defineComponent({
     // 是否显示评论
     const shouldShowComments = computed(() => {
       const { isShowComments } = instance.$frontmatter
-      const { showComment } = instance.$themeConfig.valineConfig || { showComment: true }
+      const { showComment } = instance.$themeConfig.utterances || { showComment: true }
       return (showComment !== false && isShowComments !== false) || (showComment === false && isShowComments === true)
-    })
-
-    const showAccessNumber = computed(() => {
-      const {
-        $themeConfig: { valineConfig },
-        $themeLocaleConfig: { valineConfig: valineLocalConfig }
-      } = instance || {}
-
-      const vc = valineLocalConfig || valineConfig
-
-      return vc && vc.visitor != false
     })
 
     const lastUpdated = computed(() => {
@@ -147,7 +137,6 @@ export default defineComponent({
     return {
       recoShowModule,
       shouldShowComments,
-      showAccessNumber,
       lastUpdated,
       lastUpdatedText,
       prev,

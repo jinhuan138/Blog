@@ -21,7 +21,6 @@ module.exports = (options, ctx) => ({
   plugins: [
     '@vuepress-reco/back-to-top',
     '@vuepress-reco/pagation',
-    '@vuepress-reco/comments',
     '@vuepress/active-header-links',
     ['@vuepress/medium-zoom', {
       selector: '.theme-reco-content :not(a) > img'

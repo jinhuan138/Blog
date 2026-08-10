@@ -18,38 +18,23 @@
         <Tag></Tag>
       </a>
     </span>
-    <span v-show="showAccessNumber">
-      <reco-icon icon="reco-eye" />
-      <AccessNumber idVal="/" />
-    </span>
     <p class="cyber-security" v-if="$themeConfig.cyberSecurityRecord">
       <img src="https://img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png" alt="">
       <a :href="$themeConfig.cyberSecurityLink || '#'">{{ $themeConfig.cyberSecurityRecord }}</a>
     </p>
-    <Comments :isShowComments="false"/>
   </div>
 </template>
 
 <script>
-import { defineComponent, computed } from 'vue'
+import { defineComponent } from 'vue'
 import { RecoIcon } from '@vuepress-reco/core/lib/components'
 import Tag from './MyTag.vue'
 import { version } from '../package.json'
-import { useInstance } from '@theme/helpers/composable'
 
 export default defineComponent({
   components: { RecoIcon,Tag },
-  setup (props, ctx) {
-    const instance = useInstance()
-    const showAccessNumber = computed(() => {
-      const valineConfig = instance?.$themeConfig?.valineConfig
-      const valineLocalConfig = instance?.$themeLocaleConfig?.valineConfig
-
-      const vc = valineLocalConfig || valineConfig
-
-      return vc && vc.visitor != false
-    })
-    return { version, showAccessNumber }
+  setup () {
+    return { version }
   }
 })
 </script>
