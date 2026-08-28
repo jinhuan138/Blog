@@ -1,9 +1,4 @@
-// import '@kangc/v-md-editor/lib/style/base-editor.css';
-// import VueMarkdownEditor from '@kangc/v-md-editor';
-// VueMarkdownEditor.use(vuepressTheme);
-// import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
 import routers from './router.js'
-import { VuePlugin } from 'vuera'
 import Meta from 'vue-meta'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -16,7 +11,6 @@ export default ({
     siteData // site metadata
 }) => {
     Vue.config.devtools = true
-    Vue.use(VuePlugin)
     routers.forEach(i => {
         router.addRoute(i)
     })

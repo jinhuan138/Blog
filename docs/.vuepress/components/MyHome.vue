@@ -24,7 +24,7 @@ import {
   ref,
   nextTick,
 } from "vue";
-import Vibrant from "node-vibrant";
+import { Vibrant } from "node-vibrant/browser";
 import { ModuleTransition, RecoIcon } from "@vuepress-reco/core/lib/components";
 import { useInstance } from "@theme/helpers/composable";
 import json from "../../../package.json";

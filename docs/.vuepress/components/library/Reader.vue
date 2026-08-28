@@ -1,25 +1,15 @@
 <template>
   <div>
-    <ReactReader
-      class="container"
-      :url="book_url"
-      :title="book_name"
-      :location="location"
-      :locationChanged="onLocationChanged"
-      :epubOptions="epubOptions"
-      :showToc="true"
-      :swipeable="true"
-      :getRendition="getRendition"
-      :style="styles"
-    />
+    <VueReader class="container" :url="book_url" :title="book_name" :location="location" :epubOptions="epubOptions"
+      :showToc="true" :getRendition="getRendition" :style="styles" @update:location="onLocationChanged" />
     <!-- <el-button @click="click">button</el-button> -->
   </div>
 </template>
 <script>
-import { ReactReader } from "react-reader";
+import { VueReader } from "vue-reader";
 const storage = global.localStorage || null; //解决window is not defined
-//文档：https://www.npmjs.com/package/react-reader
-//https://github.com/gerhardsletten/react-reader/blob/master/src/App.js
+//文档：https://www.npmjs.com/package/vue-reader
+//https://jinhuan138.github.io/vue-reader/
 //epubjs:http://epubjs.org/documentation/0.3/
 export default {
   name: "Reader",
@@ -29,7 +19,7 @@ export default {
       location: 1, //当前页
       epubOptions: {},
       styles: {
-        
+
       },
     };
   },
@@ -53,7 +43,7 @@ export default {
       }
     },
   },
-  components: { ReactReader },
+  components: { VueReader },
   methods: {
     onLocationChanged(epubcifi) {
       //在用户阅读时接收当前位置的函数
@@ -129,8 +119,6 @@ export default {
   created() {
     this.initBook();
   },
-  mounted() {},
-  beforeDestroy() {},
 };
 </script>
 <style scoped>

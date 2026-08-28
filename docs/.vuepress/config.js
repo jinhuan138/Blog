@@ -54,12 +54,34 @@ module.exports = {
             },]
     },
     configureWebpack: {
-        node: { global: true }
+        node: { global: true },
+        module: {
+            //webpack4 将 .mjs 视为严格 ESM，而 vue 解析为 CommonJS，会导致 vue-demi 命名导入失败
+            rules: [
+                { test: /\.mjs$/, include: /node_modules/, type: 'javascript/auto' }
+            ]
+        }
     },
     chainWebpack(config, isServer) {
         if (!isServer) {
             config.resolve.modules.merge(["node_modules"]);
         }
+        //vue-reader 经 vue-demi 使用组合式 API，须与应用共用同一个 vue 实例，否则 h()/生命周期取不到当前组件实例
+        config.resolve.alias.set(
+            'vue$',
+            require.resolve(isServer ? 'vue/dist/vue.runtime.common.js' : 'vue/dist/vue.runtime.esm.js')
+        )
+        //vue-reader 与 @vibrant/* 产物含可选链语法，webpack4 无法解析，需交给 babel 转译
+        const jsRule = config.module.rule('js')
+        const excludes = jsRule.exclude.values()
+        jsRule.exclude.clear()
+        excludes.forEach(exclude => {
+            jsRule.exclude.add(
+                typeof exclude === 'function'
+                    ? filePath => /[\/\\](vue-reader|@vibrant)[\/\\]/.test(filePath) ? false : exclude(filePath)
+                    : exclude
+            )
+        })
         return config;
     },
     plugins: [
